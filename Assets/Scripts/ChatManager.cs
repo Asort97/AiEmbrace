@@ -8,50 +8,43 @@ public class ChatManager : MonoBehaviour
     public static Action OnDrawMessage;
     [SerializeField] private Message msgPrefab;
     [SerializeField] private Transform MessagesContainer;
+    private bool aiIsWaiting;
 
     private void Start()
     {
         DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
+        aiIsWaiting = true;
+    }
 
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
-        DrawNewMessage("Assistant", "Now i talk with you");
+    public void SendMsgRequest()
+    {
+        if(UIManager.instance.inputFieldChat.text != "")
+        {
+            DrawNewMessage("You", UIManager.instance.inputFieldChat.text);
 
-        StartCoroutine(sss());
+            Debug.Log($"Send request to AI");
+
+            if( aiIsWaiting )
+            {
+                // Add XP
+                XpManager.instance.AddXp();
+
+                aiIsWaiting = false;
+            }
+
+            UIManager.instance.ClearInputFieldChat();
+        }
+    }
+
+    public void MsgResponce()
+    {
+        // Логика отправки AI сообщения
+
+
+        aiIsWaiting = true;
+        // DrawNewMessage(name, text);
     }
     
-
-    IEnumerator sss()
-    {
-        yield return new WaitForSeconds(5f);
-
-
-        DrawNewMessage("!!!!!!", "11111111111111111111");
-    }
-
     public void DrawNewMessage(string name, string msg)
     {
         Message newMsg = Instantiate<Message>(msgPrefab, MessagesContainer);
