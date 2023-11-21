@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
     [SerializeField] private GameObject chatMenu;
     [SerializeField] private GameObject mainMenu;
+    [SerializeField] private Slider xpSlider;
+    [SerializeField] private Text levelText;
+    [SerializeField] private float smoothXpSlider;
     public TMP_InputField inputFieldChat;
 
     private void Awake()
@@ -25,5 +29,12 @@ public class UIManager : MonoBehaviour
     public void ClearInputFieldChat()
     {
         inputFieldChat.text = "";
+    }
+
+    public void UpdateXPSlider(float amount, int level)
+    {
+        xpSlider.DOValue(amount, smoothXpSlider, false);
+
+        levelText.text = level.ToString();
     }
 }

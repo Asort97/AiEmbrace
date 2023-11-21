@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,12 @@ using UnityEngine;
 public class XpManager : MonoBehaviour
 {
     public static XpManager instance;
+    public static Action OnNewLevel;
+
+    [SerializeField] private float maxXpInDay = 750f;
     [SerializeField] private float amountXpToNewLvl;
-    private int currentLvl = 1;
+    private float receivedDayXP;
+    public int CurrentLvl = 1;
     private float levelXP;
 
     private void Awake()
@@ -16,11 +21,22 @@ public class XpManager : MonoBehaviour
 
     public void AddXp()
     {
-        levelXP += 30;
-
-        if(amountXpToNewLvl % levelXP == 0)
+        if(receivedDayXP < maxXpInDay)
         {
-            currentLvl++;
+            levelXP += 30;
+            receivedDayXP += 30;
+
+            if(amountXpToNewLvl % levelXP == 0)
+            {
+                OnNewLevel?.Invoke();
+                CurrentLvl++;
+            }
+
+            UIManager.instance.UpdateXPSlider(levelXP, CurrentLvl);            
+        }
+        else
+        {
+            Debug.Log($"already received max XP");
         }
     }
 

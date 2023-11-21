@@ -29,7 +29,7 @@ public class ChatManager : MonoBehaviour
                 // Add XP
                 XpManager.instance.AddXp();
 
-                aiIsWaiting = false;
+                // aiIsWaiting = false;
             }
 
             UIManager.instance.ClearInputFieldChat();
