@@ -7,31 +7,36 @@ public class XpManager : MonoBehaviour
 {
     public static XpManager instance;
     public static Action OnNewLevel;
-
     [SerializeField] private float maxXpInDay = 750f;
-    [SerializeField] private float amountXpToNewLvl;
     private float receivedDayXP;
-    public int CurrentLvl = 1;
     private float levelXP;
+    public float AmountToNextLevel;
+    public int CurrentLvl = 1;
 
     private void Awake()
     {
         instance = this;
     }
 
+    private void Start()
+    {
+        UpdateExpToNextLevel();
+    }
+
     public void AddXp()
     {
         if(receivedDayXP < maxXpInDay)
         {
-            levelXP += 30;
-            receivedDayXP += 30;
+            levelXP += 250;
+            receivedDayXP += 250;
 
-            if(amountXpToNewLvl % levelXP == 0)
+            if(AmountToNextLevel % levelXP == 0)
             {
                 OnNewLevel?.Invoke();
                 CurrentLvl++;
             }
-
+            
+            UpdateExpToNextLevel();
             UIManager.instance.UpdateXPSlider(levelXP, CurrentLvl);            
         }
         else
@@ -40,4 +45,9 @@ public class XpManager : MonoBehaviour
         }
     }
 
+    private void UpdateExpToNextLevel()
+    {
+        AmountToNextLevel = 100 * CurrentLvl;
+        UIManager.instance.UpdateMaxValueXPSlider(AmountToNextLevel);
+    }
 }

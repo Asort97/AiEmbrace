@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject chatMenu;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private Slider xpSlider;
-    [SerializeField] private Text levelText;
+    [SerializeField] private TMP_Text levelText;
     [SerializeField] private float smoothXpSlider;
     public TMP_InputField inputFieldChat;
 
@@ -33,8 +33,29 @@ public class UIManager : MonoBehaviour
 
     public void UpdateXPSlider(float amount, int level)
     {
-        xpSlider.DOValue(amount, smoothXpSlider, false);
+        float difference = xpSlider.maxValue - xpSlider.value;
+
+        if(difference >= amount)
+        {
+            xpSlider.DOValue(amount, smoothXpSlider);
+        }
+        else
+        {
+            Debug.Log($"big diff {difference} and {amount - difference}");
+            xpSlider.DOValue(xpSlider.value + difference, smoothXpSlider).OnComplete(() => RefreshXPSlider(amount - difference));
+        }
 
         levelText.text = level.ToString();
+    }
+
+    private void RefreshXPSlider(float amount)
+    {
+        xpSlider.value = 0f;
+        xpSlider.DOValue(xpSlider.value + amount, smoothXpSlider);
+    }
+
+    public void UpdateMaxValueXPSlider(float value)
+    {
+        xpSlider.maxValue = value;
     }
 }
