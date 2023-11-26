@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private float smoothXpSlider;
     public TMP_InputField inputFieldChat;
+    private float diff;
 
     private void Awake()
     {
@@ -31,31 +32,15 @@ public class UIManager : MonoBehaviour
         inputFieldChat.text = "";
     }
 
-    public void UpdateXPSlider(float amount, int level)
+    public void UpdateXPSlider(float amount, float maxAmount, int level)
     {
-        float difference = xpSlider.maxValue - xpSlider.value;
-
-        if(difference >= amount)
-        {
-            xpSlider.DOValue(amount, smoothXpSlider);
-        }
-        else
-        {
-            Debug.Log($"big diff {difference} and {amount - difference}");
-            xpSlider.DOValue(xpSlider.value + difference, smoothXpSlider).OnComplete(() => RefreshXPSlider(amount - difference));
-        }
-
         levelText.text = level.ToString();
+
+        xpSlider.maxValue = maxAmount;
+        xpSlider.value = amount;
     }
 
-    private void RefreshXPSlider(float amount)
+    private void RefreshXPSlider(float amount, int level)
     {
-        xpSlider.value = 0f;
-        xpSlider.DOValue(xpSlider.value + amount, smoothXpSlider);
-    }
-
-    public void UpdateMaxValueXPSlider(float value)
-    {
-        xpSlider.maxValue = value;
     }
 }

@@ -27,7 +27,7 @@ public class ChatManager : MonoBehaviour
             if( aiIsWaiting )
             {
                 // Add XP
-                XpManager.instance.AddXp();
+                XpManager.instance.AddXp(150);
 
                 // aiIsWaiting = false;
             }

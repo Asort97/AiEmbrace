@@ -10,7 +10,7 @@ public class XpManager : MonoBehaviour
     [SerializeField] private float maxXpInDay = 750f;
     private float receivedDayXP;
     private float levelXP;
-    public float AmountToNextLevel;
+    public float AmountToNextLevel = 100;
     public int CurrentLvl = 1;
 
     private void Awake()
@@ -20,24 +20,51 @@ public class XpManager : MonoBehaviour
 
     private void Start()
     {
-        UpdateExpToNextLevel();
+        CheckLevel();
     }
 
-    public void AddXp()
+    public void AddXp(float exp)
     {
         if(receivedDayXP < maxXpInDay)
         {
-            levelXP += 250;
-            receivedDayXP += 250;
-
-            if(AmountToNextLevel % levelXP == 0)
+            if(exp > AmountToNextLevel)
             {
-                OnNewLevel?.Invoke();
-                CurrentLvl++;
+                float takedExp = exp;
+
+                while (takedExp >= AmountToNextLevel)
+                {
+                    Debug.Log($"{takedExp} - {AmountToNextLevel}");
+                    levelXP += AmountToNextLevel;
+                    
+                    if(levelXP >= AmountToNextLevel)
+                    {
+                        levelXP = 0;
+                    }                
+                    takedExp -= AmountToNextLevel;
+
+                    UpgradeLevel();
+                    UIManager.instance.UpdateXPSlider(takedExp, AmountToNextLevel, CurrentLvl);
+
+                    Debug.Log($"Cur Level: {CurrentLvl}, amount to upgrade: {AmountToNextLevel}, ost: {takedExp} ");                
+                }                
             }
-            
-            UpdateExpToNextLevel();
-            UIManager.instance.UpdateXPSlider(levelXP, CurrentLvl);            
+            else
+            {
+                levelXP += exp;
+
+                if (levelXP >= AmountToNextLevel)
+                {
+                    float takedXp = levelXP;
+
+                    levelXP = 0;
+                    Debug.Log($"{exp} and ost: {AmountToNextLevel - levelXP}");
+                    levelXP += AmountToNextLevel - takedXp; 
+
+                    UpgradeLevel();
+                }
+
+                UIManager.instance.UpdateXPSlider(levelXP, AmountToNextLevel, CurrentLvl);
+            }
         }
         else
         {
@@ -45,9 +72,15 @@ public class XpManager : MonoBehaviour
         }
     }
 
-    private void UpdateExpToNextLevel()
+    private void UpgradeLevel()
+    {
+        CurrentLvl++;
+        
+        CheckLevel();
+    }
+
+    private void CheckLevel()
     {
         AmountToNextLevel = 100 * CurrentLvl;
-        UIManager.instance.UpdateMaxValueXPSlider(AmountToNextLevel);
     }
 }
