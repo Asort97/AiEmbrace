@@ -93,46 +93,46 @@ public class AIDataManager : MonoBehaviour
         }
     }
 
-    public void UpdateCharactersChatFromDialog(List<string> charactersNames, DialogPro dialog, bool needToExtendList)
-    {
-        if (needToExtendList)
-        {
-            // добавляем с писок имен все имена, которые встречаются в диалоге
-            foreach (var name in dialog.GetNames())
-            {
-                if (!charactersNames.Contains(name))
-                {
-                    charactersNames.Add(name);
-                }
-            }
-        }
+    // public void UpdateCharactersChatFromDialog(List<string> charactersNames, DialogPro dialog, bool needToExtendList)
+    // {
+    //     if (needToExtendList)
+    //     {
+    //         // добавляем с писок имен все имена, которые встречаются в диалоге
+    //         foreach (var name in dialog.GetNames())
+    //         {
+    //             if (!charactersNames.Contains(name))
+    //             {
+    //                 charactersNames.Add(name);
+    //             }
+    //         }
+    //     }
 
-        foreach (var characterName in charactersNames)
-        {
-            // получаем данные персонажа
-            AICharacterData data = aiCharactersData.GetAICharacterData(characterName);
-            if (data == null)
-            {
-                // если такого персонажа нет, то пропускаем
-                Debug.LogWarning("UpdateChatFromDialog: data == null for character: " + characterName);
-                continue;
-            }
+    //     foreach (var characterName in charactersNames)
+    //     {
+    //         // получаем данные персонажа
+    //         AICharacterData data = aiCharactersData.GetAICharacterData(characterName);
+    //         if (data == null)
+    //         {
+    //             // если такого персонажа нет, то пропускаем
+    //             Debug.LogWarning("UpdateChatFromDialog: data == null for character: " + characterName);
+    //             continue;
+    //         }
 
-            foreach (var phrases in dialog.phrases)
-            {
-                if (phrases.character.name == "")
-                {
-                    // skip narrator todo: replace with narrator name or something
-                    continue;
-                }
-                foreach (var phrase in phrases.lines)
-                {
-                    // добавляем реплику в историю чата с персонажем
-                    data.chatHistory.Append(new Reply(phrases.character.name, phrase));
-                }
-            }
-        }
-    }
+    //         foreach (var phrases in dialog.phrases)
+    //         {
+    //             if (phrases.character.name == "")
+    //             {
+    //                 // skip narrator todo: replace with narrator name or something
+    //                 continue;
+    //             }
+    //             foreach (var phrase in phrases.lines)
+    //             {
+    //                 // добавляем реплику в историю чата с персонажем
+    //                 data.chatHistory.Append(new Reply(phrases.character.name, phrase));
+    //             }
+    //         }
+    //     }
+    // }
 
     // todo: добавить методы для сохранения и загрузки данных
 }

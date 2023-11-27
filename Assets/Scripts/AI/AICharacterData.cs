@@ -49,10 +49,10 @@ public class AICharacterData
         prompt += "5. Don't be silent, don't use line breaks, don't use zero-width spaces, and don't just express emotions without words.\n";
         prompt += string.Format("Your name is {0}. About you: \n", characterName);
         prompt += string.Format("{0}.\n", characterPersonality);
-        prompt += string.Format("Your recent memories:{0}\n", await eventsMemories.GetActualMemories(chatHistory, TimeManager.instance.currentDay, eventsMemoryTokenLimit));
+        // prompt += string.Format("Your recent memories:{0}\n", await eventsMemories.GetActualMemories(chatHistory, TimeManager.instance.currentDay, eventsMemoryTokenLimit));
         prompt += string.Format("Your relationship with companion:\n{0}\n", AIDataManager.instance.attractionBehavior.GetConversationalBehavior(attracionLevel));
         prompt += string.Format("What you know about your interlocutor:{0}\n", String.Join("|", factsAboutPlayer));
-        prompt += string.Format("What did you talk about in past dialogues:{0}\n", await conversationalMemories.GetActualMemories(chatHistory, TimeManager.instance.currentDay, eventsMemoryTokenLimit));
+        // prompt += string.Format("What did you talk about in past dialogues:{0}\n", await conversationalMemories.GetActualMemories(chatHistory, TimeManager.instance.currentDay, eventsMemoryTokenLimit));
 
         prompt += string.Format("Current dialogue:\n{0}", chatHistory.Draw());
 
@@ -84,15 +84,15 @@ public class AICharacterData
 
     private async Task<List<string>> ExtractPlayerFacts(string chatFragment)
     {
-        string playerName = GameManager.instance.GetPlayerName();
+        // string playerName = GameManager.instance.GetPlayerName();
         // �������� �������
-        string prompt = $"Dialogue processing: checking facts and information about the character {playerName} from perspective of {characterName}. Based on the old facts and a fragment of the dialogue, calculate a new list of facts.\n\n";
-        prompt += $"Old facts: name is {playerName} | " + string.Join(" | ", factsAboutPlayer) + "\n";
+        string prompt = $"Dialogue processing: checking facts and information about the character PLAYER from perspective of PLAYER. Based on the old facts and a fragment of the dialogue, calculate a new list of facts.\n\n";
+        prompt += $"Old facts: name is PLAYER | " + string.Join(" | ", factsAboutPlayer) + "\n";
         prompt += "<Dialog start>\n";
         prompt += chatFragment + "\n";
         prompt += "<Dialog end>\n";
-        prompt += $"Strict fact checking rules:\n1.If character {playerName} doesn't mention any facts about himself, the list remains unchanged.\n2.If character {playerName} refutes or discusses changes to his facts, those facts should be updated accordingly.\n3.Facts should only pertain to character {playerName} and not include information about other characters.\n4.Avoid changing facts unnecessarily only update them when there is a valid reason based on the dialogue.\n5.All facts is a character {characterName} knowledge about {playerName}.\n\n";
-        prompt += $"Updated facts: name is {playerName} |";
+        prompt += $"Strict fact checking rules:\n1.If character PLAYER doesn't mention any facts about himself, the list remains unchanged.\n2.If character PLAYER refutes or discusses changes to his facts, those facts should be updated accordingly.\n3.Facts should only pertain to character PLAYER and not include information about other characters.\n4.Avoid changing facts unnecessarily only update them when there is a valid reason based on the dialogue.\n5.All facts is a character {characterName} knowledge about PLAYER.\n\n";
+        prompt += $"Updated facts: name is PLAYER |";
         Debug.Log("Prompt for extract facts:" + prompt);
         // ����������� ����� ����� � ��� 
         MessageResponse response = await ClientAPI.instance.RunLLM(prompt);
