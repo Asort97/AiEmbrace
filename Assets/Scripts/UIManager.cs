@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
     [SerializeField] private GameObject chatMenu;
+    [SerializeField] private GameObject storeMenu;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private Slider xpSlider;
     [SerializeField] private TMP_Text levelText;
@@ -24,6 +25,12 @@ public class UIManager : MonoBehaviour
     public void SetEnableChat(bool isEnable)
     {
         chatMenu.SetActive(isEnable);
+        mainMenu.SetActive(!isEnable);
+    }
+
+    public void SetEnableStore(bool isEnable)
+    {
+        storeMenu.SetActive(isEnable);
         mainMenu.SetActive(!isEnable);
     }
 
