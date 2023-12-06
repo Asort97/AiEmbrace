@@ -57,8 +57,8 @@ public class XpManager : MonoBehaviour
                     float takedXp = levelXP;
 
                     levelXP = 0;
-                    Debug.Log($"{exp} and ost: {AmountToNextLevel - levelXP}");
-                    levelXP += AmountToNextLevel - levelXP; 
+                    Debug.Log($"{exp} and ost: {AmountToNextLevel - takedXp}");
+                    levelXP += AmountToNextLevel - takedXp; 
 
                     UpgradeLevel();
                 }

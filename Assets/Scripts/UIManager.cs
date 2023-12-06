@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -14,12 +15,39 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider xpSlider;
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private float smoothXpSlider;
+    [SerializeField] private GameObject buyButton;
+    // [SerializeField] private GameObject buyButton;
     public TMP_InputField inputFieldChat;
     private float diff;
 
     private void Awake()
     {
         instance = this;
+    }
+
+    private void OnEnable()
+    {
+        ItemClothes.OnSelectedItem += ShowBuyButton;
+    }
+    private void OnDisable()
+    {
+        ItemClothes.OnSelectedItem += ShowBuyButton;
+    }
+
+    public void ShowBuyButton(bool isSelected, bool isBuyed)
+    {
+        if(isSelected && !isBuyed)
+        {
+            buyButton.SetActive(true);
+        }
+        else if(!isSelected)
+        {
+            buyButton.SetActive(false);
+        }
+        else if(isSelected)
+        {
+            Debug.Log($"Wear a clothes");
+        }
     }
 
     public void SetEnableChat(bool isEnable)
