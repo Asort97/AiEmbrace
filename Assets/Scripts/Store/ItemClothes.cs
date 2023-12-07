@@ -29,7 +29,7 @@ public class ItemClothes : MonoBehaviour
     {
         if(!isBuyed)
         {
-
+            
         }
     }
 

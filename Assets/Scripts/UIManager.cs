@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        ItemClothes.OnSelectedItem += ShowBuyButton;
+        ItemClothes.OnSelectedItem -= ShowBuyButton;
     }
 
     public void ShowBuyButton(bool isSelected, bool isBuyed)
