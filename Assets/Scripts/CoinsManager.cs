@@ -5,21 +5,41 @@ using UnityEngine;
 
 public class CoinsManager : MonoBehaviour
 {
+    public static CoinsManager instance;
     public static Action<int, int> OnAddCash;
     private int amountCoinsEachLevel = 10;
     private int currentCoins;
     private int currentCrystals;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     public void OnEnable()
     {
         XpManager.OnNewLevel += AddCoins;
+        ItemClothes.OnBuyItem += UseCoins;
     }
 
     public void OnDisable()
     {
         XpManager.OnNewLevel -= AddCoins;
+        ItemClothes.OnBuyItem -= UseCoins;
     }
     
+    public bool CheckEnoughCoins(int price)
+    {
+        if(currentCoins >= price)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     private void UseCoins(int amount)
     {
         currentCoins -= amount;
@@ -32,4 +52,5 @@ public class CoinsManager : MonoBehaviour
         currentCoins += amountCoinsEachLevel * XpManager.instance.CurrentLvl;
         OnAddCash?.Invoke(currentCoins, currentCrystals);
     }
+    
 }

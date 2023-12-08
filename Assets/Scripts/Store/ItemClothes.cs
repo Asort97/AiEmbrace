@@ -10,11 +10,11 @@ public class ItemClothes : MonoBehaviour
     [SerializeField] private Image displayImage;
     [SerializeField] private bool isBuyed;
     private int itemPrice;
-    private string itemName;
+    public string itemName;
     public ClothesSO clothesSO;
-    public static Action<ClothesSO> OnBuyItem;
+    public static Action<int> OnBuyItem;
     public static Action OnUseItem;
-    public static Action<bool, bool> OnSelectedItem;
+    public static Action<bool, bool, ItemClothes> OnSelectedItem;
     public bool isSelected;
 
     public void Init(ClothesSO clothesSO)
@@ -25,11 +25,15 @@ public class ItemClothes : MonoBehaviour
         itemName = clothesSO.nameItem;
     }
 
-    private void BuyItem()
+    public void BuyItem()
     {
-        if(!isBuyed)
+        if(!isBuyed && CoinsManager.instance.CheckEnoughCoins(itemPrice))
         {
-            
+            Debug.Log($"Buyed {itemName}");
+
+            OnBuyItem?.Invoke(itemPrice);
+
+            isBuyed = true;
         }
     }
 
@@ -42,6 +46,6 @@ public class ItemClothes : MonoBehaviour
     {   
         isSelected =  !isSelected;
     
-        OnSelectedItem?.Invoke(isSelected, isBuyed);
+        OnSelectedItem?.Invoke(isSelected, isBuyed, this);
     }
 }

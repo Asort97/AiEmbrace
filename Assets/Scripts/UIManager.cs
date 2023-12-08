@@ -15,8 +15,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider xpSlider;
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private float smoothXpSlider;
-    [SerializeField] private GameObject buyButton;
-    // [SerializeField] private GameObject buyButton;
+    [SerializeField] private Button buyButton;
+    [SerializeField] private TMP_Text buyButtonText;
     public TMP_InputField inputFieldChat;
     private float diff;
 
@@ -34,19 +34,25 @@ public class UIManager : MonoBehaviour
         ItemClothes.OnSelectedItem -= ShowBuyButton;
     }
 
-    public void ShowBuyButton(bool isSelected, bool isBuyed)
+    public void ShowBuyButton(bool isSelected, bool isBuyed, ItemClothes currentItem)
     {
         if(isSelected && !isBuyed)
         {
-            buyButton.SetActive(true);
+            buyButton.gameObject.SetActive(true);
+            buyButtonText.text = currentItem.itemName;
+            buyButton.onClick.AddListener(currentItem.BuyItem);
         }
         else if(!isSelected)
         {
-            buyButton.SetActive(false);
+            buyButton.gameObject.SetActive(false);
+            buyButtonText.text = "";
+            buyButton.onClick.RemoveAllListeners();
         }
         else if(isSelected)
         {
             Debug.Log($"Wear a clothes");
+            buyButtonText.text = "";
+            buyButton.onClick.RemoveAllListeners();
         }
     }
 
