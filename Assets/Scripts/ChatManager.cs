@@ -7,12 +7,14 @@ public class ChatManager : MonoBehaviour
 {   
     public static Action OnDrawMessage;
     [SerializeField] private Message msgPrefab;
-    [SerializeField] private Transform MessagesContainer;
+    [SerializeField] private Message zeroMsgPrefab;
+    [SerializeField] private Transform PlayerMessagesContainer;
+    [SerializeField] private Transform BotMessagesContainer;
     private bool aiIsWaiting;
 
     private void Start()
     {
-        DrawNewMessage("Assistant", "Now i talk with you");
+        DrawNewMessage("BOT", "Now i talk with you", false);
         aiIsWaiting = true;
     }
 
@@ -20,15 +22,14 @@ public class ChatManager : MonoBehaviour
     {
         if(UIManager.instance.inputFieldChat.text != "")
         {
-            DrawNewMessage("You", UIManager.instance.inputFieldChat.text);
+            DrawNewMessage("You", UIManager.instance.inputFieldChat.text, true);
 
             Debug.Log($"Send request to AI");
 
             if( aiIsWaiting )
             {
-                // Add XP
+                // Add XPы
                 XpManager.instance.AddXp(150);
-
                 // aiIsWaiting = false;
             }
 
@@ -39,17 +40,31 @@ public class ChatManager : MonoBehaviour
     public void MsgResponce()
     {
         // Логика отправки AI сообщения
-
+        DrawNewMessage("BOT", "Yes", false); // тест
 
         aiIsWaiting = true;
         // DrawNewMessage(name, text);
     }
     
-    public void DrawNewMessage(string name, string msg)
+    public void DrawNewMessage(string name, string msg, bool isPlayer)
     {
-        Message newMsg = Instantiate<Message>(msgPrefab, MessagesContainer);
-        newMsg.Init(name, msg);
+        if(isPlayer)
+        {
+            Message newMsg = Instantiate<Message>(msgPrefab, PlayerMessagesContainer);
+            Message zeroMsg = Instantiate<Message>(zeroMsgPrefab, BotMessagesContainer);
+            newMsg.Init(name, msg);
+            zeroMsg.Init(name, msg);
 
-        OnDrawMessage?.Invoke();
+            MsgResponce();
+        }
+        else
+        {
+            Message newMsg = Instantiate<Message>(msgPrefab, BotMessagesContainer);
+            Message zeroMsg = Instantiate<Message>(zeroMsgPrefab, PlayerMessagesContainer);
+            newMsg.Init(name, msg);
+            zeroMsg.Init(name, msg);
+        }
+
+        OnDrawMessage?.Invoke();            
     }
 }
