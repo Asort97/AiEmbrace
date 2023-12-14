@@ -53,7 +53,7 @@ public class ChatManager : MonoBehaviour
             Message newMsg = Instantiate<Message>(msgPrefab, PlayerMessagesContainer);
             Message zeroMsg = Instantiate<Message>(zeroMsgPrefab, BotMessagesContainer);
             newMsg.Init(name, msg);
-            zeroMsg.Init(name, msg);
+            zeroMsg.Init(name, msg + "=============================");
 
             MsgResponce();
         }
@@ -62,7 +62,7 @@ public class ChatManager : MonoBehaviour
             Message newMsg = Instantiate<Message>(msgPrefab, BotMessagesContainer);
             Message zeroMsg = Instantiate<Message>(zeroMsgPrefab, PlayerMessagesContainer);
             newMsg.Init(name, msg);
-            zeroMsg.Init(name, msg);
+            zeroMsg.Init(name, msg + "=============================");
         }
 
         OnDrawMessage?.Invoke();            
