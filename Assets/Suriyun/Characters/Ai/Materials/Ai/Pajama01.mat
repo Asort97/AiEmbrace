@@ -44,9 +44,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Glossiness: 1
     - _Is_BlendBaseColor: 0
     - _Tweak_RimLightMaskLevel: -1
     m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Outline_Color: {r: 0.22641498, g: 0.22641498, b: 0.22641498, a: 1}
     - _RimLightColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

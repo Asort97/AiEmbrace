@@ -6,6 +6,7 @@ using UnityEngine;
 public class ChatManager : MonoBehaviour
 {   
     public static Action OnDrawMessage;
+    [SerializeField] private EmotionController emotionController;
     [SerializeField] private Message msgPrefab;
     [SerializeField] private Message zeroMsgPrefab;
     [SerializeField] private Transform PlayerMessagesContainer;
@@ -52,8 +53,10 @@ public class ChatManager : MonoBehaviour
         {
             Message newMsg = Instantiate<Message>(msgPrefab, PlayerMessagesContainer);
             Message zeroMsg = Instantiate<Message>(zeroMsgPrefab, BotMessagesContainer);
-            newMsg.Init(name, msg);
-            zeroMsg.Init(name, msg + "=============================");
+            newMsg.Init(isPlayer, name, msg);
+            zeroMsg.Init(isPlayer, name, msg);
+
+            emotionController.PlayRandomAnimation();
 
             MsgResponce();
         }
@@ -61,8 +64,8 @@ public class ChatManager : MonoBehaviour
         {
             Message newMsg = Instantiate<Message>(msgPrefab, BotMessagesContainer);
             Message zeroMsg = Instantiate<Message>(zeroMsgPrefab, PlayerMessagesContainer);
-            newMsg.Init(name, msg);
-            zeroMsg.Init(name, msg + "=============================");
+            newMsg.Init(isPlayer, name, msg);
+            zeroMsg.Init(isPlayer, name, msg);
         }
 
         OnDrawMessage?.Invoke();            
