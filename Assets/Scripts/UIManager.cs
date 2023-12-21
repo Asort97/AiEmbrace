@@ -9,8 +9,10 @@ using Unity.VisualScripting;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
+    [SerializeField] private GameObject[] allMenu;
     [SerializeField] private GameObject chatMenu;
     [SerializeField] private GameObject storeMenu;
+    [SerializeField] private GameObject clothesMenu;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private Slider xpSlider;
     [SerializeField] private TMP_Text levelText;
@@ -63,6 +65,26 @@ public class UIManager : MonoBehaviour
     }
 
     public void SetEnableStore(bool isEnable)
+    {
+        foreach (GameObject item in allMenu)
+        {
+            item.SetActive(false);
+        }
+        storeMenu.SetActive(isEnable);
+        mainMenu.SetActive(!isEnable);
+    }
+    
+    public void SetEnableMenu(GameObject menu)
+    {
+        foreach (GameObject item in allMenu)
+        {
+            item.SetActive(false);
+        }
+
+        menu.SetActive(true);
+    }
+
+    public void SetEnableClother(bool isEnable)
     {
         storeMenu.SetActive(isEnable);
         mainMenu.SetActive(!isEnable);
