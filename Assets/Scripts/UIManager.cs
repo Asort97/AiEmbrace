@@ -50,9 +50,13 @@ public class UIManager : MonoBehaviour
             buyButtonText.text = "";
             buyButton.onClick.RemoveAllListeners();
         }
-        else if(isSelected)
+        
+        else if(isSelected && isBuyed)
         {
+            currentItem.UseItem();
+
             Debug.Log($"Wear a clothes");
+
             buyButtonText.text = "";
             buyButton.onClick.RemoveAllListeners();
         }
@@ -73,7 +77,7 @@ public class UIManager : MonoBehaviour
         storeMenu.SetActive(isEnable);
         mainMenu.SetActive(!isEnable);
     }
-    
+
     public void SetEnableMenu(GameObject menu)
     {
         foreach (GameObject item in allMenu)

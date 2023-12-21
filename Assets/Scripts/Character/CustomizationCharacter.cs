@@ -16,6 +16,16 @@ public class CustomizationCharacter : MonoBehaviour
 
     [SerializeField] private Clothes[] allClothes;
 
+    private void OnEnable()
+    {
+        ItemClothes.OnUseItem += SetNewItem;
+    }
+
+    private void OnDisable()
+    {
+        ItemClothes.OnUseItem -= SetNewItem;
+    }
+
     public void SetNewItem(ClothesSO item)
     {   
         foreach (Clothes clothes in allClothes)
