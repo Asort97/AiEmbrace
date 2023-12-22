@@ -13,7 +13,7 @@ public class ItemClothes : MonoBehaviour
     public string itemName;
     public ClothesSO clothesSO;
     public static Action<int> OnBuyItem;
-    public static Action<ClothesSO> OnUseItem;
+    public static Action<ClothesSO, bool> OnUseItem;
     public static Action<bool, bool, ItemClothes> OnSelectedItem;
     public bool isSelected;
 
@@ -37,9 +37,9 @@ public class ItemClothes : MonoBehaviour
         }
     }
 
-    public void UseItem()
+    public void UseItem(bool toClothe)
     {
-        OnUseItem?.Invoke(clothesSO);
+        OnUseItem?.Invoke(clothesSO, toClothe);
     }
 
     public void OnSelect()

@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button buyButton;
     [SerializeField] private TMP_Text buyButtonText;
     public TMP_InputField inputFieldChat;
+    public ItemClothes prevItem;
     private float diff;
 
     private void Awake()
@@ -29,36 +30,58 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        ItemClothes.OnSelectedItem += ShowBuyButton;
+        ItemClothes.OnSelectedItem += SelectItem;
     }
     private void OnDisable()
     {
-        ItemClothes.OnSelectedItem -= ShowBuyButton;
+        ItemClothes.OnSelectedItem -= SelectItem;
     }
 
-    public void ShowBuyButton(bool isSelected, bool isBuyed, ItemClothes currentItem)
+    public void SelectItem(bool isSelected, bool isBuyed, ItemClothes currentItem)
     {
-        if(isSelected && !isBuyed)
+        if(prevItem != currentItem)
         {
-            buyButton.gameObject.SetActive(true);
-            buyButtonText.text = currentItem.itemName;
-            buyButton.onClick.AddListener(currentItem.BuyItem);
+            prevItem = currentItem;
+            if(prevItem)
+            {
+                prevItem.isSelected = false;
+            }
         }
-        else if(!isSelected)
+
+        if(!isBuyed)
         {
+            if(isSelected)
+            {
+                buyButton.gameObject.SetActive(true);
+                buyButtonText.text = currentItem.itemName;
+                buyButton.onClick.AddListener(currentItem.BuyItem);
+            }
+            else
+            {
+                buyButton.gameObject.SetActive(false);
+                buyButtonText.text = "";
+                buyButton.onClick.RemoveAllListeners();
+            }
+        }
+        else
+        {
+            if(isSelected)
+            {
+                currentItem.UseItem(true);
+
+                Debug.Log($"Wear a clothes");
+
+                buyButtonText.text = "";
+                buyButton.onClick.RemoveAllListeners();
+            }
+            else
+            {
+                currentItem.UseItem(false);
+
+                Debug.Log($"Unwear a clothes");
+            }
+
             buyButton.gameObject.SetActive(false);
-            buyButtonText.text = "";
-            buyButton.onClick.RemoveAllListeners();
-        }
-        
-        else if(isSelected && isBuyed)
-        {
-            currentItem.UseItem();
-
-            Debug.Log($"Wear a clothes");
-
-            buyButtonText.text = "";
-            buyButton.onClick.RemoveAllListeners();
         }
     }
 

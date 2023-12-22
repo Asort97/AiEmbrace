@@ -5698,6 +5698,7 @@ MonoBehaviour:
   buyButton: {fileID: 559014018}
   buyButtonText: {fileID: 1550490262}
   inputFieldChat: {fileID: 457685674}
+  prevItem: {fileID: 0}
 --- !u!4 &1144331537
 Transform:
   m_ObjectHideFlags: 0
@@ -6620,6 +6621,7 @@ MonoBehaviour:
     itemSo: {fileID: 11400000, guid: 877108989af06404d9fc70d5aba1dae2, type: 2}
   - itemObject: {fileID: 346823877}
     itemSo: {fileID: 11400000, guid: 120cb452e6c093e47b1ecfdac90dcdb7, type: 2}
+  TShirt: {fileID: 0}
 --- !u!1 &1372351771
 GameObject:
   m_ObjectHideFlags: 0

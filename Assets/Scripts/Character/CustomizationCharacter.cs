@@ -6,15 +6,22 @@ using Unity.Collections;
 
 public class CustomizationCharacter : MonoBehaviour
 {
-    [Serializable] public class Clothes
+    [Serializable] public struct Clothes
     {
         public GameObject itemObject;
         public ClothesSO itemSo;
-    }   
+    }
 
-    [SerializeField] private List<GameObject> alreadyWearing;
+    [Serializable] public class Dressed
+    {
+        public GameObject item;
+        public ClothesSO.ClothesCategory clothesCategory;
+    }
 
+    [SerializeField] private List<Dressed> alreadyWearing;
     [SerializeField] private Clothes[] allClothes;
+    [SerializeField] private GameObject TShirt;
+
 
     private void OnEnable()
     {
@@ -26,14 +33,33 @@ public class CustomizationCharacter : MonoBehaviour
         ItemClothes.OnUseItem -= SetNewItem;
     }
 
-    public void SetNewItem(ClothesSO item)
+    public void SetNewItem(ClothesSO item, bool toClothe)
     {   
         foreach (Clothes clothes in allClothes)
         {
             if(clothes.itemSo == item)
             {
-                clothes.itemObject.SetActive(true);
-                alreadyWearing.Add(clothes.itemObject);
+                clothes.itemObject.SetActive(toClothe);
+
+                if(toClothe)
+                {
+                    foreach (Dressed weared in alreadyWearing)
+                    {
+                        if (weared.clothesCategory == item.itemCategory)
+                        {
+                            weared.item.SetActive(false);
+                            clothes.itemObject.SetActive(true);
+
+                            weared.clothesCategory = item.itemCategory;
+                        }
+                    }
+                    // alreadyWearing.Add(clothes.itemObject);
+                }
+                else
+                {
+                    // alreadyWearing.Remove(clothes.itemObject);
+                }
+                
             }
         }
     }
