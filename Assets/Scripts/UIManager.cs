@@ -30,59 +30,25 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        ItemClothes.OnSelectedItem += SelectItem;
+        ItemClothes.OnShowBuyBtn += ShowBuyItemButton;
     }
     private void OnDisable()
     {
-        ItemClothes.OnSelectedItem -= SelectItem;
+        ItemClothes.OnShowBuyBtn -= ShowBuyItemButton;
     }
 
     public void SelectItem(bool isSelected, bool isBuyed, ItemClothes currentItem)
     {
-        if(prevItem != currentItem)
+        if(isSelected)
         {
-            prevItem = currentItem;
-            if(prevItem)
-            {
-                prevItem.isSelected = false;
-            }
+
         }
+    }
 
-        if(!isBuyed)
-        {
-            if(isSelected)
-            {
-                buyButton.gameObject.SetActive(true);
-                buyButtonText.text = currentItem.itemName;
-                buyButton.onClick.AddListener(currentItem.BuyItem);
-            }
-            else
-            {
-                buyButton.gameObject.SetActive(false);
-                buyButtonText.text = "";
-                buyButton.onClick.RemoveAllListeners();
-            }
-        }
-        else
-        {
-            if(isSelected)
-            {
-                currentItem.UseItem(true);
-
-                Debug.Log($"Wear a clothes");
-
-                buyButtonText.text = "";
-                buyButton.onClick.RemoveAllListeners();
-            }
-            else
-            {
-                currentItem.UseItem(false);
-
-                Debug.Log($"Unwear a clothes");
-            }
-
-            buyButton.gameObject.SetActive(false);
-        }
+    private void ShowBuyItemButton(bool isEnable, string name, string price)
+    {
+        buyButton.gameObject.SetActive(true);
+        buyButtonText.text = name;
     }
 
     public void SetEnableChat(bool isEnable)

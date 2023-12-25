@@ -12,16 +12,10 @@ public class CustomizationCharacter : MonoBehaviour
         public ClothesSO itemSo;
     }
 
-    [Serializable] public class Dressed
-    {
-        public GameObject item;
-        public ClothesSO.ClothesCategory clothesCategory;
-    }
-
-    [SerializeField] private List<Dressed> alreadyWearing;
     [SerializeField] private Clothes[] allClothes;
-    [SerializeField] private GameObject TShirt;
 
+    private GameObject tShirts;
+    private GameObject pants;
 
     private void OnEnable()
     {
@@ -33,33 +27,36 @@ public class CustomizationCharacter : MonoBehaviour
         ItemClothes.OnUseItem -= SetNewItem;
     }
 
-    public void SetNewItem(ClothesSO item, bool toClothe)
+    public void SetNewItem(ClothesSO itemToWear, bool toClothe)
     {   
         foreach (Clothes clothes in allClothes)
         {
-            if(clothes.itemSo == item)
+            if(clothes.itemSo == itemToWear)
             {
-                clothes.itemObject.SetActive(toClothe);
-
-                if(toClothe)
+                switch (clothes.itemSo.itemCategory)
                 {
-                    foreach (Dressed weared in alreadyWearing)
-                    {
-                        if (weared.clothesCategory == item.itemCategory)
+                    case ClothesSO.ClothesCategory.TShirts:
+
+                        if(tShirts)
                         {
-                            weared.item.SetActive(false);
-                            clothes.itemObject.SetActive(true);
-
-                            weared.clothesCategory = item.itemCategory;
+                            tShirts.SetActive(false);
                         }
-                    }
-                    // alreadyWearing.Add(clothes.itemObject);
+                        tShirts = clothes.itemObject;
+                        tShirts.SetActive(true);
+
+                        break;
+
+                    case ClothesSO.ClothesCategory.Pants:
+
+                        if(pants)
+                        {
+                            pants.SetActive(false);
+                        }
+                        pants = clothes.itemObject;
+
+                        pants.SetActive(true);
+                        break;
                 }
-                else
-                {
-                    // alreadyWearing.Remove(clothes.itemObject);
-                }
-                
             }
         }
     }

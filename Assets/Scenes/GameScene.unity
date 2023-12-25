@@ -258,6 +258,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 53926250}
   m_CullTransparentMesh: 1
+--- !u!1 &61666110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 61666112}
+  - component: {fileID: 61666111}
+  m_Layer: 0
+  m_Name: CharacterTransition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &61666111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61666110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a232e63a7b236441b074ed80c201d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterPrefab: {fileID: 1321057267}
+  chatPointPosition: {x: -1.78, y: -6.63, z: 0}
+  chatPointScale: {x: 2, y: 2, z: 2}
+  storePointPosition: {x: 0, y: -0.63, z: 0}
+  storePointScale: {x: 1, y: 1, z: 1}
+--- !u!4 &61666112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61666110}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &93978952
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,7 +623,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1996061924472238, guid: bcfcb1b16ebed974ea8244e270af8d4a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4724027785898422, guid: bcfcb1b16ebed974ea8244e270af8d4a, type: 3}
       propertyPath: m_RootOrder
@@ -1481,7 +1530,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &308479897
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1917,7 +1966,7 @@ RectTransform:
   m_GameObject: {fileID: 457685672}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.00032, y: 1.00032, z: 1.00032}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1105627640}
@@ -2009,6 +2058,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 61666111}
+        m_TargetAssemblyTypeName: CharacterTransition, Assembly-CSharp
+        m_MethodName: ChangePoint
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: toChat
           m_BoolArgument: 1
         m_CallState: 2
   m_OnDeselect:
@@ -3996,6 +4057,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 61666111}
+        m_TargetAssemblyTypeName: CharacterTransition, Assembly-CSharp
+        m_MethodName: ChangePoint
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: toChat
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &773498777
@@ -6588,9 +6661,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1321057266}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.63, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1881218279}
   - {fileID: 165209885}
@@ -6611,7 +6684,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662f9c0cedf312a40b1cfb969bc3a36d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alreadyWearing: []
   allClothes:
   - itemObject: {fileID: 1881218280}
     itemSo: {fileID: 11400000, guid: 3d9be57afef8acd47bee397a1828861e, type: 2}
@@ -6621,7 +6693,6 @@ MonoBehaviour:
     itemSo: {fileID: 11400000, guid: 877108989af06404d9fc70d5aba1dae2, type: 2}
   - itemObject: {fileID: 346823877}
     itemSo: {fileID: 11400000, guid: 120cb452e6c093e47b1ecfdac90dcdb7, type: 2}
-  TShirt: {fileID: 0}
 --- !u!1 &1372351771
 GameObject:
   m_ObjectHideFlags: 0
@@ -7508,6 +7579,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 61666111}
+        m_TargetAssemblyTypeName: CharacterTransition, Assembly-CSharp
+        m_MethodName: ChangePoint
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: toStore
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1432435029
@@ -9956,8 +10039,8 @@ RectTransform:
   m_Children:
   - {fileID: 616669772}
   - {fileID: 270482983}
-  - {fileID: 457685673}
   - {fileID: 701610095}
+  - {fileID: 457685673}
   - {fileID: 308479897}
   - {fileID: 1455147036}
   m_Father: {fileID: 0}
