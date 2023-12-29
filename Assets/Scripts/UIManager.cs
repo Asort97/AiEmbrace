@@ -19,6 +19,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float smoothXpSlider;
     [SerializeField] private Button buyButton;
     [SerializeField] private TMP_Text buyButtonText;
+
+    public Button newClothesFiltButton;
+    public Button defaultClothesFiltButton;
+    public Button purchasedClothesFiltButton;
+
     public TMP_InputField inputFieldChat;
     public ItemClothes prevItem;
     private float diff;
@@ -76,13 +81,6 @@ public class UIManager : MonoBehaviour
 
         menu.SetActive(true);
     }
-
-    public void SetEnableClother(bool isEnable)
-    {
-        storeMenu.SetActive(isEnable);
-        mainMenu.SetActive(!isEnable);
-    }
-
     public void ClearInputFieldChat()
     {
         inputFieldChat.text = "";
@@ -94,9 +92,5 @@ public class UIManager : MonoBehaviour
 
         xpSlider.maxValue = maxAmount;
         xpSlider.value = amount;
-    }
-
-    private void RefreshXPSlider(float amount, int level)
-    {
     }
 }

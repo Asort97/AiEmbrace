@@ -8,7 +8,7 @@ using Microsoft.Unity.VisualStudio.Editor;
 public class ItemClothes : MonoBehaviour
 {
     [SerializeField] private Image displayImage;
-    [SerializeField] private bool isBuyed;
+    public bool isBuyed;
     private int itemPrice;
     public string itemName;
     public ClothesSO clothesSO;
