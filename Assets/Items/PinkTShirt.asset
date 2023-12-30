@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6e1b227f75aff84780ff07a9e19e1b2, type: 3}
   m_Name: PinkTShirt
   m_EditorClassIdentifier: 
+  color: {r: 1, g: 0.5990566, b: 0.5990566, a: 1}
   nameItem: Pink T-Shirts
   itemCategory: 0
-  price: 10
+  displayImage: {fileID: 0}
+  price: 0

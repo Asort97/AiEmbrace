@@ -42,18 +42,21 @@ public class UIManager : MonoBehaviour
         ItemClothes.OnShowBuyBtn -= ShowBuyItemButton;
     }
 
-    public void SelectItem(bool isSelected, bool isBuyed, ItemClothes currentItem)
-    {
-        if(isSelected)
-        {
+    // public void SelectItem(bool isSelected, bool isBuyed, ItemClothes currentItem)
+    // {
+    //     if(isSelected)
+    //     {
 
-        }
-    }
+    //     }
+    // }
 
-    private void ShowBuyItemButton(bool isEnable, string name, string price)
+    private void ShowBuyItemButton(bool isEnable, string name, string price, ItemClothes item)
     {
         buyButton.gameObject.SetActive(true);
         buyButtonText.text = name;
+
+        buyButton.onClick.RemoveAllListeners();
+        buyButton.onClick.AddListener(item.BuyItem);
     }
 
     public void SetEnableChat(bool isEnable)

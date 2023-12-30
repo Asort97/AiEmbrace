@@ -19,8 +19,9 @@ public class ClothesSO : ScriptableObject
         Long,
         Sneakers,
     }
+    public Color color;
     public string nameItem;
     public ClothesCategory itemCategory;
-    public Image displayImage;
+    public Sprite displayImage;
     public int price;
 }

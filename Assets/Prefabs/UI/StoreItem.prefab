@@ -146,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d2e10e7c5316144b3f4257cc96e022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayImage: {fileID: 4037503949641380667}
   isBuyed: 0
   itemName: 
   clothesSO: {fileID: 0}

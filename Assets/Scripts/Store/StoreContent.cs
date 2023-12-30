@@ -13,9 +13,15 @@ public class StoreContent : MonoBehaviour
         Default
     }
     
-
+    [Serializable]
+    public class Items
+    {
+        public ClothesSO itemStore;
+        public bool isBuyed;
+    }
+    [SerializeField] private Items[] itemsStore;
     [SerializeField] private FilterState filterState;
-    [SerializeField] private ClothesSO[] itemsStore;
+    // [SerializeField] private ClothesSO[] itemsStore;
     [SerializeField] private Transform[] Categories;
     [SerializeField] private ItemClothes itemCellPrefab;
 
@@ -37,10 +43,10 @@ public class StoreContent : MonoBehaviour
         {
             foreach (var category in Categories)
             {
-                if(category.name == item.itemCategory.ToString())
+                if(category.name == item.itemStore.itemCategory.ToString())
                 {
                     ItemClothes cell = Instantiate<ItemClothes>(itemCellPrefab, category);
-                    cell.Init(item);
+                    cell.Init(item.itemStore, item.isBuyed);
                     itemClothes.Add(cell);
                     // Debug.Log($"ADD to {category.name} an {item}");
 
