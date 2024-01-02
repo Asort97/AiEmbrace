@@ -12,10 +12,12 @@ public class CustomizationCharacter : MonoBehaviour
         public ClothesSO itemSo;
     }
 
-    [SerializeField] private Clothes[] allClothes;
-
-    private GameObject tShirts;
-    private GameObject pants;
+    [SerializeField] private Animator animator;
+    [SerializeField] public Clothes[] allClothes;
+    [SerializeField] private GameObject tShirts;
+    [SerializeField] private GameObject pants;
+    [SerializeField] private int emotionStand;
+    [SerializeField] private Color backgroundColor;
 
     private void OnEnable()
     {
@@ -44,6 +46,8 @@ public class CustomizationCharacter : MonoBehaviour
                         tShirts = clothes.itemObject;
                         tShirts.SetActive(true);
 
+                        ChangeStandEmotion();
+
                         break;
 
                     case ClothesSO.ClothesCategory.Pants:
@@ -53,12 +57,38 @@ public class CustomizationCharacter : MonoBehaviour
                             pants.SetActive(false);
                         }
                         pants = clothes.itemObject;
-
                         pants.SetActive(true);
+
+                        ChangeStandEmotion();
+
+                        break;
+
+                    case ClothesSO.ClothesCategory.Background:
+                        
+                        backgroundColor = clothes.itemSo.backgroundColor;
+                        ChangeBackgroundColor();
+
+                        break;
+
+                    case ClothesSO.ClothesCategory.EmotionStand:
+
+                        emotionStand = clothes.itemSo.emotionStand;
+                        ChangeStandEmotion();
+
                         break;
                 }
             }
         }
+    }
+
+    private void ChangeStandEmotion()
+    {
+        animator.SetInteger("animation", emotionStand);
+    }
+
+    private void ChangeBackgroundColor()
+    {
+        Camera.main.backgroundColor = backgroundColor;
     }
 
 }

@@ -8,20 +8,16 @@ public class ClothesSO : ScriptableObject
     {
         TShirts,
         Shirts,
-        Tops,
-        Hoodies,
-        Jackets,
-        Jeans,
         Pants,
-        Skirts,
-        Shorts,
-        Short,
-        Long,
-        Sneakers,
+        Background,
+        EmotionStand
     }
+
     public Color color;
     public string nameItem;
     public ClothesCategory itemCategory;
     public Sprite displayImage;
+    public int emotionStand;
+    public Color backgroundColor;
     public int price;
 }

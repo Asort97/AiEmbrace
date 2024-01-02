@@ -1735,6 +1735,14 @@ MonoBehaviour:
     isBuyed: 0
   - itemStore: {fileID: 11400000, guid: 120cb452e6c093e47b1ecfdac90dcdb7, type: 2}
     isBuyed: 1
+  - itemStore: {fileID: 11400000, guid: d9fb46cb8a6981c488a9a85ffcc70eca, type: 2}
+    isBuyed: 1
+  - itemStore: {fileID: 11400000, guid: f6dd3e17da07e6f4ca814ade590af100, type: 2}
+    isBuyed: 1
+  - itemStore: {fileID: 11400000, guid: 026aa9155e625174c8b17b1c11bbbc75, type: 2}
+    isBuyed: 1
+  - itemStore: {fileID: 11400000, guid: 9aec228eec280fb4e8402d525a09e036, type: 2}
+    isBuyed: 1
   filterState: 0
   Categories:
   - {fileID: 231219492}
@@ -1962,6 +1970,11 @@ MonoBehaviour:
   - emo4
   - emo5
   - emo6
+--- !u!95 &346823885 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95724331183731322, guid: bcfcb1b16ebed974ea8244e270af8d4a, type: 3}
+  m_PrefabInstance: {fileID: 126906636}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &406908662
 GameObject:
   m_ObjectHideFlags: 0
@@ -6952,6 +6965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662f9c0cedf312a40b1cfb969bc3a36d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 346823885}
   allClothes:
   - itemObject: {fileID: 1881218280}
     itemSo: {fileID: 11400000, guid: 3d9be57afef8acd47bee397a1828861e, type: 2}
@@ -6961,6 +6975,18 @@ MonoBehaviour:
     itemSo: {fileID: 11400000, guid: 877108989af06404d9fc70d5aba1dae2, type: 2}
   - itemObject: {fileID: 346823877}
     itemSo: {fileID: 11400000, guid: 120cb452e6c093e47b1ecfdac90dcdb7, type: 2}
+  - itemObject: {fileID: 0}
+    itemSo: {fileID: 11400000, guid: 9aec228eec280fb4e8402d525a09e036, type: 2}
+  - itemObject: {fileID: 0}
+    itemSo: {fileID: 11400000, guid: 026aa9155e625174c8b17b1c11bbbc75, type: 2}
+  - itemObject: {fileID: 0}
+    itemSo: {fileID: 11400000, guid: d9fb46cb8a6981c488a9a85ffcc70eca, type: 2}
+  - itemObject: {fileID: 0}
+    itemSo: {fileID: 11400000, guid: f6dd3e17da07e6f4ca814ade590af100, type: 2}
+  tShirts: {fileID: 346823877}
+  pants: {fileID: 0}
+  emotionStand: 0
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1372351771
 GameObject:
   m_ObjectHideFlags: 0

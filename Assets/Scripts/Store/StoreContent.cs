@@ -41,18 +41,18 @@ public class StoreContent : MonoBehaviour
 
         foreach (var item in itemsStore)
         {
-            foreach (var category in Categories)
-            {
-                if(category.name == item.itemStore.itemCategory.ToString())
-                {
-                    ItemClothes cell = Instantiate<ItemClothes>(itemCellPrefab, category);
+            // foreach (var category in Categories)
+            // {
+                // if(category.name == item.itemStore.itemCategory.ToString())
+                // {
+                    ItemClothes cell = Instantiate<ItemClothes>(itemCellPrefab, Categories[0]);
                     cell.Init(item.itemStore, item.isBuyed);
                     itemClothes.Add(cell);
-                    // Debug.Log($"ADD to {category.name} an {item}");
+                    Debug.Log($"ADD to {Categories[0]} an {item}");
 
-                    break;
-                }
-            }            
+                    // break;
+                // }
+            // }            
         }
     }
 
