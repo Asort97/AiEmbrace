@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class StoreContent : MonoBehaviour
 {
@@ -69,6 +70,10 @@ public class StoreContent : MonoBehaviour
                     item.gameObject.SetActive(true);
                 }
 
+                UIManager.instance.purchasedClothesFiltButton.image.color = Color.white;
+                UIManager.instance.newClothesFiltButton.image.color = Color.white;
+                UIManager.instance.defaultClothesFiltButton.image.color = Color.red;
+
                 break;
 
             case FilterState.New:
@@ -77,6 +82,10 @@ public class StoreContent : MonoBehaviour
                 {
                     item.gameObject.SetActive(!item.isBuyed);
                 }
+                
+                UIManager.instance.purchasedClothesFiltButton.image.color = Color.white;
+                UIManager.instance.newClothesFiltButton.image.color = Color.red;
+                UIManager.instance.defaultClothesFiltButton.image.color = Color.white;
 
                 break;
 
@@ -86,6 +95,10 @@ public class StoreContent : MonoBehaviour
                 {
                     item.gameObject.SetActive(item.isBuyed);
                 }
+
+                UIManager.instance.purchasedClothesFiltButton.image.color = Color.red;
+                UIManager.instance.newClothesFiltButton.image.color = Color.white;
+                UIManager.instance.defaultClothesFiltButton.image.color = Color.white;
 
                 break;
         }
