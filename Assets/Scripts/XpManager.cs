@@ -25,6 +25,7 @@ public class XpManager : MonoBehaviour
 
     public void AddXp(float exp)
     {
+        Debug.Log($"Addes {exp}");
         if(receivedDayXP < maxXpInDay)
         {
             if(exp > AmountToNextLevel)
@@ -67,7 +68,7 @@ public class XpManager : MonoBehaviour
             }
         }
         else
-        {
+        { 
             Debug.Log($"already received max XP");
         }
     }
@@ -77,6 +78,8 @@ public class XpManager : MonoBehaviour
         CurrentLvl++;
         
         CheckLevel();
+
+        OnNewLevel?.Invoke();
     }
 
     private void CheckLevel()

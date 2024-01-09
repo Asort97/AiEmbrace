@@ -10,23 +10,21 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
     [SerializeField] private GameObject[] allMenu;
-    [SerializeField] private GameObject chatMenu;
-    [SerializeField] private GameObject storeMenu;
-    [SerializeField] private GameObject clothesMenu;
-    [SerializeField] private GameObject mainMenu;
     [SerializeField] private Slider xpSlider;
     [SerializeField] private TMP_Text levelText;
-    [SerializeField] private float smoothXpSlider;
     [SerializeField] private Button buyButton;
+    [SerializeField] private Button useButton;
     [SerializeField] private TMP_Text buyButtonText;
+    [SerializeField] private TMP_Text useButtonText;
+
+    [SerializeField] private GameObject nofiticationPanel;
+    [SerializeField] private TMP_Text nofiticationText;
 
     public Button newClothesFiltButton;
     public Button defaultClothesFiltButton;
     public Button purchasedClothesFiltButton;
 
     public TMP_InputField inputFieldChat;
-    public ItemClothes prevItem;
-    private float diff;
 
     private void Awake()
     {
@@ -36,43 +34,34 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         ItemClothes.OnShowBuyBtn += ShowBuyItemButton;
+        ItemClothes.OnShowUseBtn += ShowUseItemButton;
     }
     private void OnDisable()
     {
         ItemClothes.OnShowBuyBtn -= ShowBuyItemButton;
+        ItemClothes.OnShowUseBtn -= ShowUseItemButton;
     }
-
-    // public void SelectItem(bool isSelected, bool isBuyed, ItemClothes currentItem)
-    // {
-    //     if(isSelected)
-    //     {
-
-    //     }
-    // }
 
     private void ShowBuyItemButton(bool isEnable, string name, string price, ItemClothes item)
     {
+        useButton.gameObject.SetActive(false);
         buyButton.gameObject.SetActive(true);
+
         buyButtonText.text = name;
 
         buyButton.onClick.RemoveAllListeners();
         buyButton.onClick.AddListener(item.BuyItem);
     }
 
-    public void SetEnableChat(bool isEnable)
+    private void ShowUseItemButton(string name, ItemClothes item)
     {
-        chatMenu.SetActive(isEnable);
-        mainMenu.SetActive(!isEnable);
-    }
+        buyButton.gameObject.SetActive(false);
+        useButton.gameObject.SetActive(true);
 
-    public void SetEnableStore(bool isEnable)
-    {
-        foreach (GameObject item in allMenu)
-        {
-            item.SetActive(false);
-        }
-        storeMenu.SetActive(isEnable);
-        mainMenu.SetActive(!isEnable);
+        useButtonText.text = name;
+
+        useButton.onClick.RemoveAllListeners();
+        useButton.onClick.AddListener(item.UseItem);
     }
 
     public void SetEnableMenu(GameObject menu)
@@ -84,6 +73,7 @@ public class UIManager : MonoBehaviour
 
         menu.SetActive(true);
     }
+
     public void ClearInputFieldChat()
     {
         inputFieldChat.text = "";
@@ -96,4 +86,15 @@ public class UIManager : MonoBehaviour
         xpSlider.maxValue = maxAmount;
         xpSlider.value = amount;
     }
+    public void ShowNofiticationPanel(string info)
+    {
+        nofiticationPanel.SetActive(true);
+        nofiticationText.text = info;
+    }
+
+    public void CloseNofitication()
+    {
+        nofiticationPanel.SetActive(false);
+    }
+
 }

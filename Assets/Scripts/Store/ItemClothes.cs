@@ -13,6 +13,7 @@ public class ItemClothes : MonoBehaviour
     public ClothesSO clothesSO;
     public static Action<int> OnBuyItem;
     public static Action<bool, string, string, ItemClothes> OnShowBuyBtn;
+    public static Action<string, ItemClothes> OnShowUseBtn;
     public static Action<ClothesSO, bool> OnUseItem;
     public static Action<ItemClothes> OnSelectedItem;
     public bool isSelected;
@@ -54,8 +55,14 @@ public class ItemClothes : MonoBehaviour
             Debug.Log($"Buyed {itemName}");
 
             OnBuyItem?.Invoke(itemPrice);
+            
+            PopUpNofitication.instance.ShowNofitication(PopUpNofitication.NofStatus.SuccessPurchased);
 
             isBuyed = true;
+        }
+        else if(!CoinsManager.instance.CheckEnoughCoins(itemPrice))
+        {
+            PopUpNofitication.instance.ShowNofitication(PopUpNofitication.NofStatus.NotEnoughCash);
         }
     }
 
@@ -64,9 +71,14 @@ public class ItemClothes : MonoBehaviour
         OnShowBuyBtn?.Invoke(isSelected, itemName, itemPrice.ToString(), this);
     }
 
-    private void UseItem(bool isEnable)
+    private void ShowUseButton()
     {
-        OnUseItem?.Invoke(clothesSO, isEnable);
+        OnShowUseBtn?.Invoke(itemName, this);
+    }
+
+    public void UseItem()
+    {
+        OnUseItem?.Invoke(clothesSO, isSelected);
     }
 
     public void OnSelect()
@@ -75,7 +87,7 @@ public class ItemClothes : MonoBehaviour
         
         if(isBuyed)
         {
-            UseItem(isSelected);
+            ShowUseButton();
         }
         else
         {

@@ -5,11 +5,12 @@ using TMPro;
 
 public class CoinsDrawable : MonoBehaviour
 {
-    [SerializeField] private TMP_Text coinsText;
-    [SerializeField] private TMP_Text crystalText;
+    [SerializeField] private TMP_Text[] coinsText;
+    [SerializeField] private TMP_Text[] crystalText;
 
     public void OnEnable()
     {
+        Debug.Log($"dfdfd");
         CoinsManager.OnAddCash += UpdateText;
     }
 
@@ -20,7 +21,16 @@ public class CoinsDrawable : MonoBehaviour
 
     private void UpdateText(int coin, int crystal)
     {
-        coinsText.text = coin.ToString();
-        crystalText.text = crystal.ToString();
+        Debug.Log($"Updating stats");
+
+        foreach (var text in coinsText)
+        {
+            text.text = coin.ToString();
+        }
+
+        foreach (var text in crystalText)
+        {
+            text.text = crystal.ToString();
+        }
     }
 }
