@@ -10,20 +10,20 @@ public class ItemClothes : MonoBehaviour
     public bool isBuyed;
     private int itemPrice;
     public string itemName;
-    public ClothesSO clothesSO;
+    public ItemSO clothesSO;
     public static Action<int> OnBuyItem;
     public static Action<bool, string, string, ItemClothes> OnShowBuyBtn;
     public static Action<string, ItemClothes> OnShowUseBtn;
-    public static Action<ClothesSO, bool> OnUseItem;
+    public static Action<ItemSO, bool> OnUseItem;
     public static Action<ItemClothes> OnSelectedItem;
     public bool isSelected;
 
-    public void Init(ClothesSO clothesSO, bool isBuyed)
+    public void Init(ItemSO clothesSO, bool isBuyed)
     {
         this.clothesSO = clothesSO;
         
         displayImage.sprite = clothesSO.displayImage;
-        displayImage.color = clothesSO.color;
+        displayImage.color = clothesSO.imageColor;
 
         itemPrice = clothesSO.price;
         itemName = clothesSO.nameItem;

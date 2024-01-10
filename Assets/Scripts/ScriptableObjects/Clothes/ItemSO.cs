@@ -1,8 +1,7 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ClothesSO", menuName = "")]
-public class ClothesSO : ScriptableObject
+public class ItemSO : ScriptableObject
 {
     public enum ClothesCategory
     {
@@ -13,11 +12,9 @@ public class ClothesSO : ScriptableObject
         EmotionStand
     }
 
-    public Color color;
+    public Color imageColor;
     public string nameItem;
     public ClothesCategory itemCategory;
     public Sprite displayImage;
-    public int emotionStand;
-    public Color backgroundColor;
     public int price;
 }

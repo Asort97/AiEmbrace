@@ -1033,14 +1033,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemsStore:
-  - itemStore: {fileID: 11400000, guid: d9fb46cb8a6981c488a9a85ffcc70eca, type: 2}
-    isBuyed: 1
-  - itemStore: {fileID: 11400000, guid: f6dd3e17da07e6f4ca814ade590af100, type: 2}
-    isBuyed: 1
+  - itemStore: {fileID: 11400000, guid: 43daea5ed4314e048a6714efe79fba60, type: 2}
+    isBuyed: 0
+  - itemStore: {fileID: 11400000, guid: 9fe7c52bd95eabb4c8763e1580b2a998, type: 2}
+    isBuyed: 0
   filterState: 0
   Categories:
   - {fileID: 905647869}
   itemCellPrefab: {fileID: 704585715316368242, guid: b8071d0ab65b5f94a8bb5d3e9ddc7444, type: 3}
+  newClothesFiltButton: {fileID: 859602278}
+  defaultClothesFiltButton: {fileID: 1176802757}
+  purchasedClothesFiltButton: {fileID: 1657940035}
 --- !u!114 &121762707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1185,7 +1188,28 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 137076287924325136, guid: bcfcb1b16ebed974ea8244e270af8d4a, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 137214229657911084, guid: bcfcb1b16ebed974ea8244e270af8d4a, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 137732018138343516, guid: bcfcb1b16ebed974ea8244e270af8d4a, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 137852056279762176, guid: bcfcb1b16ebed974ea8244e270af8d4a, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 137944808037784828, guid: bcfcb1b16ebed974ea8244e270af8d4a, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 54454140523445614, guid: bcfcb1b16ebed974ea8244e270af8d4a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -2231,6 +2255,9 @@ MonoBehaviour:
   - {fileID: 231219492}
   - {fileID: 329907624}
   itemCellPrefab: {fileID: 704585715316368242, guid: b8071d0ab65b5f94a8bb5d3e9ddc7444, type: 3}
+  newClothesFiltButton: {fileID: 1387209588}
+  defaultClothesFiltButton: {fileID: 272904183}
+  purchasedClothesFiltButton: {fileID: 808823938}
 --- !u!1 &328263479
 GameObject:
   m_ObjectHideFlags: 0
@@ -5756,15 +5783,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemsStore:
-  - itemStore: {fileID: 11400000, guid: 026aa9155e625174c8b17b1c11bbbc75, type: 2}
+  - itemStore: {fileID: 11400000, guid: ab3fee15e106c8248a43556b6573fda8, type: 2}
     isBuyed: 1
-  - itemStore: {fileID: 11400000, guid: 9aec228eec280fb4e8402d525a09e036, type: 2}
+  - itemStore: {fileID: 11400000, guid: 82b69c06fdc73a743a97d66b83831c92, type: 2}
     isBuyed: 1
   filterState: 0
   Categories:
   - {fileID: 1460498872}
   - {fileID: 1182108766}
   itemCellPrefab: {fileID: 704585715316368242, guid: b8071d0ab65b5f94a8bb5d3e9ddc7444, type: 3}
+  newClothesFiltButton: {fileID: 538151894}
+  defaultClothesFiltButton: {fileID: 745953957}
+  purchasedClothesFiltButton: {fileID: 12678551}
 --- !u!114 &720205657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6213,6 +6243,30 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: toChat
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1144331536}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: CloseUseButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1144331536}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: CloseBuyButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &773498777
@@ -8735,9 +8789,6 @@ MonoBehaviour:
   useButtonText: {fileID: 1049827770}
   nofiticationPanel: {fileID: 1805377262}
   nofiticationText: {fileID: 568276814}
-  newClothesFiltButton: {fileID: 1387209588}
-  defaultClothesFiltButton: {fileID: 272904183}
-  purchasedClothesFiltButton: {fileID: 808823938}
   inputFieldChat: {fileID: 457685674}
 --- !u!4 &1144331537
 Transform:
@@ -10299,16 +10350,16 @@ MonoBehaviour:
   - itemObject: {fileID: 346823877}
     itemSo: {fileID: 11400000, guid: 120cb452e6c093e47b1ecfdac90dcdb7, type: 2}
   - itemObject: {fileID: 0}
-    itemSo: {fileID: 11400000, guid: 9aec228eec280fb4e8402d525a09e036, type: 2}
+    itemSo: {fileID: 11400000, guid: 43daea5ed4314e048a6714efe79fba60, type: 2}
   - itemObject: {fileID: 0}
-    itemSo: {fileID: 11400000, guid: 026aa9155e625174c8b17b1c11bbbc75, type: 2}
+    itemSo: {fileID: 11400000, guid: 9fe7c52bd95eabb4c8763e1580b2a998, type: 2}
   - itemObject: {fileID: 0}
-    itemSo: {fileID: 11400000, guid: d9fb46cb8a6981c488a9a85ffcc70eca, type: 2}
+    itemSo: {fileID: 11400000, guid: ab3fee15e106c8248a43556b6573fda8, type: 2}
   - itemObject: {fileID: 0}
-    itemSo: {fileID: 11400000, guid: f6dd3e17da07e6f4ca814ade590af100, type: 2}
+    itemSo: {fileID: 11400000, guid: 82b69c06fdc73a743a97d66b83831c92, type: 2}
   tShirts: {fileID: 346823877}
   pants: {fileID: 0}
-  emotionStand: 0
+  emotionStand: 1
   backgroundColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1331553315
 GameObject:
@@ -10415,6 +10466,30 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: toChat
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1144331536}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: CloseUseButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1144331536}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: CloseBuyButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1331553318
@@ -16344,6 +16419,30 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: toChat
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1144331536}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: CloseUseButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1144331536}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: CloseBuyButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2131217536

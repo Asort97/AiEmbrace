@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6e1b227f75aff84780ff07a9e19e1b2, type: 3}
-  m_Name: BgColor2
+  m_Name: BlueTShirt
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 0, b: 0, a: 1}
-  nameItem: BG Red
-  itemCategory: 3
+  imageColor: {r: 1, g: 0.0047169924, b: 0.0047169924, a: 1}
+  nameItem: BlueTShirt
+  itemCategory: 0
   displayImage: {fileID: 0}
-  emotionStand: 0
-  backgroundColor: {r: 0.65845525, g: 1, b: 0.5235849, a: 0}
-  price: 0
+  price: 15

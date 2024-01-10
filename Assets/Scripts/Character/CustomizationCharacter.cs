@@ -9,7 +9,7 @@ public class CustomizationCharacter : MonoBehaviour
     [Serializable] public struct Clothes
     {
         public GameObject itemObject;
-        public ClothesSO itemSo;
+        public ItemSO itemSo;
     }
 
     [SerializeField] private Animator animator;
@@ -29,7 +29,7 @@ public class CustomizationCharacter : MonoBehaviour
         ItemClothes.OnUseItem -= SetNewItem;
     }
 
-    public void SetNewItem(ClothesSO itemToWear, bool toClothe)
+    public void SetNewItem(ItemSO itemToWear, bool toClothe)
     {   
         foreach (Clothes clothes in allClothes)
         {
@@ -37,7 +37,7 @@ public class CustomizationCharacter : MonoBehaviour
             {
                 switch (clothes.itemSo.itemCategory)
                 {
-                    case ClothesSO.ClothesCategory.TShirts:
+                    case ItemSO.ClothesCategory.TShirts:
 
                         if(tShirts)
                         {
@@ -50,7 +50,7 @@ public class CustomizationCharacter : MonoBehaviour
 
                         break;
 
-                    case ClothesSO.ClothesCategory.Pants:
+                    case ItemSO.ClothesCategory.Pants:
 
                         if(pants)
                         {
@@ -63,16 +63,22 @@ public class CustomizationCharacter : MonoBehaviour
 
                         break;
 
-                    case ClothesSO.ClothesCategory.Background:
+                    case ItemSO.ClothesCategory.Background:
                         
-                        backgroundColor = clothes.itemSo.backgroundColor;
+                        if(clothes.itemSo is RoomSO)
+                        {
+                            backgroundColor = ((RoomSO)clothes.itemSo).backgroundColor;
+                        }
                         ChangeBackgroundColor();
 
                         break;
 
-                    case ClothesSO.ClothesCategory.EmotionStand:
+                    case ItemSO.ClothesCategory.EmotionStand:
 
-                        emotionStand = clothes.itemSo.emotionStand;
+                        if(clothes.itemSo is EmotionSO)
+                        {
+                            emotionStand = ((EmotionSO)clothes.itemSo).emotionStand;
+                        }
                         ChangeStandEmotion();
 
                         break;

@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6e1b227f75aff84780ff07a9e19e1b2, type: 3}
-  m_Name: BlackTShirt
+  m_Script: {fileID: 11500000, guid: 349c2222946c96849b3662ed1fb03de9, type: 3}
+  m_Name: EmotionSO1
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0, b: 0, a: 1}
-  nameItem: BlackTShirt
-  itemCategory: 0
+  imageColor: {r: 1, g: 1, b: 1, a: 1}
+  nameItem: Emo1
+  itemCategory: 4
   displayImage: {fileID: 0}
-  price: 0
+  price: 30
+  emotionStand: 1

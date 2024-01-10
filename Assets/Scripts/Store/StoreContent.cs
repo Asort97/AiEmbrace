@@ -17,28 +17,32 @@ public class StoreContent : MonoBehaviour
     [Serializable]
     public class Items
     {
-        public ClothesSO itemStore;
+        public ItemSO itemStore;
         public bool isBuyed;
     }
     [SerializeField] private Items[] itemsStore;
     [SerializeField] private FilterState filterState;
-    // [SerializeField] private ClothesSO[] itemsStore;
     [SerializeField] private Transform[] Categories;
     [SerializeField] private ItemClothes itemCellPrefab;
+
+    [Space(5)]
+    [SerializeField] public Button newClothesFiltButton;
+    [SerializeField] public Button defaultClothesFiltButton;
+    [SerializeField] public Button purchasedClothesFiltButton;
 
     private List<ItemClothes> itemClothes = new List<ItemClothes>();
 
     private void Start()
     {
         Init();
-        ChangeFilterCategory(FilterState.Purchased);
+        ChangeFilterCategory(FilterState.New);
     }
 
     private void Init()
     {
-        UIManager.instance.newClothesFiltButton.onClick.AddListener(() => ChangeFilterCategory(FilterState.New));
-        UIManager.instance.defaultClothesFiltButton.onClick.AddListener(() => ChangeFilterCategory(FilterState.Default));
-        UIManager.instance.purchasedClothesFiltButton.onClick.AddListener(() => ChangeFilterCategory(FilterState.Purchased));
+        newClothesFiltButton.onClick.AddListener(() => ChangeFilterCategory(FilterState.New));
+        defaultClothesFiltButton.onClick.AddListener(() => ChangeFilterCategory(FilterState.Default));
+        purchasedClothesFiltButton.onClick.AddListener(() => ChangeFilterCategory(FilterState.Purchased));
 
         foreach (var item in itemsStore)
         {
@@ -70,9 +74,9 @@ public class StoreContent : MonoBehaviour
                     item.gameObject.SetActive(true);
                 }
 
-                UIManager.instance.purchasedClothesFiltButton.image.color = Color.white;
-                UIManager.instance.newClothesFiltButton.image.color = Color.white;
-                UIManager.instance.defaultClothesFiltButton.image.color = Color.red;
+                purchasedClothesFiltButton.image.color = Color.white;
+                newClothesFiltButton.image.color = Color.white;
+                defaultClothesFiltButton.image.color = Color.red;
 
                 break;
 
@@ -83,9 +87,9 @@ public class StoreContent : MonoBehaviour
                     item.gameObject.SetActive(!item.isBuyed);
                 }
                 
-                UIManager.instance.purchasedClothesFiltButton.image.color = Color.white;
-                UIManager.instance.newClothesFiltButton.image.color = Color.red;
-                UIManager.instance.defaultClothesFiltButton.image.color = Color.white;
+                purchasedClothesFiltButton.image.color = Color.white;
+                newClothesFiltButton.image.color = Color.red;
+                defaultClothesFiltButton.image.color = Color.white;
 
                 break;
 
@@ -96,9 +100,9 @@ public class StoreContent : MonoBehaviour
                     item.gameObject.SetActive(item.isBuyed);
                 }
 
-                UIManager.instance.purchasedClothesFiltButton.image.color = Color.red;
-                UIManager.instance.newClothesFiltButton.image.color = Color.white;
-                UIManager.instance.defaultClothesFiltButton.image.color = Color.white;
+                purchasedClothesFiltButton.image.color = Color.red;
+                newClothesFiltButton.image.color = Color.white;
+                defaultClothesFiltButton.image.color = Color.white;
 
                 break;
         }

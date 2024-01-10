@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using DG.Tweening;
-using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -19,10 +17,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject nofiticationPanel;
     [SerializeField] private TMP_Text nofiticationText;
-
-    public Button newClothesFiltButton;
-    public Button defaultClothesFiltButton;
-    public Button purchasedClothesFiltButton;
 
     public TMP_InputField inputFieldChat;
 
@@ -86,6 +80,7 @@ public class UIManager : MonoBehaviour
         xpSlider.maxValue = maxAmount;
         xpSlider.value = amount;
     }
+
     public void ShowNofiticationPanel(string info)
     {
         nofiticationPanel.SetActive(true);
@@ -96,5 +91,14 @@ public class UIManager : MonoBehaviour
     {
         nofiticationPanel.SetActive(false);
     }
-
+    
+    public void CloseUseButton()
+    {
+        useButton.gameObject.SetActive(false);
+    }
+    
+    public void CloseBuyButton()
+    {
+        buyButton.gameObject.SetActive(false);
+    }
 }

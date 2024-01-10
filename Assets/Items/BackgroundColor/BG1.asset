@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6e1b227f75aff84780ff07a9e19e1b2, type: 3}
-  m_Name: BgColor1
+  m_Script: {fileID: 11500000, guid: 5a601c8483aa16848ad78bb8644aae6c, type: 3}
+  m_Name: BG1
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 0.5990566, b: 0.5990566, a: 1}
-  nameItem: BG Pink
+  imageColor: {r: 1, g: 1, b: 1, a: 1}
+  nameItem: BG1
   itemCategory: 3
   displayImage: {fileID: 0}
-  emotionStand: 0
-  backgroundColor: {r: 1, g: 0.6084906, b: 0.6084906, a: 0}
-  price: 0
+  price: 30
+  backgroundColor: {r: 1, g: 0.5518868, b: 0.5518868, a: 0}
