@@ -14,7 +14,7 @@ public class ItemClothes : MonoBehaviour
     public static Action<int> OnBuyItem;
     public static Action<bool, string, string, ItemClothes> OnShowBuyBtn;
     public static Action<string, ItemClothes> OnShowUseBtn;
-    public static Action<ItemSO, bool> OnUseItem;
+    public static Action<ItemSO, bool, bool> OnUseItem;
     public static Action<ItemClothes> OnSelectedItem;
     public bool isSelected;
 
@@ -78,7 +78,7 @@ public class ItemClothes : MonoBehaviour
 
     public void UseItem()
     {
-        OnUseItem?.Invoke(clothesSO, isSelected);
+        OnUseItem?.Invoke(clothesSO, isSelected, false);
     }
 
     public void OnSelect()

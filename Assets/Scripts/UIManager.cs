@@ -95,10 +95,8 @@ public class UIManager : MonoBehaviour
     public void CloseUseButton()
     {
         useButton.gameObject.SetActive(false);
-    }
-    
-    public void CloseBuyButton()
-    {
         buyButton.gameObject.SetActive(false);
+
+        CustomizationCharacter.instance.DisablePreviewItems();
     }
 }

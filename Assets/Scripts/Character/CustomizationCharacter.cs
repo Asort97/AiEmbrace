@@ -6,6 +6,7 @@ using Unity.Collections;
 
 public class CustomizationCharacter : MonoBehaviour
 {
+    public static CustomizationCharacter instance;
     [Serializable] public struct Clothes
     {
         public GameObject itemObject;
@@ -14,23 +15,54 @@ public class CustomizationCharacter : MonoBehaviour
 
     [SerializeField] private Animator animator;
     [SerializeField] public Clothes[] allClothes;
-    [SerializeField] private GameObject tShirts;
-    [SerializeField] private GameObject pants;
-    [SerializeField] private int emotionStand;
-    [SerializeField] private Color backgroundColor;
+    [SerializeField] private Clothes tShirt;
+    [SerializeField] private Clothes pants;
+    [SerializeField] private Clothes room;
+    [SerializeField] private Clothes animationStand;
+    // [SerializeField] private int emotionStand;
+    // [SerializeField] private Color backgroundColor;
+    private ItemSO previousClothes;
+    private ItemSO previousRoom;
+    private ItemSO previousAnim;
+
+    private void Awake()
+    {
+        instance = this;        
+    }
+
+    private void Start()
+    {
+        previousClothes = tShirt.itemSo;
+        previousRoom = room.itemSo;
+        previousAnim = animationStand.itemSo;        
+    }
 
     private void OnEnable()
     {
         ItemClothes.OnUseItem += SetNewItem;
+        ItemClothes.OnSelectedItem += PreviewItem;
     }
 
     private void OnDisable()
     {
         ItemClothes.OnUseItem -= SetNewItem;
+        ItemClothes.OnSelectedItem -= PreviewItem;
     }
 
-    public void SetNewItem(ItemSO itemToWear, bool toClothe)
-    {   
+    private void PreviewItem(ItemClothes itemClothes)
+    {
+        SetNewItem(itemClothes.clothesSO, true, true);
+    }
+    
+    public void DisablePreviewItems()
+    {
+        SetNewItem(previousClothes, true, true);
+        SetNewItem(previousAnim, true, true);
+        SetNewItem(previousRoom, true, true);
+    }
+
+    public void SetNewItem(ItemSO itemToWear, bool toClothe, bool isPreview)
+    {           
         foreach (Clothes clothes in allClothes)
         {
             if(clothes.itemSo == itemToWear)
@@ -39,46 +71,64 @@ public class CustomizationCharacter : MonoBehaviour
                 {
                     case ItemSO.ClothesCategory.TShirts:
 
-                        if(tShirts)
+                        if(!isPreview)
                         {
-                            tShirts.SetActive(false);
+                            previousClothes = tShirt.itemSo;
                         }
-                        tShirts = clothes.itemObject;
-                        tShirts.SetActive(true);
+
+                        if(tShirt.itemObject != null)
+                        {
+                            tShirt.itemObject.SetActive(false);
+                        }
+
+                        tShirt = clothes;
+                        tShirt.itemObject.SetActive(true);
 
                         ChangeStandEmotion();
 
                         break;
 
                     case ItemSO.ClothesCategory.Pants:
-
-                        if(pants)
+                        
+                        if(!isPreview)
                         {
-                            pants.SetActive(false);
+                            previousClothes = pants.itemSo;
                         }
-                        pants = clothes.itemObject;
-                        pants.SetActive(true);
+
+                        if(pants.itemObject != null)
+                        {
+                            pants.itemObject.SetActive(false);
+                        }
+
+                        pants = clothes;
+                        pants.itemObject.SetActive(true);
 
                         ChangeStandEmotion();
 
                         break;
 
                     case ItemSO.ClothesCategory.Background:
-                        
-                        if(clothes.itemSo is RoomSO)
+
+                        if(!isPreview)
                         {
-                            backgroundColor = ((RoomSO)clothes.itemSo).backgroundColor;
+                            previousRoom = room.itemSo;
                         }
+
+                        room = clothes;
+
                         ChangeBackgroundColor();
 
                         break;
 
                     case ItemSO.ClothesCategory.EmotionStand:
 
-                        if(clothes.itemSo is EmotionSO)
+                        if(!isPreview)
                         {
-                            emotionStand = ((EmotionSO)clothes.itemSo).emotionStand;
+                            previousAnim = animationStand.itemSo;
                         }
+
+                        animationStand = clothes;
+
                         ChangeStandEmotion();
 
                         break;
@@ -89,12 +139,12 @@ public class CustomizationCharacter : MonoBehaviour
 
     private void ChangeStandEmotion()
     {
-        animator.SetInteger("animation", emotionStand);
+        animator.SetInteger("animation", ((EmotionSO)animationStand.itemSo).emotionStand);
     }
 
     private void ChangeBackgroundColor()
     {
-        Camera.main.backgroundColor = backgroundColor;
+        Camera.main.backgroundColor = ((RoomSO)room.itemSo).backgroundColor;
     }
 
 }
