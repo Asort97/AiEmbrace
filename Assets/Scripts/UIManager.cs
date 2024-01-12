@@ -87,6 +87,11 @@ public class UIManager : MonoBehaviour
         nofiticationText.text = info;
     }
 
+    public void SetEnableInputChat(bool enabled)
+    {
+        inputFieldChat.gameObject.SetActive(enabled);
+    }
+
     public void CloseNofitication()
     {
         nofiticationPanel.SetActive(false);
@@ -98,5 +103,6 @@ public class UIManager : MonoBehaviour
         buyButton.gameObject.SetActive(false);
 
         CustomizationCharacter.instance.DisablePreviewItems();
+        SetEnableInputChat(true);
     }
 }
