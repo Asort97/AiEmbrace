@@ -84,7 +84,7 @@ public class ClientAPI : MonoBehaviour
     private Dictionary<string, TextEmbeddingsVectorResponse> textEmbeddingsCache = new Dictionary<string, TextEmbeddingsVectorResponse>();
     private Dictionary<string, TextSimilarityResponse> textSimilarityCache = new Dictionary<string, TextSimilarityResponse>();
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
 
