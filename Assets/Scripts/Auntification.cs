@@ -11,27 +11,23 @@ public class Auntification : MonoBehaviour
     [SerializeField] private GameObject welcomeMenu;
     [SerializeField] private GameObject loginMenu;
     [SerializeField] private GameObject registrationMenu;
-
+    [SerializeField] private GameObject errorLoginPanel;
+    [SerializeField] private TMP_Text errorLoginText;
     [SerializeField] private TMP_InputField login_emailField;
     [SerializeField] private TMP_InputField login_passwordField;
 
     [SerializeField] private TMP_InputField register_emailField;
     [SerializeField] private TMP_InputField register_passwordField;
 
-    private int isAlreadyLogin  = 0;
-    private string savedLogin;
-    private string savedPassword;
+    private string accountToken;
 
     private void Start()
     {
-        isAlreadyLogin = PlayerPrefs.GetInt("IS_LOGIN", 0);   
+        accountToken = PlayerPrefs.GetString("TOKEN");
 
-        savedLogin = PlayerPrefs.GetString("LOGIN");
-        savedPassword = PlayerPrefs.GetString("PASSWORD");
-
-        if(isAlreadyLogin == 1)
+        if(accountToken.Length != 0)
         {
-            Login(savedLogin, savedPassword);
+            SceneManager.LoadScene("GameScene");
         }
     }
 
@@ -40,6 +36,17 @@ public class Auntification : MonoBehaviour
         welcomeMenu.SetActive(true);
         registrationMenu.SetActive(false);
         loginMenu.SetActive(false);
+    }
+
+    public void ShowError(string error)
+    {
+        errorLoginPanel.SetActive(true);
+        errorLoginText.text = error;
+    }
+
+    public void CloseError()
+    {
+        errorLoginPanel.SetActive(false);
     }
 
     public void ToLoginMenu()
@@ -60,6 +67,7 @@ public class Auntification : MonoBehaviour
     {
         Register(register_emailField.text, register_passwordField.text);
     }
+
     public void LoginBtn()
     {
         Login(login_emailField.text, login_passwordField.text);
@@ -67,22 +75,17 @@ public class Auntification : MonoBehaviour
 
     public async void Register(string login, string password)
     {
-        RegisterResponse response = await ClientAPI.instance.Register(register_emailField.text, register_passwordField.text);
-
-        Debug.Log(register_emailField.text);
-        Debug.Log(register_passwordField.text);
+        RegisterResponse response = await ClientAPI.instance.Register(login, password);
 
         if(response.success)
         {
-            Debug.Log($"Success register");
-            
-            Login(register_emailField.text, register_passwordField.text);
+            Login(login, password);
         }
         else
         {
             string errors = string.Join("|", response.errors.SelectMany(kv => kv.Value));
 
-            Debug.Log($"Non Success register {errors}");
+            ShowError(errors);
         }
     }
     
@@ -92,22 +95,17 @@ public class Auntification : MonoBehaviour
 
         if(response.success)
         {
-            isAlreadyLogin = 1;
+            accountToken = ClientAPI.instance.token;
 
-            savedLogin = login;
-            savedPassword = password;     
-
-            PlayerPrefs.SetInt("IS_LOGIN", 1);
-            PlayerPrefs.SetString("LOGIN", login);
-            PlayerPrefs.SetString("PASSWORD", password);
-
-            Debug.Log($"Success login");
+            PlayerPrefs.SetString("TOKEN", ClientAPI.instance.token);
 
             SceneManager.LoadScene("GameScene");
         }
         else
         {
-            Debug.Log($"Non Success login");
+            string errors = string.Join("|", response.errors.SelectMany(kv => kv.Value));
+
+            ShowError(errors);
         }
     }
 
