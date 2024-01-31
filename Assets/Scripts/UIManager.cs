@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject[] allMenu;
     [SerializeField] private Slider xpSlider;
     [SerializeField] private TMP_Text levelText;
+    [SerializeField] private GameObject leavePanel;
     [SerializeField] private Button buyButton;
     [SerializeField] private Button useButton;
     [SerializeField] private TMP_Text buyButtonText;
@@ -68,6 +70,11 @@ public class UIManager : MonoBehaviour
         menu.SetActive(true);
     }
 
+    public void SetEnableLeavePanel()
+    {
+        leavePanel.SetActive(!leavePanel.activeSelf);
+    }
+
     public void ClearInputFieldChat()
     {
         inputFieldChat.text = "";
@@ -97,6 +104,13 @@ public class UIManager : MonoBehaviour
         nofiticationPanel.SetActive(false);
     }
     
+    public async void LeaveAccount()
+    {
+        await ClientAPI.instance.Logout();
+
+        SceneManager.LoadScene("LoginScene");
+    }
+
     public void CloseUseButton()
     {
         useButton.gameObject.SetActive(false);

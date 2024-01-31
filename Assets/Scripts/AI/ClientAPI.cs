@@ -262,8 +262,10 @@ public class ClientAPI : MonoBehaviour
     public async Task<bool> Logout()
     {
         // todo: logout request
-
+        
         token = null;
+        
+        PlayerPrefs.SetString("TOKEN", null);
 
         return true;
     }
