@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
+using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,7 +18,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button useButton;
     [SerializeField] private TMP_Text buyButtonText;
     [SerializeField] private TMP_Text useButtonText;
-
+    [SerializeField] private Image profileAvatar;
+    [SerializeField] private GameObject changeNickPanel;
+    [SerializeField] private TMP_InputField changeNickField;
     [SerializeField] private GameObject nofiticationPanel;
     [SerializeField] private TMP_Text nofiticationText;
 
@@ -104,6 +108,33 @@ public class UIManager : MonoBehaviour
         nofiticationPanel.SetActive(false);
     }
     
+    public void SetEnableChangeNickname(bool enabled)
+    {
+        changeNickPanel.SetActive(enabled);
+    }
+
+    public void ApplyNewNickname()
+    {
+        Debug.Log(changeNickField.text);
+        changeNickPanel.SetActive(false);
+    }
+
+    public void ChangePlayerAvatar()
+    {
+        string path = UnityEditor.EditorUtility.OpenFilePanel("Select Image", "", "png,jpg,jpeg");
+
+        if (!string.IsNullOrEmpty(path))
+        {
+            // Читаем байты изображения
+            byte[] imageData = File.ReadAllBytes(path);
+
+            Texture2D texture = new Texture2D(2, 2);
+            texture.LoadImage(imageData);
+
+            profileAvatar.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        }
+    }
+
     public async void LeaveAccount()
     {
         await ClientAPI.instance.Logout();
