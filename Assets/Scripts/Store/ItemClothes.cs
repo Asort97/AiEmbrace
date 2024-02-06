@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using TMPro;
 
 public class ItemClothes : MonoBehaviour
 {
     [SerializeField] private Image displayImage;
+    [SerializeField] private TMP_Text priceText;
     public bool isBuyed;
     private int itemPrice;
     public string itemName;
@@ -24,11 +26,17 @@ public class ItemClothes : MonoBehaviour
         
         displayImage.sprite = clothesSO.displayImage;
         displayImage.color = clothesSO.imageColor;
+        priceText.text = clothesSO.price.ToString();
 
         itemPrice = clothesSO.price;
         itemName = clothesSO.nameItem;
         
         this.isBuyed = isBuyed;
+
+        if(isBuyed)
+        {
+            priceText.text = "purchased";
+        }
     }
 
     public void OnEnable()
@@ -57,7 +65,8 @@ public class ItemClothes : MonoBehaviour
             OnBuyItem?.Invoke(itemPrice);
             
             PopUpNofitication.instance.ShowNofitication(PopUpNofitication.NofStatus.SuccessPurchased);
-
+            
+            priceText.text = "purchased";
             isBuyed = true;
         }
         else if(!CoinsManager.instance.CheckEnoughCoins(itemPrice))

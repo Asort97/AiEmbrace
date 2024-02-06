@@ -8,9 +8,13 @@ public class CoinsDrawable : MonoBehaviour
     [SerializeField] private TMP_Text[] coinsText;
     [SerializeField] private TMP_Text[] crystalText;
 
+    private void Start() 
+    {
+        UpdateText(0, 0);    
+    }
+
     public void OnEnable()
     {
-        Debug.Log($"dfdfd");
         CoinsManager.OnAddCash += UpdateText;
     }
 
