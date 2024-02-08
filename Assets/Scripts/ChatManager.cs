@@ -42,7 +42,7 @@ public class ChatManager : MonoBehaviour
     {
         // Логика отправки AI сообщения
         DrawNewMessage("BOT", "Yes", false); // тест
-
+        
         aiIsWaiting = true;
         // DrawNewMessage(name, text);
     }
@@ -66,6 +66,8 @@ public class ChatManager : MonoBehaviour
             Message zeroMsg = Instantiate<Message>(zeroMsgPrefab, PlayerMessagesContainer);
             newMsg.Init(isPlayer, name, msg);
             zeroMsg.Init(isPlayer, name, msg);
+
+            AudioManager.Instance.PlayNofiticationSound();
         }
 
         OnDrawMessage?.Invoke();            

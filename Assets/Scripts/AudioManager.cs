@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,16 +11,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip clickSound;
     [SerializeField] private AudioClip receiveMsgSound;
-    Button[] buttons;
+    [SerializeField] private Button[] allButtons;
 
     private void Awake() 
     {
         Instance = this;
-
-        buttons = FindObjectsOfType<Button>();
-        foreach (Button btn in buttons)
+        foreach (Button button in allButtons)
         {
-            btn.onClick.AddListener(() => PlayClickSound());
+            button.onClick.AddListener(() => PlayClickSound());
         }
     }
 
