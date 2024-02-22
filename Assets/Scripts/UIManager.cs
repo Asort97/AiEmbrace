@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
-using Unity.VisualScripting;
 
 public class UIManager : MonoBehaviour
 {

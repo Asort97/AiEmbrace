@@ -3293,7 +3293,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 43.9
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3888,7 +3888,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.024, y: 0.93100005}
   m_AnchorMax: {x: 0.13888887, y: 0.9954792}
-  m_AnchoredPosition: {x: -30.299744, y: -0.5}
+  m_AnchoredPosition: {x: -30.299805, y: -0.5}
   m_SizeDelta: {x: -1.6500092, y: -0.91999817}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &510083377
@@ -4199,7 +4199,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.439, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7487,7 +7487,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.024, y: 0.93100005}
   m_AnchorMax: {x: 0.13888887, y: 0.9954792}
-  m_AnchoredPosition: {x: -30.299744, y: -0.5}
+  m_AnchoredPosition: {x: -30.299805, y: -0.5}
   m_SizeDelta: {x: -1.6499996, y: -0.9200001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &773498776
@@ -10161,7 +10161,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.106
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -13365,7 +13365,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1321057267
 Transform:
   m_ObjectHideFlags: 0
@@ -13810,7 +13810,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emotionController: {fileID: 346823882}
   msgPrefab: {fileID: 9040357408476222999, guid: 0f4ed1e95c01f9545b0f20a5d462bc00, type: 3}
-  zeroMsgPrefab: {fileID: 9040357408476222999, guid: 0b62cf3c76d5e9149a73161a05410806, type: 3}
+  zeroMsgPrefab: {fileID: 9040357408476222999, guid: 8a6bbfeb8e6a7a84aa82fb827c48ceab, type: 3}
   PlayerMessagesContainer: {fileID: 1417786953}
   BotMessagesContainer: {fileID: 879476179}
 --- !u!4 &1375097768
@@ -14413,8 +14413,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -13}
-  m_SizeDelta: {x: 738.75006, y: 0}
+  m_AnchoredPosition: {x: 0, y: 25}
+  m_SizeDelta: {x: 738.75006, y: 25}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1417786954
 MonoBehaviour:
@@ -14461,7 +14461,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 4
     m_Right: 139
-    m_Top: 0
+    m_Top: 25
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 0
@@ -18319,7 +18319,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.024, y: 0.93100005}
   m_AnchorMax: {x: 0.13888887, y: 0.9954792}
-  m_AnchoredPosition: {x: -30.299744, y: -0.5}
+  m_AnchoredPosition: {x: -30.299805, y: -0.5}
   m_SizeDelta: {x: -1.6500092, y: -0.91999817}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1702807623
@@ -20016,15 +20016,15 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1417786953}
   - {fileID: 879476179}
+  - {fileID: 1417786953}
   m_Father: {fileID: 1435010071}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 13}
+  m_AnchoredPosition: {x: 0, y: -0.000033937977}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1974957916
 MonoBehaviour:
@@ -20063,7 +20063,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 13
+    m_Top: -25
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 0
@@ -20111,7 +20111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.878, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8.700043, y: -0.40498352}
+  m_AnchoredPosition: {x: 8.700073, y: -0.40498352}
   m_SizeDelta: {x: 6, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1976690747
