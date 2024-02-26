@@ -7,9 +7,10 @@ using System.Collections.Generic;
 
 public enum ReactionType
 {
+    Sad,
     Like,
     Heart,
-    Shock
+    Smile
 }
 
 public class Message : MonoBehaviour
@@ -30,8 +31,16 @@ public class Message : MonoBehaviour
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text messageText;
     [SerializeField] private float reactionPanelSpeed;
+    private Vector3 originalReactionScale;
+    private Vector3 animReactionScale;
     private bool alreadyClick;
     private bool isPlayer;
+
+    private void Awake()
+    {
+        originalReactionScale = reactionImage.rectTransform.localScale;
+        animReactionScale = reactionImage.rectTransform.localScale * 1.5f;
+    }
 
     // private void OnEnable() 
     // {
@@ -97,7 +106,17 @@ public class Message : MonoBehaviour
 
         if(index != -1)
         {
+            EnableReactionPanel(this);
             reactionImage.gameObject.SetActive(true);
+
+            reactionImage.rectTransform.DOScale(animReactionScale, 0.2f)
+                .SetEase(Ease.InOutSine)
+                .OnComplete(() => 
+                {
+                    reactionImage.rectTransform.DOScale(originalReactionScale, 0.4f)
+                        .SetEase(Ease.OutBounce);
+                });
+
             reactionImage.sprite = reactionsList[index].sprite;
         }
         else
