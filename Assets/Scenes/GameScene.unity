@@ -1936,7 +1936,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &210138658
 GameObject:
@@ -4331,7 +4331,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &520232033
 GameObject:
@@ -7449,7 +7449,7 @@ Transform:
   - {fileID: 1149620390}
   - {fileID: 999395279}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &773498774
 GameObject:
@@ -13383,7 +13383,7 @@ Transform:
   - {fileID: 1152536069}
   - {fileID: 126906637}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1321057268
 MonoBehaviour:
@@ -13810,9 +13810,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emotionController: {fileID: 346823882}
   msgPrefab: {fileID: 9040357408476222999, guid: 0f4ed1e95c01f9545b0f20a5d462bc00, type: 3}
-  zeroMsgPrefab: {fileID: 9040357408476222999, guid: 8a6bbfeb8e6a7a84aa82fb827c48ceab, type: 3}
+  zeroMsgPrefab: {fileID: 9040357408476222999, guid: 5d53899b60eb670469e901a8542ec8a5, type: 3}
   PlayerMessagesContainer: {fileID: 1417786953}
   BotMessagesContainer: {fileID: 879476179}
+  currentAI:
+    characterName: 
+    chatHistory:
+      replies: []
+      chatFragments: 
+    oldestUnprocessedChatFragmentIndex: 0
+    characterPersonality: 
+    attracionLevel: 0
+    actions: []
+    eventsMemories:
+      recencyK: 1
+      importanceK: 1
+      contextK: 1
+      memories: []
+    eventsMemoryTokenLimit: 50
+    conversationalMemories:
+      recencyK: 1
+      importanceK: 1
+      contextK: 1
+      memories: []
+    conversationalMemoryTokenLimit: 500
+    factsAboutPlayer: []
 --- !u!4 &1375097768
 Transform:
   m_ObjectHideFlags: 0
@@ -18681,9 +18703,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiCharactersData:
-    aiCharacterDataList: []
+    aiCharacterDataList:
+    - name: Misa
+      aICharacterData:
+        characterName: Misa
+        chatHistory:
+          replies: []
+          chatFragments: 
+        oldestUnprocessedChatFragmentIndex: 0
+        characterPersonality: 
+        attracionLevel: 3
+        actions: []
+        eventsMemories:
+          recencyK: 0
+          importanceK: 0
+          contextK: 0
+          memories: []
+        eventsMemoryTokenLimit: 300
+        conversationalMemories:
+          recencyK: 0
+          importanceK: 0
+          contextK: 0
+          memories: []
+        conversationalMemoryTokenLimit: 500
+        factsAboutPlayer: []
   examplesOfConversationalMemory: []
-  attractionBehavior: {fileID: 0}
+  attractionBehavior: {fileID: 11400000, guid: ff961ab9ddef17d42a836f86e2e98c48, type: 2}
 --- !u!4 &1786632563
 Transform:
   m_ObjectHideFlags: 0
@@ -20852,7 +20897,7 @@ GameObject:
   - component: {fileID: 2095310121}
   - component: {fileID: 2095310120}
   m_Layer: 0
-  m_Name: ChatAPI
+  m_Name: ClientApi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

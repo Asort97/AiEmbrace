@@ -93,12 +93,12 @@ public class ClientAPI : MonoBehaviour
 
     private void OnEnable()
     {
-        // DialogManager.OnSendPromptAI += Listen;
+        ChatManager.OnSendPromtAI += Listen;
     }
 
     private void OnDisable()
     {
-        // DialogManager.OnSendPromptAI -= Listen;
+        ChatManager.OnSendPromtAI -= Listen;
     }
 
     private async Task<string> SendPOST(string endpoint, string jsonString)
@@ -149,7 +149,8 @@ public class ClientAPI : MonoBehaviour
         string responseText = response.text.Trim();
         // Вызываем событие когда ИИ дает ответ
         // отрисовка сообщения ИИ в UI чата
-        // OnResponcePrompt?.Invoke(DialogManager.instance.CurrentNPC.AIData().characterName, responseText, true);
+        
+        OnResponcePrompt?.Invoke(ChatManager.instance.currentAI.characterName, responseText, false);
         // добавление ответа ИИ в историю диалога
         // Reply lastReply = DialogManager.instance.CurrentNPC.AIData().chatHistory.LastReply();
         // lastReply.message = responseText;

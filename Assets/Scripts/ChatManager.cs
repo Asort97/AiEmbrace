@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ChatManager : MonoBehaviour
 {   
+    public static ChatManager instance;
+    public static Action<string> OnSendPromtAI;
     public static Action OnDrawMessage;
     [SerializeField] private EmotionController emotionController;
     [SerializeField] private Message msgPrefab;
@@ -12,20 +14,40 @@ public class ChatManager : MonoBehaviour
     [SerializeField] private Transform PlayerMessagesContainer;
     [SerializeField] private Transform BotMessagesContainer;
     private bool aiIsWaiting;
+    public AICharacterData currentAI;
+
+    private void Awake()
+    {
+        instance = this;        
+    }
+
+    private void OnEnable() 
+    {
+        ClientAPI.OnResponcePrompt += DrawNewMessage;
+    }
+
+    private void OnDisable()
+    {
+        ClientAPI.OnResponcePrompt -= DrawNewMessage;
+    }
 
     private void Start()
     {
-        DrawNewMessage("BOT", "Now i talk with you", false);
+        // currentAI = AIDataManager.instance.aiCharactersData.GetAICharacterData("Misa");
+
         aiIsWaiting = true;
     }
 
-    public void SendMsgRequest()
+    public async void SendMsgRequest()
     {
-        if(UIManager.instance.inputFieldChat.text != "")
+        if(UIManager.instance.inputFieldChat.text != "" && AIDataManager.instance.aiCharactersData.GetAICharacterData("Misa") != null)
         {
             DrawNewMessage("You", UIManager.instance.inputFieldChat.text, true);
 
-            Debug.Log($"Send request to AI");
+            currentAI.chatHistory.Append(new Reply("Player", UIManager.instance.inputFieldChat.text));
+            currentAI.chatHistory.Append(new Reply(currentAI.characterName, ""));
+
+            var prompt = await currentAI.GeneratePrompt();
 
             if( aiIsWaiting )
             {
@@ -35,6 +57,8 @@ public class ChatManager : MonoBehaviour
             }
 
             UIManager.instance.ClearInputFieldChat();
+
+            OnSendPromtAI?.Invoke(prompt);
         }
     }
 
@@ -56,9 +80,9 @@ public class ChatManager : MonoBehaviour
             newMsg.Init(isPlayer, name, msg);
             zeroMsg.Init(isPlayer, name, msg);
 
-            emotionController.PlayRandomAnimation();
+            // emotionController.PlayRandomAnimation();
 
-            MsgResponce();
+            // MsgResponce();
         }
         else
         {
