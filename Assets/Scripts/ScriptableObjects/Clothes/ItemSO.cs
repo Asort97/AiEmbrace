@@ -9,7 +9,8 @@ public class ItemSO : ScriptableObject
         Shirts,
         Pants,
         Background,
-        EmotionStand
+        EmotionStand,
+        CharacterPreset
     }
 
     public Color imageColor;

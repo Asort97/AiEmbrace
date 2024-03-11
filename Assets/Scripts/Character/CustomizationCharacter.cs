@@ -19,6 +19,8 @@ public class CustomizationCharacter : MonoBehaviour
     [SerializeField] private Clothes pants;
     [SerializeField] private Clothes room;
     [SerializeField] private Clothes animationStand;
+    [SerializeField] private Clothes characterPreset;
+
     // [SerializeField] private int emotionStand;
     // [SerializeField] private Color backgroundColor;
     private ItemSO previousClothes;
@@ -132,6 +134,19 @@ public class CustomizationCharacter : MonoBehaviour
                         ChangeStandEmotion();
 
                         break;
+
+                    case ItemSO.ClothesCategory.CharacterPreset:
+
+                        // if(!isPreview)
+                        // {
+                        //     previousAnim = animationStand.itemSo;
+                        // }
+
+                        characterPreset = clothes;
+
+                        ChangeCharacterPreset();
+
+                        break;
                 }
             }
         }
@@ -140,6 +155,11 @@ public class CustomizationCharacter : MonoBehaviour
     private void ChangeStandEmotion()
     {
         animator.SetInteger("animation", ((EmotionSO)animationStand.itemSo).emotionStand);
+    }
+
+    private void ChangeCharacterPreset()
+    {
+        ChatManager.instance.currentAI = AIDataManager.instance.aiCharactersData.GetAICharacterData(((CharacterSO)characterPreset.itemSo).characterName);
     }
 
     private void ChangeBackgroundColor()
