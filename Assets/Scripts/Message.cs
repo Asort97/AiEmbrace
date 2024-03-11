@@ -27,6 +27,8 @@ public class Message : MonoBehaviour
     [SerializeField] private List<ReactionsList> reactionsList;
     [SerializeField] private RectTransform reactionPanel;
     [SerializeField] private Image reactionImage;
+    [SerializeField] private Image reactionImageOutline;
+
     [SerializeField] private Image bgMessage;
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text messageText;
@@ -107,13 +109,13 @@ public class Message : MonoBehaviour
         if(index != -1)
         {
             EnableReactionPanel(this);
-            reactionImage.gameObject.SetActive(true);
+            reactionImageOutline.gameObject.SetActive(true);
 
-            reactionImage.rectTransform.DOScale(animReactionScale, 0.2f)
+            reactionImageOutline.rectTransform.DOScale(animReactionScale, 0.2f)
                 .SetEase(Ease.InOutSine)
                 .OnComplete(() => 
                 {
-                    reactionImage.rectTransform.DOScale(originalReactionScale, 0.4f)
+                    reactionImageOutline.rectTransform.DOScale(originalReactionScale, 0.4f)
                         .SetEase(Ease.OutBounce);
                 });
 
@@ -121,7 +123,7 @@ public class Message : MonoBehaviour
         }
         else
         {
-            reactionImage.gameObject.SetActive(false);
+            reactionImageOutline.gameObject.SetActive(false);
         }
     }
 }
