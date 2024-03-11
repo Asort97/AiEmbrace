@@ -10,8 +10,8 @@ public class ChatManager : MonoBehaviour
     public static Action OnDrawMessage;
     [SerializeField] private EmotionController emotionController;
     [SerializeField] private Message msgPrefab;
-    [SerializeField] private Message zeroMsgPrefab;
-    [SerializeField] private Transform PlayerMessagesContainer;
+    [SerializeField] private Message aiMsgPrefab;
+    [SerializeField] private Transform mainContainer;
     [SerializeField] private Transform BotMessagesContainer;
     private bool aiIsWaiting;
     public AICharacterData currentAI;
@@ -73,24 +73,20 @@ public class ChatManager : MonoBehaviour
     
     public void DrawNewMessage(string name, string msg, bool isPlayer)
     {
+        Debug.Log($"{isPlayer}");
         if(isPlayer)
         {
-            Message newMsg = Instantiate<Message>(msgPrefab, PlayerMessagesContainer);
-            Message zeroMsg = Instantiate<Message>(zeroMsgPrefab, BotMessagesContainer);
+            Message newMsg = Instantiate<Message>(msgPrefab, mainContainer);
             newMsg.Init(isPlayer, name, msg);
-            zeroMsg.Init(isPlayer, name, msg);
-
             // emotionController.PlayRandomAnimation();
 
             // MsgResponce();
         }
         else
         {
-            Message newMsg = Instantiate<Message>(msgPrefab, BotMessagesContainer);
-            Message zeroMsg = Instantiate<Message>(zeroMsgPrefab, PlayerMessagesContainer);
-            newMsg.Init(isPlayer, name, msg);
-            zeroMsg.Init(isPlayer, name, msg);
-
+            Message aiMsg = Instantiate<Message>(aiMsgPrefab, mainContainer);
+            aiMsg.Init(isPlayer, name, msg);
+            
             AudioManager.Instance.PlayNofiticationSound();
         }
 
