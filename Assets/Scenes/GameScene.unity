@@ -20915,7 +20915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5663c889d605f747ad9258f306048a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  host: https://185.200.243.83
+  host: http://185.200.243.83
   token: 
 --- !u!4 &2095310121
 Transform:

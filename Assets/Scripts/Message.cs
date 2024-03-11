@@ -75,7 +75,7 @@ public class Message : MonoBehaviour
 
     public void EnableReactionPanel(Message message)
     {
-        if(isPlayer)
+        if(!isPlayer)
         {
             OnClick?.Invoke(this);
 
