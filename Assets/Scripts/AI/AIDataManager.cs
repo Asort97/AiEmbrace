@@ -73,7 +73,7 @@ public class AIDataManager : MonoBehaviour
     private void Start()
     {
         instance = this;
-
+        Debug.Log("AIDataManager Start");
         DontDestroyOnLoad(gameObject);
     }
 

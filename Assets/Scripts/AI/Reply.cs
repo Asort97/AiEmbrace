@@ -16,13 +16,17 @@ public class Reply
 
     public override string ToString()
     {
-        if (message == "")
+        string separator = "####";
+        string BeforeMessage = "";
+        string AfterMessage = "";
+
+        if (string.IsNullOrEmpty(this.message))
         {
-            return name.ToString() + ":";
+            return $"{separator}{this.name}\n{BeforeMessage}";
         }
         else
         {
-            return name.ToString() + ": " + message.ToString();
+            return $"{separator}{this.name}\n{BeforeMessage}{this.message}{AfterMessage}";
         }
     }
 }

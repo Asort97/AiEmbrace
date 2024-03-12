@@ -10,9 +10,19 @@ using System.Threading.Tasks;
 using System.Linq;
 using UnityEditor.PackageManager;
 
+
+
 public class MessageResponse
 {
     public string text;
+    public bool success;
+    // todo: add errors, tokens
+}
+
+public class MessageRequest
+{
+    public string prompt;
+    //todo: add character preset
 }
 
 public class TextTokensResponse
@@ -93,17 +103,17 @@ public class ClientAPI : MonoBehaviour
 
     private void OnEnable()
     {
-        ChatManager.OnSendPromtAI += Listen;
+        //ChatManager.OnSendPromtAI += Listen;
     }
 
     private void OnDisable()
     {
-        ChatManager.OnSendPromtAI -= Listen;
+        //ChatManager.OnSendPromtAI -= Listen;
     }
 
     private async Task<string> SendPOST(string endpoint, string jsonString)
     {
-        OnStartResponce?.Invoke(true);
+        //OnStartResponce?.Invoke(true);
 
         string url = string.Format("{0}" + endpoint, host);
 
@@ -123,7 +133,7 @@ public class ClientAPI : MonoBehaviour
 
         if (asyncOperation.isDone)
         {
-            OnStartResponce?.Invoke(false);
+            //OnStartResponce?.Invoke(false);
         }
 
         if (uwr.result != UnityWebRequest.Result.Success)
@@ -137,23 +147,6 @@ public class ClientAPI : MonoBehaviour
 
             return uwr.downloadHandler.text;
         }
-    }
-
-    //todo: в этой функции только возвращать значение
-    public async void Listen(string prompt)
-    {
-        Debug.Log($"Listen Message");
-
-        string data = JsonConvert.SerializeObject(new { prompt = prompt });
-        var response = JsonConvert.DeserializeObject<MessageResponse>(await SendPOST(RUN_LLM_ENDPOINT, data));
-        string responseText = response.text.Trim();
-        // Вызываем событие когда ИИ дает ответ
-        // отрисовка сообщения ИИ в UI чата
-        
-        OnResponcePrompt?.Invoke(ChatManager.instance.currentAI.characterName, responseText, false);
-        // добавление ответа ИИ в историю диалога
-        // Reply lastReply = DialogManager.instance.CurrentNPC.AIData().chatHistory.LastReply();
-        // lastReply.message = responseText;
     }
 
     public async Task<MessageResponse> RunLLM(string prompt)
