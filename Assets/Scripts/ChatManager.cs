@@ -104,16 +104,20 @@ public class ChatManager : MonoBehaviour
             UIManager.instance.ClearInputFieldChat();
 
             string prompt = await currentAI.GeneratePrompt();
-            MessageResponse response = await ClientAPI.instance.RunLLM(prompt);
-            Debug.Log(response);
+            MessageResponse response = await ClientAPI.Instance.RunLLM(prompt);
             if (response.success)
             {
                 currentAI.chatHistory.SetLastReply(response.text);
                 DrawNewMessage(currentAI.characterName, response.text, false);
             }else
             {
-                // todo: if error is GPU, show this error to user
-                Debug.LogError("Error while sending prompt to AI");
+                Debug.LogError("Error while sending prompt to AI:");
+                // show error to console
+                for (int i = 0; i < response.errors.Count; i++)
+                {
+                    Debug.LogError(response.errors[i].message);
+                }
+                // todo:show some error to user
             }
         }
     }

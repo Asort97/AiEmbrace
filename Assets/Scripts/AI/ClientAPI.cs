@@ -10,13 +10,25 @@ using System.Threading.Tasks;
 using System.Linq;
 using UnityEditor.PackageManager;
 
+public class Error
+{
+    public int code;
+    public string message;
+}
 
+public class TextTokensResponse
+{
+    public int prompt_tokens; // tokens in prompt
+    public int completion_tokens; // how many tokens were added by AI
+    public int total_tokens; // tokens in prompt + AI response
+}
 
 public class MessageResponse
 {
     public string text;
     public bool success;
-    // todo: add errors, tokens
+    public List<Error> errors;
+    public TextTokensResponse tokens;
 }
 
 public class MessageRequest
@@ -25,10 +37,7 @@ public class MessageRequest
     //todo: add character preset
 }
 
-public class TextTokensResponse
-{
-    public int tokens;
-}
+
 
 public class TextEmbeddingsVectorResponse
 {
@@ -83,7 +92,7 @@ public class ClientAPI : MonoBehaviour
 
     public static Action<string, string, bool> OnResponcePrompt;
     public static Action<bool> OnStartResponce;
-    public static ClientAPI instance;
+    private static ClientAPI _instance;
     [SerializeField] public string host = "http://127.0.0.1:8000";
 
     // токен с геттером
@@ -96,9 +105,29 @@ public class ClientAPI : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
-        DontDestroyOnLoad(gameObject);
+
+    public static ClientAPI Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<ClientAPI>();
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+            return _instance;
+        }
     }
 
     private void OnEnable()

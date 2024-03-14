@@ -27,6 +27,7 @@ public class Auntification : MonoBehaviour
 
         if(accountToken.Length != 0)
         {
+            ClientAPI.Instance.token = accountToken;
             SceneManager.LoadScene("GameScene");
         }
     }
@@ -75,7 +76,7 @@ public class Auntification : MonoBehaviour
 
     public async void Register(string login, string password)
     {
-        RegisterResponse response = await ClientAPI.instance.Register(login, password);
+        RegisterResponse response = await ClientAPI.Instance.Register(login, password);
 
         if(response.success)
         {
@@ -91,13 +92,13 @@ public class Auntification : MonoBehaviour
     
     public async void Login(string login, string password)
     {
-        LoginResponse response = await ClientAPI.instance.Login(login, password);
+        LoginResponse response = await ClientAPI.Instance.Login(login, password);
 
         if(response.success)
         {
-            accountToken = ClientAPI.instance.token;
+            accountToken = ClientAPI.Instance.token;
 
-            PlayerPrefs.SetString("TOKEN", ClientAPI.instance.token);
+            PlayerPrefs.SetString("TOKEN", ClientAPI.Instance.token);
 
             SceneManager.LoadScene("GameScene");
         }

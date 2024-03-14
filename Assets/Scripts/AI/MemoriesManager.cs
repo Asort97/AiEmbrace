@@ -29,7 +29,7 @@ public class MemoriesManager
         List<TextEmbeddingsVectorResponse> contextEmbeddings = new List<TextEmbeddingsVectorResponse>();
         for (int k = 0; k < 5 && context.Size() - k - 1 >= 0; k++)
         {
-            contextEmbeddings.Add(await ClientAPI.instance.TextEmbeddings(context.GetReply(context.Size() - k - 1).message));
+            contextEmbeddings.Add(await ClientAPI.Instance.TextEmbeddings(context.GetReply(context.Size() - k - 1).message));
         }
 
         double[] values = new double[memories.Count];
@@ -37,12 +37,12 @@ public class MemoriesManager
         foreach (var memory in memories)
         {
             // считаем ембединг воспоминания
-            TextEmbeddingsVectorResponse memoryEmbeddings = await ClientAPI.instance.TextEmbeddings(memory.description);
+            TextEmbeddingsVectorResponse memoryEmbeddings = await ClientAPI.Instance.TextEmbeddings(memory.description);
             // сравниваем каждый ембединг сообщений и воспоминания и выбираем максимальный
             var maxSimilarity = 0d;
             for (int k = 0; k < contextEmbeddings.Count; k++)
             {
-                TextSimilarityResponse similarity = await ClientAPI.instance.TextSimilarity(contextEmbeddings[k].vector, memoryEmbeddings.vector);
+                TextSimilarityResponse similarity = await ClientAPI.Instance.TextSimilarity(contextEmbeddings[k].vector, memoryEmbeddings.vector);
                 if (similarity.value > maxSimilarity)
                 {
                     maxSimilarity = similarity.value;
@@ -79,7 +79,7 @@ public class MemoriesManager
             {
                 break;
             }
-            int memoryTokenSize = (await ClientAPI.instance.CountTokens(memories[top_i].Remember(currentDate))).tokens;
+            int memoryTokenSize = (await ClientAPI.Instance.CountTokens(memories[top_i].Remember(currentDate))).total_tokens;
             if (resultSize + memoryTokenSize + 2 > tokenLimit)
             {
                 break;

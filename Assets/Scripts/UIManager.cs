@@ -136,7 +136,7 @@ public class UIManager : MonoBehaviour
 
     public async void LeaveAccount()
     {
-        await ClientAPI.instance.Logout();
+        await ClientAPI.Instance.Logout();
 
         SceneManager.LoadScene("LoginScene");
     }

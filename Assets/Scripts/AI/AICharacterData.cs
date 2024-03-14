@@ -95,7 +95,7 @@ public class AICharacterData
         prompt += $"Updated facts: name is PLAYER |";
         Debug.Log("Prompt for extract facts:" + prompt);
         // ����������� ����� ����� � ��� 
-        MessageResponse response = await ClientAPI.instance.RunLLM(prompt);
+        MessageResponse response = await ClientAPI.Instance.RunLLM(prompt);
         Debug.Log("Response New Facts: " + response.text.Trim());
         // ������� � �������� � ������, �������� ������
         List<string> newFacts = response.text.Split(new[] { " | " }, StringSplitOptions.None).ToList();
@@ -117,7 +117,7 @@ public class AICharacterData
         prompt += AIChatConversationalMemoryPrefab.importancePrefix;
         Debug.Log("Prompt for extract conversationalMemoryImportance:" + prompt);
         // ����������� �������� � ��� 
-        MessageResponse response = await ClientAPI.instance.RunLLM(prompt);
+        MessageResponse response = await ClientAPI.Instance.RunLLM(prompt);
         Debug.Log("Response Importance: " + response.text);
         // ������� � �������� � ������, �������� ������
         char firstDigit = response.text.Trim().FirstOrDefault(char.IsDigit);
@@ -142,7 +142,7 @@ public class AICharacterData
         prompt += AIChatConversationalMemoryPrefab.memoryDescriptionPrefix;
         // ����������� ������������ � ���
         Debug.Log("Prompt for extract conversationalMemoryDescription:" + prompt);
-        response = await ClientAPI.instance.RunLLM(prompt);
+        response = await ClientAPI.Instance.RunLLM(prompt);
         Debug.Log("Response Memory: " + response.text.Trim());
         // ������� � �������� � ������
         memory.description = response.text.Trim();
