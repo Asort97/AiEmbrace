@@ -37,8 +37,6 @@ public class MessageRequest
     //todo: add character preset
 }
 
-
-
 public class TextEmbeddingsVectorResponse
 {
     public List<double> vector;
@@ -80,6 +78,28 @@ public class LoginResponse
     public Dictionary<string, List<string>> errors;
 }
 
+public class SaveDataRequest
+{
+    public string game_data;
+    public string version;
+}
+public class SaveDataResponse
+{
+    public bool success;
+    public Dictionary<string, List<string>> errors;
+}
+
+public class LoadDataRequest
+{
+    public string version;
+}
+public class LoadDataResponse
+{
+    public bool success;
+    public string game_data;
+    public Dictionary<string, List<string>> errors;
+}
+
 
 public class ClientAPI : MonoBehaviour
 {
@@ -89,6 +109,8 @@ public class ClientAPI : MonoBehaviour
     const string TEXT_SIMILARITY_ENDPOINT = "/embeddings/compare/";
     const string LOGIN_ENDPOINT = "/userdata/login/";
     const string REGISTER_ENDPOINT = "/userdata/register/";
+    const string SAVE_DATA_ENDPOINT = "/userdata/save/";
+    const string LOAD_DATA_ENDPOINT = "/userdata/load/";
 
     public static Action<string, string, bool> OnResponcePrompt;
     public static Action<bool> OnStartResponce;
@@ -116,7 +138,6 @@ public class ClientAPI : MonoBehaviour
         }
     }
 
-
     public static ClientAPI Instance
     {
         get
@@ -132,15 +153,13 @@ public class ClientAPI : MonoBehaviour
 
     private void OnEnable()
     {
-        //ChatManager.OnSendPromtAI += Listen;
     }
 
     private void OnDisable()
     {
-        //ChatManager.OnSendPromtAI -= Listen;
     }
 
-    private async Task<string> SendPOST(string endpoint, string jsonString)
+    private async Task<string> SendPOST(string endpoint, string jsonString, bool authRequired = false)
     {
         //OnStartResponce?.Invoke(true);
 
@@ -151,6 +170,11 @@ public class ClientAPI : MonoBehaviour
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         uwr.SetRequestHeader("Content-Type", "application/json");
+
+        if (authRequired)
+        {
+            uwr.SetRequestHeader("Authorization", $"Token {token}");
+        }
 
         var asyncOperation = uwr.Send();
 
@@ -282,25 +306,67 @@ public class ClientAPI : MonoBehaviour
         }
     }
 
+    public async Task<SaveDataResponse> SaveData(GameDataForStorage gameDataForStorage, string version)
+    {
+        var requestData = new SaveDataRequest
+        {
+            game_data = JsonConvert.SerializeObject(gameDataForStorage),
+            version = version
+        };
+
+        string data = JsonConvert.SerializeObject(requestData);
+        var strResponse = await SendPOST(SAVE_DATA_ENDPOINT, data, true);
+        if (strResponse == null)
+        {
+            var response = new SaveDataResponse
+            {
+                success = false,
+                errors = new Dictionary<string, List<string>>()
+            };
+            response.errors["non_field_errors"] = new List<string> { "Connection problem" };
+            return response;
+        }
+        else
+        {
+            var response = JsonConvert.DeserializeObject<SaveDataResponse>(strResponse);
+            return response;
+        }
+    }
+
+    public async Task<GameDataForStorage> LoadData(string version)
+    {
+        var requestData = new LoadDataRequest
+        {
+            version = version
+        };
+        string data = JsonConvert.SerializeObject(requestData);
+        var strResponse = await SendPOST(LOAD_DATA_ENDPOINT, data, true);
+        if (strResponse == null)
+        {
+            return null;
+        }
+        else
+        {
+            Debug.Log("strResponse = " + strResponse);
+            var response = JsonConvert.DeserializeObject<LoadDataResponse>(strResponse);
+            if (response.success)
+            {
+                return JsonConvert.DeserializeObject<GameDataForStorage>(response.game_data);
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
+
     public async Task<bool> Logout()
     {
         // todo: logout request
-        
+
         token = null;
-        
-        PlayerPrefs.SetString("TOKEN", null);
 
         return true;
-    }
-
-    public async void LoadPlayerData()
-    {
-        token = null;
-    }
-
-    public async void SavePlayerData()
-    {
-        token = null;
     }
 
     public bool IsLoggedIn()

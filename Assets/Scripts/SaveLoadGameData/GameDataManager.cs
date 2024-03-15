@@ -79,8 +79,8 @@ public class GameDataManager : MonoBehaviour
     private AccountDataForStorage CollectAccountData()
     {
         var accountDataForStorage = new AccountDataForStorage();
-        accountDataForStorage.login = GameManager.instance.accountData.Login;
-        accountDataForStorage.token = ClientAPI.instance.token;
+        // todo: accountDataForStorage.login = GameManager.instance.accountData.Login;
+        accountDataForStorage.token = ClientAPI.Instance.token;
 
         return accountDataForStorage;
     }
@@ -89,8 +89,8 @@ public class GameDataManager : MonoBehaviour
     {
         var gameDataForStorage = new GameDataForStorage();
         gameDataForStorage.aiData = AIDataManager.instance.aiCharactersData;
-        gameDataForStorage.playerName = GameManager.instance.GetPlayerName();
-        gameDataForStorage.currentGameDate = TimeManager.instance.currentDay;
+        // todo: gameDataForStorage.playerName = GameManager.instance.GetPlayerName();
+        // todo: gameDataForStorage.currentGameDate = TimeManager.instance.currentDay;
 
         return gameDataForStorage;
     }
@@ -100,8 +100,8 @@ public class GameDataManager : MonoBehaviour
         if (gameDataForStorage != null)
         {
             AIDataManager.instance.aiCharactersData = gameDataForStorage.aiData;
-            GameManager.instance.SetPlayerName(gameDataForStorage.playerName);
-            TimeManager.instance.currentDay = gameDataForStorage.currentGameDate;
+            // todo: GameManager.instance.SetPlayerName(gameDataForStorage.playerName);
+            // todo: TimeManager.instance.currentDay = gameDataForStorage.currentGameDate;
         }
     }
 
@@ -109,22 +109,22 @@ public class GameDataManager : MonoBehaviour
     {
         if (accountDataForStorage != null)
         {
-            GameManager.instance.accountData.Login = accountDataForStorage.login;
-            ClientAPI.instance.token = accountDataForStorage.token;
+            // todo: GameManager.instance.accountData.Login = accountDataForStorage.login;
+            ClientAPI.Instance.token = accountDataForStorage.token;
         }
     }
 
     public async Task LoadGameData()
     {
         // загружаем gameDataForStorage из облака в менеджер
-        var data = await ClientAPI.instance.LoadData(version);
+        var data = await ClientAPI.Instance.LoadData(version);
         gameDataForStorage = data;
     }
 
     public async Task SaveGameData()
     {
         // сохран€ем gameDataForStorage в облако
-        await ClientAPI.instance.SaveData(CollectGameData(), version);
+        await ClientAPI.Instance.SaveData(CollectGameData(), version);
     }
 
     public void LoadAccountData()
