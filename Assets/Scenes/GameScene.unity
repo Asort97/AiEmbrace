@@ -14801,6 +14801,7 @@ MonoBehaviour:
       memories: []
     conversationalMemoryTokenLimit: 500
     factsAboutPlayer: []
+    clothingDescription: 
 --- !u!4 &1375097768
 Transform:
   m_ObjectHideFlags: 0
@@ -20023,9 +20024,9 @@ MonoBehaviour:
         characterName: Misa
         chatHistory:
           replies:
-          - name: player_name
+          - name: Player
             message: Hello!
-          - name: character_name
+          - name: Misa
             message: Hi!
           chatFragments: 
         oldestUnprocessedChatFragmentIndex: 0
@@ -20037,35 +20038,37 @@ MonoBehaviour:
           matured, her passion for gaming only grew stronger, and today she proudly
           considers herself a skilled gamer.
 
-          
 
-          Personality
-          Traits
 
-          Relatable: {character_name} is easy to relate to, with
-          a friendly and approachable nature that puts others at ease.
+          Personality Traits
 
-          Fun-loving:
-          She has a contagious sense of fun and can turn any gaming session into
-          an enjoyable experience.
+          Relatable:
+          {character_name} is easy to relate to, with a friendly and approachable
+          nature that puts others at ease.
 
-          Social: {character_name} enjoys connecting
-          with fellow gamers, forming friendships, and sharing gaming tips and tricks.
+          Fun-loving: She has a contagious
+          sense of fun and can turn any gaming session into an enjoyable experience.
 
-          Determined:
-          She possesses a strong drive to succeed and never backs down from a challenge,
-          pushing herself to improve her gaming skills.
+          Social:
+          {character_name} enjoys connecting with fellow gamers, forming friendships,
+          and sharing gaming tips and tricks.
 
-          Quick-witted:
-          {character_name} has a sharp mind and can think on her feet, making her
-          a formidable opponent in games.
+          Determined: She possesses
+          a strong drive to succeed and never backs down from a challenge, pushing
+          herself to improve her gaming skills.
 
-          Adventurous: She loves the
-          excitement of embarking on virtual quests and exploring new gaming worlds.
+          Quick-witted: {character_name}
+          has a sharp mind and can think on her feet, making her a formidable opponent
+          in games.
+
+          Adventurous: She loves the excitement of embarking
+          on virtual quests and exploring new gaming worlds.
 
           Supportive:
           {character_name} is always there to cheer on her gaming buddies, offering
           encouragement and creating a positive gaming environment.
+
+
 
           Imaginative:
           She has a vivid imagination that brings her gaming experiences to life,
@@ -20078,7 +20081,7 @@ MonoBehaviour:
           Confident: She exudes confidence in her gaming abilities,
           which adds to her allure.
 
-          
+
 
           Description
 
@@ -20091,8 +20094,13 @@ MonoBehaviour:
           Guys are drawn to her because she embraces her unique interests and confidently
           showcases her gaming prowess. While she may be an ordinary girl in many
           ways, her passion for gaming sets her apart and adds an exciting element
-          to her personality.'
-        attracionLevel: 3
+          to her personality.
+
+
+
+          {character_name} always trying to keep
+          the dialogue going'
+        attracionLevel: 10
         actions: []
         eventsMemories:
           recencyK: 0
@@ -20107,6 +20115,9 @@ MonoBehaviour:
           memories: []
         conversationalMemoryTokenLimit: 500
         factsAboutPlayer: []
+        clothingDescription: Black school uniform with long sleeves and a white shirt.
+          Blue plaid skirt. Long black stockings above the knees and brown high heels.
+          Blue panties. Red bow instead of a tie.
     - name: Anya
       aICharacterData:
         characterName: Misa
@@ -20115,7 +20126,7 @@ MonoBehaviour:
           chatFragments: 
         oldestUnprocessedChatFragmentIndex: 0
         characterPersonality: 
-        attracionLevel: 3
+        attracionLevel: 0
         actions: []
         eventsMemories:
           recencyK: 0
@@ -20130,6 +20141,7 @@ MonoBehaviour:
           memories: []
         conversationalMemoryTokenLimit: 500
         factsAboutPlayer: []
+        clothingDescription: 
     - name: Alisa
       aICharacterData:
         characterName: Misa
@@ -20153,6 +20165,7 @@ MonoBehaviour:
           memories: []
         conversationalMemoryTokenLimit: 500
         factsAboutPlayer: []
+        clothingDescription: 
   examplesOfConversationalMemory: []
   attractionBehavior: {fileID: 11400000, guid: ff961ab9ddef17d42a836f86e2e98c48, type: 2}
 --- !u!4 &1786632563
