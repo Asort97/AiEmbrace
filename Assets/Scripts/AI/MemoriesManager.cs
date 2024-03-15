@@ -21,7 +21,7 @@ public class MemoriesManager
     // самые актуальные воспоминания на основе контекста,
     // нет лимита на количество воспоминаний, но есть лимит на их общую длину
     // возвращает мультистроку с набором всех воспоминаний
-    public async Task<string> GetActualMemories(ChatHisoty context, int currentDate, int tokenLimit)
+    public async Task<string> GetActualMemories(ChatHistory context, int currentDate, int tokenLimit)
     {
         // для каждого воспоминания посчитать важность + актуальность + соответствие контексту
 
@@ -49,7 +49,7 @@ public class MemoriesManager
                 }
             }
             
-            // высчитыавем полную актуальность для воспоминания
+            // высчитываем полную актуальность для воспоминания
             var imp = (memory.importance / 10d) * importanceK;
             var rec = Math.Pow(0.995d, currentDate - memory.gameDate) * recencyK;
             var con = maxSimilarity * contextK;
@@ -79,6 +79,7 @@ public class MemoriesManager
             {
                 break;
             }
+
             int memoryTokenSize = (await ClientAPI.Instance.CountTokens(memories[top_i].Remember(currentDate))).total_tokens;
             if (resultSize + memoryTokenSize + 2 > tokenLimit)
             {

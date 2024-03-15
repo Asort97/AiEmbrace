@@ -19,6 +19,6 @@ public class AIChatConversationalMemoryPrefab :ScriptableObject
     public int importance;
     [TextArea(4,10)]
     public string memoryDescription;
-    public ChatHisoty chatHisoty;
+    public ChatHistory chatHisoty;
 
 }

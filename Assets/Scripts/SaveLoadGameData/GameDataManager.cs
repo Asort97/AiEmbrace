@@ -65,6 +65,7 @@ public class GameDataManager : MonoBehaviour
 
     public UnityEvent onGameDataLoaded;
 
+
     void Start()
     {
         // singleton

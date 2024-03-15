@@ -8,10 +8,9 @@ using UnityEngine;
 [System.Serializable]
 public class AICharacterData
 {
-    // �������� ��� ������ �� ��������� � ����� ������� ����� ��� ������� � LLM �������
     public string characterName;
-    public ChatHisoty chatHistory = new ChatHisoty();
-    // ��������� �������� ���� �� ��������� (����� ������ �� ���������)
+    public ChatHistory chatHistory = new ChatHistory();
+    // Чат разбивается на фрагменты. Если какая-то часть текста обработалась (из нее были выделенны воспоминания), то это считается одним фрагментом чата.
     public int oldestUnprocessedChatFragmentIndex = 0;
 
     [TextArea(5, 20)]
@@ -21,10 +20,10 @@ public class AICharacterData
     public int attracionLevel;
     public List<string> actions;
     public MemoriesManager eventsMemories = new MemoriesManager();
-    [Tooltip("����������� �� ���������� ����� ������������, ������� �� ����� ������� � ������ ������")]
+    [Tooltip("Лимит токенов на воспоминания для вставки в промпт. Ограничивает количество воспоминаний.")]
     public int eventsMemoryTokenLimit = 50;
     public MemoriesManager conversationalMemories = new MemoriesManager();
-    [Tooltip("����������� �� ���������� ������������ �������, ������� �� ����� ������� � ������ ������")]
+    [Tooltip("Лимит токенов на воспоминания для вставки в промпт. Ограничивает количество воспоминаний.")]
     public int conversationalMemoryTokenLimit = 500;
     public List<string> factsAboutPlayer;
     [TextArea(5, 10)]
@@ -37,6 +36,9 @@ public class AICharacterData
 
     public async Task<string> GeneratePrompt()
     {
+        int tokenLimit = 4096;
+        int currentTokensCount = 0;
+
         // todo: ��� ������� ������������ ������ ����� ������
         string prompt = "";
         prompt += "You are an AI agent for communication.\n";
@@ -48,15 +50,26 @@ public class AICharacterData
         prompt += "5. Don't be silent, don't use line breaks, don't use zero-width spaces, and don't just express emotions without words.\n";
         prompt += string.Format("\nYour name is {0}. About you: \n", characterName);
         prompt += string.Format("{0}.\n", characterPersonality.Replace("{character_name}", this.characterName));
+        // todo: текущий промпт можно подсчитать
+        currentTokensCount += 0;
+
         // prompt += string.Format("Your recent memories:{0}\n", await eventsMemories.GetActualMemories(chatHistory, TimeManager.instance.currentDay, eventsMemoryTokenLimit));
         prompt += string.Format("Your relationship with companion:\n{0}\n", AIDataManager.instance.attractionBehavior.GetConversationalBehavior(attracionLevel));
+        // todo: данный промпт тоже отдельно можно посчитать
 
         string facts = factsAboutPlayer.Count>0 ? string.Join("|", factsAboutPlayer) : "Nothing";
         prompt += string.Format("What you know about your interlocutor: {0}\n", facts);
+        // todo: тут нужно каждый факт калькулировать
+
+
+
         // prompt += string.Format("What did you talk about in past dialogues:{0}\n", await conversationalMemories.GetActualMemories(chatHistory, TimeManager.instance.currentDay, eventsMemoryTokenLimit));
+        // todo: тут нужно каждое воспоминание калькулировать отдельно
+
         prompt += string.Format("What you are wearing: {0}\n", clothingDescription);
+        // todo: тут нужно можно запоминать весь промпт
 
-
+        // todo: 
         prompt += string.Format("Current dialogue:\n{0}", chatHistory.Draw());
 
         Debug.Log(prompt);
@@ -67,21 +80,23 @@ public class AICharacterData
 
     public async void SummarizeChatFragment()
     {
-        // ���������� ������ ���� � �� ��� ������ ������� ���������
-        // ������������ �������� ���� ����� ������ �� ������ �������
-        // ������� ����� ������� � ������ ������������ ���������� ���� �� ������
+        // Подытоживаем все последнее общение, чтобы очистить/освободить историю чата
+        // по хорошему, этот метод должен быть вызван при окончании диалога,
+        // чтобы у ИИ появились воспоминания об этом
 
+        // вытягиваем все необработанное общение
         string chatFragment = chatHistory.DrawChatFragment(oldestUnprocessedChatFragmentIndex);
 
-        // ���������� ����� ���� � conversationalMemory
+        // создаем новое воспоминание в conversationalMemory
         Memory newMemory = await ExtractConversationalMemory(chatFragment);
         conversationalMemories.memories.Add(newMemory);
 
 
-        //todo: ��������� ����� �� ������ 
+        // todo: ��������� ����� �� ������ 
         List<string> newFacts = await ExtractPlayerFacts(chatFragment);
         factsAboutPlayer.AddRange(newFacts);
 
+        // запоминаем, что мы обработали еще 1 фрагмент чата
         oldestUnprocessedChatFragmentIndex += 1;
     }
 
@@ -108,7 +123,7 @@ public class AICharacterData
     private async Task<Memory> ExtractConversationalMemory(string chatFragment)
     {
         Memory memory = new Memory();
-        // todo: �������� 0, � ���� 0, �� �������� �������� ������ �����
+        // todo: добавить 0, и если 0, то игнорировать это воспоминание
         string prompt = $"For a given piece of dialogue, rate its significance on a scale of 1 to 10 for the character {characterName}. Where 1 is a dialogue that is nothing, which the {characterName} will forget the next day, and 10 is an extremely important dialogue that the {characterName} will remember forever(for example, the interlocutor confesses his love or talks about something important to himself).\n";
         // todo: � �������� ���� �������� �� ��� ���������, �� ������ ��� ������� ����, �� �������
         foreach (var example in AIDataManager.instance.examplesOfConversationalMemory)

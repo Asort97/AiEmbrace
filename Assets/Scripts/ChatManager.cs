@@ -91,8 +91,9 @@ public class ChatManager : MonoBehaviour
         {
             DrawNewMessage("You", UIManager.instance.inputFieldChat.text, true);
 
-            currentAI.chatHistory.Append(new Reply("Player", UIManager.instance.inputFieldChat.text));
-            currentAI.chatHistory.Append(new Reply(currentAI.characterName, ""));
+            // todo: высчитывать токены сообщения пользователя
+            currentAI.chatHistory.Append(new Reply("Player", UIManager.instance.inputFieldChat.text, 0));
+            currentAI.chatHistory.Append(new Reply(currentAI.characterName, "", 0));
 
             if( aiIsWaiting )
             {

@@ -7,11 +7,13 @@ public class Reply
 
     public string name;
     public string message;
+    public int tokens;
 
-    public Reply(string _name, string _message)
+    public Reply(string _name, string _message, int _tokens)
     {
         name = _name;
         message = _message;
+        tokens = _tokens;
     }
 
     public override string ToString()
