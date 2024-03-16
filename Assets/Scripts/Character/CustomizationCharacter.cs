@@ -26,6 +26,7 @@ public class CustomizationCharacter : MonoBehaviour
     private ItemSO previousClothes;
     private ItemSO previousRoom;
     private ItemSO previousAnim;
+    private ItemSO previousCharacter;
 
     private void Awake()
     {
@@ -36,7 +37,8 @@ public class CustomizationCharacter : MonoBehaviour
     {
         previousClothes = tShirt.itemSo;
         previousRoom = room.itemSo;
-        previousAnim = animationStand.itemSo;        
+        previousAnim = animationStand.itemSo;
+        previousCharacter = characterPreset.itemSo;        
     }
 
     private void OnEnable()
@@ -61,6 +63,7 @@ public class CustomizationCharacter : MonoBehaviour
         SetNewItem(previousClothes, true, true);
         SetNewItem(previousAnim, true, true);
         SetNewItem(previousRoom, true, true);
+        SetNewItem(previousCharacter, true, true);
     }
 
     public void SetNewItem(ItemSO itemToWear, bool toClothe, bool isPreview)
@@ -137,10 +140,10 @@ public class CustomizationCharacter : MonoBehaviour
 
                     case ItemSO.ClothesCategory.CharacterPreset:
 
-                        // if(!isPreview)
-                        // {
-                        //     previousAnim = animationStand.itemSo;
-                        // }
+                        if(!isPreview)
+                        {
+                            previousCharacter = characterPreset.itemSo;
+                        }
 
                         characterPreset = clothes;
 
@@ -159,6 +162,7 @@ public class CustomizationCharacter : MonoBehaviour
 
     private void ChangeCharacterPreset()
     {
+        Debug.Log($"Finding new CHAR");
         ChatManager.instance.currentAI = AIDataManager.instance.aiCharactersData.GetAICharacterData(((CharacterSO)characterPreset.itemSo).characterName);
     }
 

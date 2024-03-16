@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a6f15cb96daae449ac626fba587d46, type: 3}
   m_Name: Misa
   m_EditorClassIdentifier: 
-  imageColor: {r: 0, g: 0, b: 0, a: 0}
+  imageColor: {r: 0, g: 1, b: 0.51957417, a: 1}
   nameItem: Misa
   itemCategory: 5
   displayImage: {fileID: 0}
