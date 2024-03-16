@@ -12,9 +12,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a6f15cb96daae449ac626fba587d46, type: 3}
   m_Name: Misa
   m_EditorClassIdentifier: 
+  showDescriptionMenu: 1
   imageColor: {r: 0, g: 1, b: 0.51957417, a: 1}
   nameItem: Misa
   itemCategory: 5
   displayImage: {fileID: 0}
   price: 25
   characterName: Misa
+  characterDescription: 'Personality Traits
+
+    Relatable: {character_name} is easy
+    to relate to, with a friendly and approachable nature that puts others at ease.
+
+    Fun-loving:
+    She has a contagious sense of fun and can turn any gaming session into an enjoyable
+    experience.
+
+    Social: {character_name} enjoys connecting with fellow gamers,
+    forming friendships, and sharing gaming tips and tricks.
+
+    Determined: She
+    possesses a strong drive to succeed and never backs down from a challenge, pushing
+    herself to improve her gaming skills.
+
+    Quick-witted: {character_name} has
+    a sharp mind and can think on her feet, making her a formidable opponent in games.
+
+    Adventurous:
+    She loves the excitement of embarking on virtual quests and exploring new gaming
+    worlds.
+
+    Supportive: {character_name} is always there to cheer on her gaming
+    buddies, offering encouragement and creating a positive gaming environment.
+
+    Imaginative:
+    She has a vivid imagination that brings her gaming experiences to life, making
+    them immersive and unforgettable.
+
+    Independent: {character_name} values her
+    autonomy and enjoys the freedom of making her own decisions in games.
+
+    Confident:
+    She exudes confidence in her gaming abilities, which adds to her allure.'

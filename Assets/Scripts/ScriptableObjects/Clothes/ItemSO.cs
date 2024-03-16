@@ -12,7 +12,7 @@ public class ItemSO : ScriptableObject
         EmotionStand,
         CharacterPreset
     }
-
+    public bool showDescriptionMenu;
     public Color imageColor;
     public string nameItem;
     public ClothesCategory itemCategory;
