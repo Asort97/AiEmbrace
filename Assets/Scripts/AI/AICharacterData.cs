@@ -102,7 +102,7 @@ public class AICharacterData
 
     private async Task<List<string>> ExtractPlayerFacts(string chatFragment)
     {
-        string playerName = "Player"; //todo: добавить имя игрока GameManager.instance.GetPlayerName();
+        string playerName = ClientAPI.Instance.PlayerNickname; //todo: добавить имя игрока GameManager.instance.GetPlayerName();
         // �������� �������
         string prompt = $"Dialogue processing: checking facts and information about the character {playerName} from perspective of {characterName}. Based on the old facts and a fragment of the dialogue, calculate a new list of facts.\n\n";
         prompt += $"Old facts: name is {playerName} | " + string.Join(" | ", factsAboutPlayer) + "\n";

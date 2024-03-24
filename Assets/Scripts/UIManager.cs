@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
+using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button useButton;
     [SerializeField] private TMP_Text buyButtonText;
     [SerializeField] private TMP_Text useButtonText;
+    [SerializeField] private TMP_Text nicknameProfile;
     [SerializeField] private Image profileAvatar;
     [SerializeField] private GameObject changeNickPanel;
     [SerializeField] private TMP_InputField changeNickField;
@@ -28,6 +31,11 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
+        nicknameProfile.text = ClientAPI.Instance.PlayerNickname;
     }
 
     private void OnEnable()
@@ -114,8 +122,20 @@ public class UIManager : MonoBehaviour
 
     public void ApplyNewNickname()
     {
-        Debug.Log(changeNickField.text);
-        changeNickPanel.SetActive(false);
+        // Debug.Log(changeNickField.text);
+        if(changeNickField.text.Length >= 3)
+        {
+            PlayerPrefs.SetString("NICKNAME", changeNickField.text);
+            ClientAPI.Instance.PlayerNickname = PlayerPrefs.GetString("NICKNAME");
+            
+            nicknameProfile.text = ClientAPI.Instance.PlayerNickname;
+
+            changeNickPanel.SetActive(false);
+        }
+        else
+        {
+            PopUpNofitication.instance.ShowNofitication("Too short!");
+        }
     }
 
     public void ChangePlayerAvatar()

@@ -92,7 +92,7 @@ public class ChatManager : MonoBehaviour
             DrawNewMessage("You", UIManager.instance.inputFieldChat.text, true);
 
             // todo: высчитывать токены сообщения пользователя
-            currentAI.chatHistory.Append(new Reply("Player", UIManager.instance.inputFieldChat.text, 0));
+            currentAI.chatHistory.Append(new Reply(ClientAPI.Instance.PlayerNickname, UIManager.instance.inputFieldChat.text, 0));
             currentAI.chatHistory.Append(new Reply(currentAI.characterName, "", 0));
 
             if( aiIsWaiting )

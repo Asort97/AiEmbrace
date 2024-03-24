@@ -117,6 +117,7 @@ public class ClientAPI : MonoBehaviour
     private static ClientAPI _instance;
     [SerializeField] public string host = "http://127.0.0.1:8000";
 
+    public string PlayerNickname;
     // токен с геттером
     public string token = null;
 
@@ -127,6 +128,11 @@ public class ClientAPI : MonoBehaviour
 
     private void Awake()
     {
+        PlayerNickname = PlayerPrefs.GetString("NICKNAME");
+
+        Debug.Log(PlayerNickname);
+        Debug.Log(PlayerPrefs.GetString("NICKNAME"));
+
         if (_instance == null)
         {
             _instance = this;

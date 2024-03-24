@@ -14456,6 +14456,7 @@ MonoBehaviour:
   useButton: {fileID: 606961081}
   buyButtonText: {fileID: 1550490262}
   useButtonText: {fileID: 1049827770}
+  nicknameProfile: {fileID: 1083492203}
   profileAvatar: {fileID: 1290900263}
   changeNickPanel: {fileID: 1979052297}
   changeNickField: {fileID: 1445190162}
@@ -16096,7 +16097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1299128866
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26606,6 +26607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   host: http://94.241.175.47
+  PlayerNickname: 
   token: 
 --- !u!4 &2095310121
 Transform:
