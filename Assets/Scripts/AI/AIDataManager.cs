@@ -62,7 +62,7 @@ public class AIDataManager : MonoBehaviour
      * 4. заменить AICharacterData на ключ, по которому можно получить данные из AIDataManager
      * 5. организовать AIDataManager в приложении следующим образом: создать его в GameManager, а затем передавать во все нужные места
     */
-    public static AIDataManager instance;
+    private static AIDataManager _instance;
 
     [SerializeField]
     public AICharacterDataWrapper aiCharactersData = new AICharacterDataWrapper();
@@ -72,9 +72,33 @@ public class AIDataManager : MonoBehaviour
 
     private void Start()
     {
-        instance = this;
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
-        DontDestroyOnLoad(gameObject);
+    public static AIDataManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<AIDataManager>();
+                if (_instance == null)
+                {
+                    GameObject go = new GameObject();
+                    _instance = go.AddComponent<AIDataManager>();
+                }
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+            return _instance;
+        }
     }
 
     // функция для установки имени игрока

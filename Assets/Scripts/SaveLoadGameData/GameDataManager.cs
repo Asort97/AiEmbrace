@@ -47,7 +47,7 @@ public class GameDataManager : MonoBehaviour
     //  ласс дл€ сохранени€ и загрузки данных игры
 
     // singleton
-    static public GameDataManager instance;
+    static private GameDataManager _instance;
 
     // —сылка на скрипты, которые содержат нужные данные
     // пока все скрипты это синглтоны, прокидывать не нужно
@@ -68,19 +68,43 @@ public class GameDataManager : MonoBehaviour
 
     void Start()
     {
-        // singleton
-        instance = this;
-        DontDestroyOnLoad(gameObject);
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Update()
     {
     }
 
+    public static GameDataManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<GameDataManager>();
+                if (_instance == null)
+                {
+                    GameObject go = new GameObject();
+                    _instance = go.AddComponent<GameDataManager>();
+                }
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+            return _instance;
+        }
+    }
+
     private AccountDataForStorage CollectAccountData()
     {
         var accountDataForStorage = new AccountDataForStorage();
-        // todo: accountDataForStorage.login = GameManager.instance.accountData.Login;
+        // todo: accountDataForStorage.login = GameManager._instance.accountData.Login;
         accountDataForStorage.token = ClientAPI.Instance.token;
 
         return accountDataForStorage;
@@ -89,9 +113,9 @@ public class GameDataManager : MonoBehaviour
     private GameDataForStorage CollectGameData()
     {
         var gameDataForStorage = new GameDataForStorage();
-        gameDataForStorage.aiData = AIDataManager.instance.aiCharactersData;
-        // todo: gameDataForStorage.playerName = GameManager.instance.GetPlayerName();
-        // todo: gameDataForStorage.currentGameDate = TimeManager.instance.currentDay;
+        gameDataForStorage.aiData = AIDataManager.Instance.aiCharactersData;
+        gameDataForStorage.playerName = ClientAPI.Instance.PlayerNickname;
+        // todo: gameDataForStorage.currentGameDate = TimeManager._instance.currentDay;
 
         return gameDataForStorage;
     }
@@ -100,9 +124,9 @@ public class GameDataManager : MonoBehaviour
     {
         if (gameDataForStorage != null)
         {
-            AIDataManager.instance.aiCharactersData = gameDataForStorage.aiData;
-            // todo: GameManager.instance.SetPlayerName(gameDataForStorage.playerName);
-            // todo: TimeManager.instance.currentDay = gameDataForStorage.currentGameDate;
+            AIDataManager.Instance.aiCharactersData = gameDataForStorage.aiData;
+            ClientAPI.Instance.PlayerNickname = gameDataForStorage.playerName;
+            // todo: TimeManager._instance.currentDay = gameDataForStorage.currentGameDate;
         }
     }
 
@@ -110,7 +134,7 @@ public class GameDataManager : MonoBehaviour
     {
         if (accountDataForStorage != null)
         {
-            // todo: GameManager.instance.accountData.Login = accountDataForStorage.login;
+            // todo: GameManager._instance.accountData.Login = accountDataForStorage.login;
             ClientAPI.Instance.token = accountDataForStorage.token;
         }
     }
@@ -150,6 +174,15 @@ public class GameDataManager : MonoBehaviour
         FileStream file = File.Create(GetSavePath());
         bf.Serialize(file, CollectAccountData());
         file.Close();
+    }
+
+    public void ClearAccountData()
+    {
+        // clearing account data from local storage
+        if (File.Exists(GetSavePath()))
+        {
+            File.Delete(GetSavePath());
+        }
     }
 
     private string GetSavePath()

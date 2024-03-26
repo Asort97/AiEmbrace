@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System.Linq;
 using System;
+using Unity.VisualScripting;
 
-public class Auntification : MonoBehaviour
+public class Authentication : MonoBehaviour
 {
     [SerializeField] private GameObject welcomeMenu;
     [SerializeField] private GameObject loginMenu;
@@ -23,13 +24,21 @@ public class Auntification : MonoBehaviour
 
     private string accountToken;
 
-    private void Start()
+    private async void Start()
     {
-        accountToken = PlayerPrefs.GetString("TOKEN");
-
-        if(accountToken.Length != 0)
+        // загружаем локальные данные пользователя из файла
+        GameDataManager.Instance.LoadAccountData();
+        if (GameDataManager.Instance.accountDataForStorage != null)
         {
-            ClientAPI.Instance.token = accountToken;
+            GameDataManager.Instance.ApplyAccountData(); // в том числе заполняем ClientAPI.Instance.token
+
+            await GameDataManager.Instance.LoadGameData(); // загружаем игровые данные c сервера
+            if (GameDataManager.Instance.gameDataForStorage != null)
+            {
+                Debug.Log("data = " + GameDataManager.Instance.gameDataForStorage);
+                GameDataManager.Instance.ApplyGameData(); // применяем игровые данные
+            }
+            // todo: 
             SceneManager.LoadScene("GameScene");
         }
     }
@@ -84,11 +93,15 @@ public class Auntification : MonoBehaviour
         Login(login_emailField.text, login_passwordField.text);
     }
 
-    public void SetNicknameBtn()
+    public async void SetNicknameBtn()
     {
         if(nicknameField.text.Length >= 3)
         {
-            PlayerPrefs.SetString("NICKNAME", nicknameField.text);
+            // todo: установить никнейм в UserDataManager, чтобы он был доступен везде
+            ClientAPI.Instance.PlayerNickname = nicknameField.text;
+            // сохраняем никнейм в локальные данные вместе с логином и токеном
+            GameDataManager.Instance.SaveAccountData();
+            await GameDataManager.Instance.SaveGameData(); // сохраняем (пока только никнейм)
             SceneManager.LoadScene("GameScene");
         }
         else
@@ -119,16 +132,18 @@ public class Auntification : MonoBehaviour
 
         if(response.success)
         {
-            accountToken = ClientAPI.Instance.token;
-
-            PlayerPrefs.SetString("TOKEN", ClientAPI.Instance.token);
-
-            if(PlayerPrefs.GetString("NICKNAME") != "")
+            // пытаемся загрузить данные с сервера
+            await GameDataManager.Instance.LoadGameData();
+            if (GameDataManager.Instance.gameDataForStorage != null)
             {
+                GameDataManager.Instance.ApplyGameData();
+                // сохраняем логин и токен в локальные данные
+                GameDataManager.Instance.SaveAccountData();
                 SceneManager.LoadScene("GameScene");
             }
             else
             {
+                // если данных нет, то аккаунт пустой и переходим к выбору ника
                 ToNicknameMenu();
             }
         }

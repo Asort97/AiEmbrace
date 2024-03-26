@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using Unity.VisualScripting;
 using UnityEditor.PackageManager;
+using DG.Tweening.Core.Easing;
 
 public class UIManager : MonoBehaviour
 {
@@ -120,15 +121,14 @@ public class UIManager : MonoBehaviour
         changeNickPanel.SetActive(enabled);
     }
 
-    public void ApplyNewNickname()
+    public async void ApplyNewNickname()
     {
         // Debug.Log(changeNickField.text);
         if(changeNickField.text.Length >= 3)
         {
-            PlayerPrefs.SetString("NICKNAME", changeNickField.text);
-            ClientAPI.Instance.PlayerNickname = PlayerPrefs.GetString("NICKNAME");
-            
-            nicknameProfile.text = ClientAPI.Instance.PlayerNickname;
+            ClientAPI.Instance.PlayerNickname = changeNickField.text; // устанавливаем ник в clientAPI
+            await GameDataManager.Instance.SaveGameData(); // сохраняем ник в облаке
+            nicknameProfile.text = ClientAPI.Instance.PlayerNickname; // обновляем ник в UI
 
             changeNickPanel.SetActive(false);
         }
@@ -156,9 +156,19 @@ public class UIManager : MonoBehaviour
 
     public async void LeaveAccount()
     {
-        await ClientAPI.Instance.Logout();
+        GameDataManager.Instance.ClearAccountData();
 
-        SceneManager.LoadScene("LoginScene");
+        var result = await ClientAPI.Instance.Logout();
+        if (result)
+        {
+            // todo: очистить все данные игры, чтобы новый вход не показывал старые данные
+            SceneManager.LoadScene("LoginScene");
+        }
+        else
+        {
+            Debug.LogError("Logout attempt failed");
+        }
+
     }
 
     public void CloseUseButton()

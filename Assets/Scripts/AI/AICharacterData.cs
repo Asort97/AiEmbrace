@@ -61,10 +61,10 @@ public class AICharacterData
         Debug.Log("Current tokens count: " + currentTokensCount);
 
         // Воспоминания персонажа о событиях
-        // prompt += string.Format("Your recent memories:{0}\n", await eventsMemories.GetActualMemories(chatHistory, TimeManager.instance.currentDay, eventsMemoryTokenLimit));
+        // prompt += string.Format("Your recent memories:{0}\n", await eventsMemories.GetActualMemories(chatHistory, TimeManager._instance.currentDay, eventsMemoryTokenLimit));
 
         // Правила поведения на основе уровня отношений персонажа с игроком
-        string conversational_rules_prompt = string.Format("Your relationship with companion:\n{0}\n", AIDataManager.instance.attractionBehavior.GetConversationalBehavior(attracionLevel));
+        string conversational_rules_prompt = string.Format("Your relationship with companion:\n{0}\n", AIDataManager.Instance.attractionBehavior.GetConversationalBehavior(attracionLevel));
         currentTokensCount += (await ClientAPI.Instance.CountTokens(conversational_rules_prompt)).prompt_tokens;
         prompt += conversational_rules_prompt;
         Debug.Log("Current tokens count: " + currentTokensCount);
@@ -76,7 +76,7 @@ public class AICharacterData
         Debug.Log("Current tokens count: " + currentTokensCount);
 
         // todo: тут нужно каждое воспоминание калькулировать отдельно
-        // prompt += string.Format("What did you talk about in past dialogues:{0}\n", await conversationalMemories.GetActualMemories(chatHistory, TimeManager.instance.currentDay, eventsMemoryTokenLimit));
+        // prompt += string.Format("What did you talk about in past dialogues:{0}\n", await conversationalMemories.GetActualMemories(chatHistory, TimeManager._instance.currentDay, eventsMemoryTokenLimit));
 
         // Описание одежды персонажа
         string clothing_prompt = string.Format("What you are wearing: {0}\n", clothingDescription);
@@ -121,7 +121,7 @@ public class AICharacterData
 
     private async Task<List<string>> ExtractPlayerFacts(string chatFragment)
     {
-        string playerName = ClientAPI.Instance.PlayerNickname; //todo: добавить имя игрока GameManager.instance.GetPlayerName();
+        string playerName = ClientAPI.Instance.PlayerNickname; //todo: добавить имя игрока GameManager._instance.GetPlayerName();
         // �������� �������
         string prompt = $"Dialogue processing: checking facts and information about the character {playerName} from perspective of {characterName}. Based on the old facts and a fragment of the dialogue, calculate a new list of facts.\n\n";
         prompt += $"Old facts: name is {playerName} | " + string.Join(" | ", factsAboutPlayer) + "\n";
@@ -145,7 +145,7 @@ public class AICharacterData
         // todo: добавить 0, и если 0, то игнорировать это воспоминание
         string prompt = $"For a given piece of dialogue, rate its significance on a scale of 1 to 10 for the character {characterName}. Where 1 is a dialogue that is nothing, which the {characterName} will forget the next day, and 10 is an extremely important dialogue that the {characterName} will remember forever(for example, the interlocutor confesses his love or talks about something important to himself).\n";
         // todo: � �������� ���� �������� �� ��� ���������, �� ������ ��� ������� ����, �� �������
-        foreach (var example in AIDataManager.instance.examplesOfConversationalMemory)
+        foreach (var example in AIDataManager.Instance.examplesOfConversationalMemory)
         {
             prompt += AIChatConversationalMemoryPrefab.chatPrefix + "\n" + example.chatHisoty.Draw() + "\n" + AIChatConversationalMemoryPrefab.importancePrefix + example.importance.ToString() + "\n";
         }
@@ -170,7 +170,7 @@ public class AICharacterData
         }
         // �������� ������ ��� ���������� ������� �� ������������
         prompt = $"Reducing the dialogue to a flashback and highlighting the importance of that dialogue. A dialogue flashback is a paragraph of text in the form of a flashback from perspective of {characterName}. It is important to discard the unnecessary, but leave the important. Revelations, bright topics, the tone of the conversation, and the context of the dialogue are considered important in the dialogue. Here's something else that shouldn't be added to the memory if it was in the dialog: local memes that were used; romantic confessions, sexual activities; harassment, insults, aggression and other memorable actions. Dialogue from real life.\n";
-        foreach (var example in AIDataManager.instance.examplesOfConversationalMemory)
+        foreach (var example in AIDataManager.Instance.examplesOfConversationalMemory)
         {
             prompt += AIChatConversationalMemoryPrefab.chatPrefix + "\n" + example.chatHisoty.Draw() + "\n" + AIChatConversationalMemoryPrefab.memoryDescriptionPrefix + example.memoryDescription + "\n";
         }

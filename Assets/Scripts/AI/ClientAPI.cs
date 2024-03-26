@@ -129,11 +129,6 @@ public class ClientAPI : MonoBehaviour
 
     private void Awake()
     {
-        PlayerNickname = PlayerPrefs.GetString("NICKNAME");
-
-        Debug.Log(PlayerNickname);
-        Debug.Log(PlayerPrefs.GetString("NICKNAME"));
-
         if (_instance == null)
         {
             _instance = this;
@@ -152,6 +147,11 @@ public class ClientAPI : MonoBehaviour
             if (_instance == null)
             {
                 _instance = FindObjectOfType<ClientAPI>();
+                if (_instance == null)
+                {
+                    GameObject go = new GameObject();
+                    _instance = go.AddComponent<ClientAPI>();
+                }
                 DontDestroyOnLoad(_instance.gameObject);
             }
             return _instance;
@@ -365,6 +365,7 @@ public class ClientAPI : MonoBehaviour
         // todo: logout request
 
         token = null;
+        PlayerNickname = "";
 
         return true;
     }

@@ -41,7 +41,7 @@ public class ChatManager : MonoBehaviour
 
     private void Start()
     {
-        // currentAI = AIDataManager.instance.aiCharactersData.GetAICharacterData("Misa");
+        // currentAI = AIDataManager._instance.aiCharactersData.GetAICharacterData("Misa");
 
         aiIsWaiting = true;
 
@@ -58,9 +58,9 @@ public class ChatManager : MonoBehaviour
         ClearChatHistory();
 
         Debug.Log("InitChatHistory");
-        Debug.Log(AIDataManager.instance);
+        Debug.Log(AIDataManager.Instance);
         // pick AI from data
-        currentAI = AIDataManager.instance.aiCharactersData.GetAICharacterData(name);
+        currentAI = AIDataManager.Instance.aiCharactersData.GetAICharacterData(name);
 
         if (currentAI != null)
         {
@@ -87,7 +87,7 @@ public class ChatManager : MonoBehaviour
     {
         // Run on player message send
 
-        if (UIManager.instance.inputFieldChat.text != "" && AIDataManager.instance.aiCharactersData.GetAICharacterData("Misa") != null)
+        if (UIManager.instance.inputFieldChat.text != "" && AIDataManager.Instance.aiCharactersData.GetAICharacterData("Misa") != null)
         {
             DrawNewMessage("You", UIManager.instance.inputFieldChat.text, true);
 
