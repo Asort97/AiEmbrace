@@ -11,10 +11,12 @@ public class Auntification : MonoBehaviour
     [SerializeField] private GameObject welcomeMenu;
     [SerializeField] private GameObject loginMenu;
     [SerializeField] private GameObject registrationMenu;
+    [SerializeField] private GameObject nicknameMenu;
     [SerializeField] private GameObject errorLoginPanel;
     [SerializeField] private TMP_Text errorLoginText;
     [SerializeField] private TMP_InputField login_emailField;
     [SerializeField] private TMP_InputField login_passwordField;
+    [SerializeField] private TMP_InputField nicknameField;
 
     [SerializeField] private TMP_InputField register_emailField;
     [SerializeField] private TMP_InputField register_passwordField;
@@ -64,6 +66,14 @@ public class Auntification : MonoBehaviour
         registrationMenu.SetActive(true);
     }
 
+    public void ToNicknameMenu()
+    {
+        welcomeMenu.SetActive(false);
+        loginMenu.SetActive(false);
+        registrationMenu.SetActive(false);
+        nicknameMenu.SetActive(true);
+    }
+
     public void RegisterBtn()
     {
         Register(register_emailField.text, register_passwordField.text);
@@ -72,6 +82,19 @@ public class Auntification : MonoBehaviour
     public void LoginBtn()
     {
         Login(login_emailField.text, login_passwordField.text);
+    }
+
+    public void SetNicknameBtn()
+    {
+        if(nicknameField.text.Length >= 3)
+        {
+            PlayerPrefs.SetString("NICKNAME", nicknameField.text);
+            SceneManager.LoadScene("GameScene");
+        }
+        else
+        {
+            ShowError("Too short nickname!");
+        }
     }
 
     public async void Register(string login, string password)
@@ -100,7 +123,14 @@ public class Auntification : MonoBehaviour
 
             PlayerPrefs.SetString("TOKEN", ClientAPI.Instance.token);
 
-            SceneManager.LoadScene("GameScene");
+            if(PlayerPrefs.GetString("NICKNAME") != "")
+            {
+                SceneManager.LoadScene("GameScene");
+            }
+            else
+            {
+                ToNicknameMenu();
+            }
         }
         else
         {

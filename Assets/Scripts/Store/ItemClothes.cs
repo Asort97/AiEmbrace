@@ -103,6 +103,11 @@ public class ItemClothes : MonoBehaviour
             ShowBuyButton();
         }
 
+        if(clothesSO.showDescriptionMenu)
+        {
+            PopUpNofitication.instance.ShowNofitication(((CharacterSO)clothesSO).characterDescription);
+        }
+
         OnSelectedItem?.Invoke(this);
     }
 }
