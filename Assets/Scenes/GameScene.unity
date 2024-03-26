@@ -20026,8 +20026,10 @@ MonoBehaviour:
           replies:
           - name: Player
             message: Hello!
+            tokens: 0
           - name: Misa
             message: Hi!
+            tokens: 0
           chatFragments: 
         oldestUnprocessedChatFragmentIndex: 0
         characterPersonality: 'Biography
@@ -20066,7 +20068,7 @@ MonoBehaviour:
 
           Supportive:
           {character_name} is always there to cheer on her gaming buddies, offering
-          encouragement and creating a positive gaming environment.
+          encouragement and creating a positive gaming environment. Lovely
 
 
 
@@ -22508,7 +22510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5663c889d605f747ad9258f306048a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  host: http://94.241.175.47
+  host: http://127.0.0.1:8001
   token: 
 --- !u!4 &2095310121
 Transform:
@@ -22835,7 +22837,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.060296297, y: 0.9296662}
   m_AnchorMax: {x: 0.18, y: 0.9934792}
-  m_AnchoredPosition: {x: -67, y: -2.390625}
+  m_AnchoredPosition: {x: -66.99997, y: -2.390625}
   m_SizeDelta: {x: -9.069992, y: -2.699997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2107570191

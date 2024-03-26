@@ -16,7 +16,7 @@ public class Error
     public string message;
 }
 
-public class TextTokensResponse
+public class TokensCountResponse
 {
     public int prompt_tokens; // tokens in prompt
     public int completion_tokens; // how many tokens were added by AI
@@ -28,12 +28,13 @@ public class MessageResponse
     public string text;
     public bool success;
     public List<Error> errors;
-    public TextTokensResponse tokens;
+    public TokensCountResponse tokens;
 }
 
 public class MessageRequest
 {
     public string prompt;
+    public string preset;
     //todo: add character preset
 }
 
@@ -121,7 +122,7 @@ public class ClientAPI : MonoBehaviour
     public string token = null;
 
     // данные кеша
-    private Dictionary<string, TextTokensResponse> countTokensCache = new Dictionary<string, TextTokensResponse>();
+    private Dictionary<string, TokensCountResponse> countTokensCache = new Dictionary<string, TokensCountResponse>();
     private Dictionary<string, TextEmbeddingsVectorResponse> textEmbeddingsCache = new Dictionary<string, TextEmbeddingsVectorResponse>();
     private Dictionary<string, TextSimilarityResponse> textSimilarityCache = new Dictionary<string, TextSimilarityResponse>();
 
@@ -161,8 +162,6 @@ public class ClientAPI : MonoBehaviour
 
     private async Task<string> SendPOST(string endpoint, string jsonString, bool authRequired = false)
     {
-        //OnStartResponce?.Invoke(true);
-
         string url = string.Format("{0}" + endpoint, host);
 
         using var uwr = new UnityWebRequest(url, "POST");
@@ -184,11 +183,6 @@ public class ClientAPI : MonoBehaviour
             await Task.Yield();
         }
 
-        if (asyncOperation.isDone)
-        {
-            //OnStartResponce?.Invoke(false);
-        }
-
         if (uwr.result != UnityWebRequest.Result.Success)
         {
 
@@ -202,21 +196,21 @@ public class ClientAPI : MonoBehaviour
         }
     }
 
-    public async Task<MessageResponse> RunLLM(string prompt)
+    public async Task<MessageResponse> RunLLM(string prompt, string preset="character")
     {
-        string data = JsonConvert.SerializeObject(new { prompt = prompt });
+        string data = JsonConvert.SerializeObject(new { prompt = prompt, preset = preset });
         var response = JsonConvert.DeserializeObject<MessageResponse>(await SendPOST(RUN_LLM_ENDPOINT, data));
         return response;
     }
 
-    public async Task<TextTokensResponse> CountTokens(string text)
+    public async Task<TokensCountResponse> CountTokens(string text)
     {
         if (countTokensCache.ContainsKey(text))
         {
             return countTokensCache[text];
         }
         string data = JsonConvert.SerializeObject(new { prompt = text });
-        var response = JsonConvert.DeserializeObject<TextTokensResponse>(await SendPOST(COUNT_TOKENS_ENDPOINT, data));
+        var response = JsonConvert.DeserializeObject<TokensCountResponse>(await SendPOST(COUNT_TOKENS_ENDPOINT, data));
         countTokensCache[text] = response;
         return response;
     }

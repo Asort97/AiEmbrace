@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 public class ChatManager : MonoBehaviour
-{   
+{
     public static ChatManager instance;
     public static Action<string> OnSendPromtAI;
     public static Action OnDrawMessage;
@@ -20,12 +20,12 @@ public class ChatManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        
+
         Debug.Log("ChatManager Awake");
 
     }
 
-    private async void OnEnable() 
+    private async void OnEnable()
     {
         ClientAPI.OnResponcePrompt += DrawNewMessage;
 
@@ -62,19 +62,19 @@ public class ChatManager : MonoBehaviour
         // pick AI from data
         currentAI = AIDataManager.instance.aiCharactersData.GetAICharacterData(name);
 
-        if(currentAI != null)
+        if (currentAI != null)
         {
             // draw all replies from chatHistory
             foreach (var reply in currentAI.chatHistory.GetReplies())
             {
                 bool isPlayer = false;
                 string _name = reply.name;
-                if(reply.name == "player_name")
+                if (reply.name == "Player")
                 {
                     _name = "You";
                     isPlayer = true;
                 }
-                if (reply.name == "character_name")
+                else
                 {
                     _name = currentAI.characterName;
                 }
@@ -87,7 +87,7 @@ public class ChatManager : MonoBehaviour
     {
         // Run on player message send
 
-        if(UIManager.instance.inputFieldChat.text != "" && AIDataManager.instance.aiCharactersData.GetAICharacterData("Misa") != null)
+        if (UIManager.instance.inputFieldChat.text != "" && AIDataManager.instance.aiCharactersData.GetAICharacterData("Misa") != null)
         {
             DrawNewMessage("You", UIManager.instance.inputFieldChat.text, true);
 
@@ -95,7 +95,7 @@ public class ChatManager : MonoBehaviour
             currentAI.chatHistory.Append(new Reply("Player", UIManager.instance.inputFieldChat.text, 0));
             currentAI.chatHistory.Append(new Reply(currentAI.characterName, "", 0));
 
-            if( aiIsWaiting )
+            if (aiIsWaiting)
             {
                 // Add XPы
                 XpManager.instance.AddXp(150);
@@ -110,7 +110,8 @@ public class ChatManager : MonoBehaviour
             {
                 currentAI.chatHistory.SetLastReply(response.text);
                 DrawNewMessage(currentAI.characterName, response.text, false);
-            }else
+            }
+            else
             {
                 Debug.LogError("Error while sending prompt to AI:");
                 // show error to console
@@ -127,17 +128,17 @@ public class ChatManager : MonoBehaviour
     {
         // Логика отправки AI сообщения
         DrawNewMessage("BOT", "Yes", false); // тест
-        
+
         aiIsWaiting = true;
         // DrawNewMessage(name, text);
     }
-    
+
     public void DrawNewMessage(string name, string msg, bool isPlayer)
     {
         // Adding new message to chat history with some logic
 
         Debug.Log($"{isPlayer}");
-        if(isPlayer)
+        if (isPlayer)
         {
             AddMessage(name, msg, isPlayer);
             // emotionController.PlayRandomAnimation();
@@ -146,11 +147,11 @@ public class ChatManager : MonoBehaviour
         else
         {
             AddMessage(name, msg, isPlayer);
-            
+
             AudioManager.Instance.PlayNofiticationSound();
         }
 
-        OnDrawMessage?.Invoke();            
+        OnDrawMessage?.Invoke();
     }
 
     public void ClearChatHistory()

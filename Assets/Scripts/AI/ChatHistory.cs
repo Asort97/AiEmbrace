@@ -63,11 +63,8 @@ public class ChatHistory
     public string Draw(int tokenLimit)
     {
         int newLineTokens = 1;
-
         int currentTokens = 0;
-
         string result = "";
-
         var i = replies.Count - 1;
 
         // отрисовываем чат с конца, если упираемся в лимит, то останавливаемся
@@ -132,6 +129,17 @@ public class ChatHistory
         {
             chatFragments.Add(replies.Count - 1);
             return true;
+        }
+    }
+
+    public async void EnsureTokens()
+    {
+        foreach (var reply in replies)
+        {
+            if (reply.tokens == 0 && reply.message != "")
+            {
+                reply.tokens = (await ClientAPI.Instance.CountTokens(reply.ToString())).prompt_tokens;
+            }
         }
     }
 

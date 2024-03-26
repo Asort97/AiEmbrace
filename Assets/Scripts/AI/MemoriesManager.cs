@@ -99,7 +99,7 @@ public class MemoriesManager
     public void AddMemory(string _description, int _date, int _importance)
     {
         Memory memory = new Memory { description = _description, gameDate = _date, importance = _importance };
-        // todo: calculate token lenght
+        // todo: calculate token length
 
         // todo: calculate embeddings
 
