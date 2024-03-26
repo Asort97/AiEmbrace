@@ -113,7 +113,7 @@ public class GameDataManager : MonoBehaviour
     private GameDataForStorage CollectGameData()
     {
         var gameDataForStorage = new GameDataForStorage();
-        gameDataForStorage.aiData = AIDataManager.Instance.aiCharactersData;
+        // todo: gameDataForStorage.aiData = AIDataManager.Instance.aiCharactersData;
         gameDataForStorage.playerName = ClientAPI.Instance.PlayerNickname;
         // todo: gameDataForStorage.currentGameDate = TimeManager._instance.currentDay;
 
@@ -124,7 +124,7 @@ public class GameDataManager : MonoBehaviour
     {
         if (gameDataForStorage != null)
         {
-            AIDataManager.Instance.aiCharactersData = gameDataForStorage.aiData;
+            // todo: AIDataManager.Instance.aiCharactersData = gameDataForStorage.aiData;
             ClientAPI.Instance.PlayerNickname = gameDataForStorage.playerName;
             // todo: TimeManager._instance.currentDay = gameDataForStorage.currentGameDate;
         }
