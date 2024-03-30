@@ -8,22 +8,22 @@ using UnityEngine;
 using UnityEngine.Events;
 
 /*
-Данные для сохранения и загрузки:
-    пройденные квесты       - ?             
-    статы персонажей:       - GameManager   
-    - уровень персонажа
-    - хп, мп
-    - надетые шмотки        - ?
-    инвентарь               - ?
-    данные всех AI          - AIDataManager     x
-    открытые сундуки        - ?
-    убитые монстры          - ?
-    имя игрока              - GameManager       x  
-    дата сохранения         - тут
-    текущий аккаунт         - GameManager
-    - логин                                     x
-    токен                   - ClientAPI         x
-    игровая дата            - TimeManager       x
+пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:
+    пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ       - ?             
+    пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:       - GameManager   
+    - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    - пїЅпїЅ, пїЅпїЅ
+    - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ        - ?
+    пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ               - ?
+    пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ AI          - AIDataManager     x
+    пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ        - ?
+    пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ          - ?
+    пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ              - GameManager       x  
+    пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ         - пїЅпїЅпїЅ
+    пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ         - GameManager
+    - пїЅпїЅпїЅпїЅпїЅ                                     x
+    пїЅпїЅпїЅпїЅпїЅ                   - ClientAPI         x
+    пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ            - TimeManager       x
  */
 [Serializable]
 public class AccountDataForStorage
@@ -36,31 +36,34 @@ public class AccountDataForStorage
 public class GameDataForStorage
 {
     [SerializeField] public AICharacterDataWrapper aiData;
-    [SerializeField] public string playerName;
+    [SerializeField] public UserData userData;
+    // [SerializeField] public string playerName;
+    // [SerializeField] public int playerMoney;
+    // [SerializeField] public int playerCrystals;
     [SerializeField] public int currentGameDate;
 }
 
 
 public class GameDataManager : MonoBehaviour
 {
-    // todo: обязательно ли этому классу быть монобехом/синглтоном?
-    // Класс для сохранения и загрузки данных игры
+    // todo: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ?
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
     // singleton
     static public GameDataManager instance;
 
-    // Ссылка на скрипты, которые содержат нужные данные
-    // пока все скрипты это синглтоны, прокидывать не нужно
+    // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
-    // данные
-    // todo: добавить очистку данных, которые не нужны или вообще удалить gameDataForStorage и accountDataForStorage, чтобы они не занимали память
+    // пїЅпїЅпїЅпїЅпїЅпїЅ
+    // todo: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ gameDataForStorage пїЅ accountDataForStorage, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     [SerializeField]
     public GameDataForStorage gameDataForStorage = null;
     public AccountDataForStorage accountDataForStorage = null;
 
     const string version = "0.1";
 
-    // название файла для сохранения
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     const string FILE_NAME = "accountData.dat";
 
     public UnityEvent onGameDataLoaded;
@@ -89,7 +92,14 @@ public class GameDataManager : MonoBehaviour
     private GameDataForStorage CollectGameData()
     {
         var gameDataForStorage = new GameDataForStorage();
+
+        // gameDataForStorage.playerName = UserDataManager.instance.GetUserNickname();
+        // gameDataForStorage.playerMoney = UserDataManager.instance.GetUserMoney();
+        // gameDataForStorage.playerCrystals = UserDataManager.instance.GetUserCrystals();
+
+        gameDataForStorage.userData = UserDataManager.instance.userData;
         gameDataForStorage.aiData = AIDataManager.instance.aiCharactersData;
+
         // todo: gameDataForStorage.playerName = GameManager.instance.GetPlayerName();
         // todo: gameDataForStorage.currentGameDate = TimeManager.instance.currentDay;
 
@@ -101,6 +111,8 @@ public class GameDataManager : MonoBehaviour
         if (gameDataForStorage != null)
         {
             AIDataManager.instance.aiCharactersData = gameDataForStorage.aiData;
+            UserDataManager.instance.userData = gameDataForStorage.userData;
+            
             // todo: GameManager.instance.SetPlayerName(gameDataForStorage.playerName);
             // todo: TimeManager.instance.currentDay = gameDataForStorage.currentGameDate;
         }
@@ -117,20 +129,20 @@ public class GameDataManager : MonoBehaviour
 
     public async Task LoadGameData()
     {
-        // загружаем gameDataForStorage из облака в менеджер
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ gameDataForStorage пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         var data = await ClientAPI.Instance.LoadData(version);
         gameDataForStorage = data;
     }
 
     public async Task SaveGameData()
     {
-        // сохраняем gameDataForStorage в облако
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ gameDataForStorage пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         await ClientAPI.Instance.SaveData(CollectGameData(), version);
     }
 
     public void LoadAccountData()
     {
-        // пытаемся загрузить accountDataForStorage из локального хранилища
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ accountDataForStorage пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (File.Exists(GetSavePath()))
         {
             BinaryFormatter bf = new BinaryFormatter();
