@@ -13,15 +13,13 @@ public class MemoriesManager
     public double importanceK = 1;
     public double contextK = 1;
 
-
     // все воспоминания
     public List<Memory> memories;
-
 
     // самые актуальные воспоминания на основе контекста,
     // нет лимита на количество воспоминаний, но есть лимит на их общую длину
     // возвращает мультистроку с набором всех воспоминаний
-    public async Task<string> GetActualMemories(ChatHistory context, int currentDate, int tokenLimit)
+    public async Task<PromptPart> GetActualMemories(ChatHistory context, int currentDate, int tokenLimit)
     {
         // для каждого воспоминания посчитать важность + актуальность + соответствие контексту
 
@@ -57,8 +55,7 @@ public class MemoriesManager
             i++;
         }
         // отсортировать по значению и соединять, пока не достигнут лимит
-        string result = "";
-        int resultSize = 0;
+        PromptPart result = new PromptPart();
         bool[] flags = new bool[memories.Count];
         while (true)
         {
@@ -79,16 +76,16 @@ public class MemoriesManager
             {
                 break;
             }
-
-            int memoryTokenSize = (await ClientAPI.Instance.CountTokens(memories[top_i].Remember(currentDate))).total_tokens;
-            if (resultSize + memoryTokenSize + 2 > tokenLimit)
+            string memoryText = memories[top_i].Remember(currentDate);
+            int memoryTokenSize = (await ClientAPI.Instance.CountTokens(memoryText)).prompt_tokens;
+            if (result.tokensCount + memoryTokenSize + 2 > tokenLimit)
             {
                 break;
             }
             // вставляем самое актуальное воспоминание в результат
-            result += memories[top_i].Remember(currentDate);
+            result.text += memoryText;
             // увеличиваем лимит
-            resultSize += memoryTokenSize;
+            result.tokensCount += memoryTokenSize;
             flags[top_i] = true;
         }
 
