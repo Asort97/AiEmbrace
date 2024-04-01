@@ -26,17 +26,17 @@ public class Authentication : MonoBehaviour
 
     private async void Start()
     {
-        // загружаем локальные данные пользователя из файла
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         GameDataManager.Instance.LoadAccountData();
         if (GameDataManager.Instance.accountDataForStorage != null)
         {
-            GameDataManager.Instance.ApplyAccountData(); // в том числе заполняем ClientAPI.Instance.token
+            GameDataManager.Instance.ApplyAccountData(); // пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ClientAPI.Instance.token
 
-            await GameDataManager.Instance.LoadGameData(); // загружаем игровые данные c сервера
+            await GameDataManager.Instance.LoadGameData(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ c пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             if (GameDataManager.Instance.gameDataForStorage != null)
             {
                 Debug.Log("data = " + GameDataManager.Instance.gameDataForStorage);
-                GameDataManager.Instance.ApplyGameData(); // применяем игровые данные
+                GameDataManager.Instance.ApplyGameData(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             }
             // todo: 
             SceneManager.LoadScene("GameScene");
@@ -97,11 +97,10 @@ public class Authentication : MonoBehaviour
     {
         if(nicknameField.text.Length >= 3)
         {
-            // todo: установить никнейм в UserDataManager, чтобы он был доступен везде
-            ClientAPI.Instance.PlayerNickname = nicknameField.text;
-            // сохраняем никнейм в локальные данные вместе с логином и токеном
+            UserDataManager.instance.ChangeUserNickname(nicknameField.text);
             GameDataManager.Instance.SaveAccountData();
-            await GameDataManager.Instance.SaveGameData(); // сохраняем (пока только никнейм)
+            await GameDataManager.Instance.SaveGameData();
+
             SceneManager.LoadScene("GameScene");
         }
         else
@@ -132,18 +131,18 @@ public class Authentication : MonoBehaviour
 
         if(response.success)
         {
-            // пытаемся загрузить данные с сервера
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             await GameDataManager.Instance.LoadGameData();
             if (GameDataManager.Instance.gameDataForStorage != null)
             {
                 GameDataManager.Instance.ApplyGameData();
-                // сохраняем логин и токен в локальные данные
+                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                 GameDataManager.Instance.SaveAccountData();
                 SceneManager.LoadScene("GameScene");
             }
             else
             {
-                // если данных нет, то аккаунт пустой и переходим к выбору ника
+                // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
                 ToNicknameMenu();
             }
         }

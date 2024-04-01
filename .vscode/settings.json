@@ -52,5 +52,5 @@
         "Temp/": true
     },
     "dotnet.preferCSharpExtension": true,
-    "dotnet.defaultSolution": "AIEmbrace.sln"
+    "dotnet.defaultSolution": "AiEmbrace.sln"
 }
