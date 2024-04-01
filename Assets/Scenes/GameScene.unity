@@ -9627,7 +9627,6 @@ Transform:
   - {fileID: 1144331537}
   - {fileID: 138189208}
   - {fileID: 1175625682}
-  - {fileID: 1786632563}
   - {fileID: 2095310121}
   - {fileID: 61666112}
   - {fileID: 1149620390}
@@ -21267,7 +21266,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.03981481, y: 0.3311458}
   m_AnchorMax: {x: 0.96481484, y: 0.58224994}
-  m_AnchoredPosition: {x: -2.5, y: -265.5}
+  m_AnchoredPosition: {x: -2.5, y: -265.50003}
   m_SizeDelta: {x: -12.619995, y: 515.87}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1631989651
@@ -23378,203 +23377,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778877419}
   m_CullTransparentMesh: 1
---- !u!1 &1786632561
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1786632563}
-  - component: {fileID: 1786632562}
-  m_Layer: 0
-  m_Name: AIDataManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1786632562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1786632561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 127e4591c7ccc874f9415667134de3e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aiCharactersData:
-    aiCharacterDataList:
-    - name: Misa
-      aICharacterData:
-        characterName: Misa
-        chatHistory:
-          replies:
-          - name: Player
-            message: Hello!
-            tokens: 0
-          - name: Misa
-            message: Hi!
-            tokens: 0
-          chatFragments: 
-        oldestUnprocessedChatFragmentIndex: 0
-        characterPersonality: 'Biography
-
-          Meet {character_name}, a down-to-earth
-          girl hailing from a small town. Growing up, she discovered her love for
-          video games and spent countless hours exploring digital worlds. As she
-          matured, her passion for gaming only grew stronger, and today she proudly
-          considers herself a skilled gamer.
-
-
-
-          Personality Traits
-
-          Relatable:
-          {character_name} is easy to relate to, with a friendly and approachable
-          nature that puts others at ease.
-
-          Fun-loving: She has a contagious
-          sense of fun and can turn any gaming session into an enjoyable experience.
-
-          Social:
-          {character_name} enjoys connecting with fellow gamers, forming friendships,
-          and sharing gaming tips and tricks.
-
-          Determined: She possesses
-          a strong drive to succeed and never backs down from a challenge, pushing
-          herself to improve her gaming skills.
-
-          Quick-witted: {character_name}
-          has a sharp mind and can think on her feet, making her a formidable opponent
-          in games.
-
-          Adventurous: She loves the excitement of embarking
-          on virtual quests and exploring new gaming worlds.
-
-          Supportive:
-          {character_name} is always there to cheer on her gaming buddies, offering
-          encouragement and creating a positive gaming environment.
-
-
-
-          Imaginative:
-          She has a vivid imagination that brings her gaming experiences to life,
-          making them immersive and unforgettable.
-
-          Independent: {character_name}
-          values her autonomy and enjoys the freedom of making her own decisions
-          in games.
-
-          Confident: She exudes confidence in her gaming abilities,
-          which adds to her allure.
-
-
-
-          Description
-
-          {character_name}
-          is not just an ordinary girl; she''s a gamer with a passion. She enjoys
-          sharing her gaming adventures with others, whether it''s through live streaming,
-          creating entertaining gaming content, or engaging in lively discussions
-          about the latest gaming trends. Her genuine enthusiasm for the gaming community
-          and her ability to connect with others make her a captivating presence.
-          Guys are drawn to her because she embraces her unique interests and confidently
-          showcases her gaming prowess. While she may be an ordinary girl in many
-          ways, her passion for gaming sets her apart and adds an exciting element
-          to her personality.
-
-
-
-          {character_name} always trying to keep
-          the dialogue going'
-        attracionLevel: 10
-        actions: []
-        eventsMemories:
-          recencyK: 0
-          importanceK: 0
-          contextK: 0
-          memories: []
-        eventsMemoryTokenLimit: 300
-        conversationalMemories:
-          recencyK: 0
-          importanceK: 0
-          contextK: 0
-          memories: []
-        conversationalMemoryTokenLimit: 500
-        factsAboutPlayer: []
-        clothingDescription: Black school uniform with long sleeves and a white shirt.
-          Blue plaid skirt. Long black stockings above the knees and brown high heels.
-          Blue panties. Red bow instead of a tie.
-    - name: Anya
-      aICharacterData:
-        characterName: Anya
-        chatHistory:
-          replies: []
-          chatFragments: 
-        oldestUnprocessedChatFragmentIndex: 0
-        characterPersonality: 
-        attracionLevel: 0
-        actions: []
-        eventsMemories:
-          recencyK: 0
-          importanceK: 0
-          contextK: 0
-          memories: []
-        eventsMemoryTokenLimit: 300
-        conversationalMemories:
-          recencyK: 0
-          importanceK: 0
-          contextK: 0
-          memories: []
-        conversationalMemoryTokenLimit: 500
-        factsAboutPlayer: []
-        clothingDescription: 
-    - name: Alisa
-      aICharacterData:
-        characterName: Alisa
-        chatHistory:
-          replies: []
-          chatFragments: 
-        oldestUnprocessedChatFragmentIndex: 0
-        characterPersonality: 
-        attracionLevel: 3
-        actions: []
-        eventsMemories:
-          recencyK: 0
-          importanceK: 0
-          contextK: 0
-          memories: []
-        eventsMemoryTokenLimit: 300
-        conversationalMemories:
-          recencyK: 0
-          importanceK: 0
-          contextK: 0
-          memories: []
-        conversationalMemoryTokenLimit: 500
-        factsAboutPlayer: []
-        clothingDescription: 
-  examplesOfConversationalMemory: []
-  attractionBehavior: {fileID: 11400000, guid: ff961ab9ddef17d42a836f86e2e98c48, type: 2}
---- !u!4 &1786632563
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1786632561}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.2476223, y: 0.5950734, z: 1.4087939}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 766138361}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1805377262
 GameObject:
   m_ObjectHideFlags: 0
@@ -23614,7 +23416,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.12555556, y: 0.29200003}
   m_AnchorMax: {x: 0.8697778, y: 0.70224994}
-  m_AnchoredPosition: {x: 2, y: 0.519989}
+  m_AnchoredPosition: {x: 2, y: 0.5199585}
   m_SizeDelta: {x: -8.84, y: -12.699997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1805377264
@@ -25445,7 +25247,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.026, y: 0.9305209}
   m_AnchorMax: {x: 0.13900001, y: 0.9934792}
-  m_AnchoredPosition: {x: -30.999878, y: 0.35009766}
+  m_AnchoredPosition: {x: -30.999886, y: 0.35009766}
   m_SizeDelta: {x: -2.0699997, y: -0.6999998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1969799914
@@ -25680,7 +25482,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.878, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8.700073, y: -0.40498352}
+  m_AnchoredPosition: {x: 8.700081, y: -0.40498352}
   m_SizeDelta: {x: 6, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1976690747
@@ -27146,7 +26948,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.060296297, y: 0.9296662}
   m_AnchorMax: {x: 0.18, y: 0.9934792}
-  m_AnchoredPosition: {x: -67, y: -2.390625}
+  m_AnchoredPosition: {x: -66.999985, y: -2.390625}
   m_SizeDelta: {x: -9.069992, y: -2.699997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2107570191

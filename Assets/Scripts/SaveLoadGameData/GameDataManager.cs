@@ -131,6 +131,7 @@ public class GameDataManager : MonoBehaviour
     {
         // ��������� gameDataForStorage �� ������ � ��������
         var data = await ClientAPI.Instance.LoadData(version);
+        Debug.Log(data.GetType());
         gameDataForStorage = data;
     }
 

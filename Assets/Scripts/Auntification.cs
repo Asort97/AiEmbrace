@@ -23,15 +23,25 @@ public class Auntification : MonoBehaviour
 
     private string accountToken;
 
-    private void Start()
+    private async void Start()
     {
+        await GameDataManager.instance.LoadGameData();
+        GameDataManager.instance.ApplyGameData();
+        
         accountToken = PlayerPrefs.GetString("TOKEN");
-
+        Debug.Log(accountToken);
         if(accountToken.Length != 0)
         {
-            ClientAPI.Instance.token = accountToken;
-            SceneManager.LoadScene("GameScene");
-        }
+            if(UserDataManager.instance.GetUserNickname() != "")
+            {
+                ClientAPI.Instance.token = accountToken;
+                SceneManager.LoadScene("GameScene");                
+            }
+            else
+            {
+                ToNicknameMenu();
+            }
+        }   
     }
 
     public void ToWelcomeMenu()
@@ -84,11 +94,14 @@ public class Auntification : MonoBehaviour
         Login(login_emailField.text, login_passwordField.text);
     }
 
-    public void SetNicknameBtn()
+    public async void SetNicknameBtn()
     {
         if(nicknameField.text.Length >= 3)
         {
-            PlayerPrefs.SetString("NICKNAME", nicknameField.text);
+            UserDataManager.instance.ChangeUserNickname(nicknameField.text);
+            await GameDataManager.instance.SaveGameData();
+
+            // PlayerPrefs.SetString("NICKNAME", nicknameField.text);
             SceneManager.LoadScene("GameScene");
         }
         else
