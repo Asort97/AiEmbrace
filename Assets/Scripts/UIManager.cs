@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        nicknameProfile.text = ClientAPI.Instance.PlayerNickname;
+        nicknameProfile.text = GameDataManager.Instance.gameDataForStorage.userData.userNickname;
     }
 
     private void OnEnable()
@@ -126,9 +126,9 @@ public class UIManager : MonoBehaviour
         // Debug.Log(changeNickField.text);
         if(changeNickField.text.Length >= 3)
         {
-            ClientAPI.Instance.PlayerNickname = changeNickField.text; // устанавливаем ник в clientAPI
+            UserDataManager.Instance.data.userData.userNickname = changeNickField.text; // устанавливаем ник в clientAPI
             await GameDataManager.Instance.SaveGameData(); // сохраняем ник в облаке
-            nicknameProfile.text = ClientAPI.Instance.PlayerNickname; // обновляем ник в UI
+            nicknameProfile.text = changeNickField.text; // обновляем ник в UI
 
             changeNickPanel.SetActive(false);
         }

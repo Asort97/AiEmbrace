@@ -15,7 +15,7 @@ public class ChatManager : MonoBehaviour
     [SerializeField] private Transform mainContainer;
     [SerializeField] private Transform BotMessagesContainer;
     private bool aiIsWaiting;
-    public AICharacterData currentAI;
+    public AICharacter currentAI;
 
     private void Awake()
     {
@@ -31,6 +31,8 @@ public class ChatManager : MonoBehaviour
 
         // todo: remove this bicycle and manage manager initialization
         await Task.Delay(2000);
+        await GameDataManager.Instance.LoadGameData();
+        GameDataManager.Instance.ApplyGameData();
         InitChatHistory("Misa");
     }
 
@@ -60,12 +62,14 @@ public class ChatManager : MonoBehaviour
         Debug.Log("InitChatHistory");
         Debug.Log(AIDataManager.Instance);
         // pick AI from data
-        currentAI = AIDataManager.Instance.aiCharactersData.GetAICharacterData(name);
-
+        var characterData = AIDataManager.Instance.aiCharactersData.GetAICharacterData(name);
+        var characterPersonalData = UserDataManager.Instance.data.charactersData.GetAICharacterData(name);
+        currentAI = new AICharacter(characterData, characterPersonalData);
+       
         if (currentAI != null)
         {
             // draw all replies from chatHistory
-            foreach (var reply in currentAI.chatHistory.GetReplies())
+            foreach (var reply in currentAI.PersonalData.chatHistory.GetReplies())
             {
                 bool isPlayer = false;
                 string _name = reply.name;
@@ -76,7 +80,7 @@ public class ChatManager : MonoBehaviour
                 }
                 else
                 {
-                    _name = currentAI.characterName;
+                    _name = currentAI.Data.characterName;
                 }
                 AddMessage(_name, reply.message, isPlayer);
             }
@@ -92,8 +96,8 @@ public class ChatManager : MonoBehaviour
             DrawNewMessage("You", UIManager.instance.inputFieldChat.text, true);
 
             // todo: высчитывать токены сообщения пользователя
-            currentAI.chatHistory.Append(new Reply(ClientAPI.Instance.PlayerNickname, UIManager.instance.inputFieldChat.text, 0));
-            currentAI.chatHistory.Append(new Reply(currentAI.characterName, "", 0));
+            currentAI.PersonalData.chatHistory.Append(new Reply(GameDataManager.Instance.gameDataForStorage.userData.userNickname, UIManager.instance.inputFieldChat.text, 0));
+            currentAI.PersonalData.chatHistory.Append(new Reply(currentAI.Data.characterName, "", 0));
 
             if (aiIsWaiting)
             {
@@ -108,8 +112,8 @@ public class ChatManager : MonoBehaviour
             MessageResponse response = await ClientAPI.Instance.RunLLM(prompt);
             if (response.success)
             {
-                currentAI.chatHistory.SetLastReply(response.text);
-                DrawNewMessage(currentAI.characterName, response.text, false);
+                currentAI.PersonalData.chatHistory.SetLastReply(response.text);
+                DrawNewMessage(currentAI.Data.characterName, response.text, false);
             }
             else
             {

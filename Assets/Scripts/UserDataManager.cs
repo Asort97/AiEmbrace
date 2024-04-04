@@ -1,36 +1,59 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public class AllUserData
+{
+    /*
+     * All sorts of player game data.
+     * 
+     */
+
+    public UserData userData;
+    public AICharactersPersonalData charactersData;
+}
+
 public class UserDataManager: MonoBehaviour
 {
-    public static UserDataManager instance;
-    public UserData userData;
+    /*
+     * Global container for accessing for all user data.
+     * 
+     */
 
-    private void Awake()
+    public static UserDataManager _instance;
+
+    public AllUserData data;
+
+    private void Start()
     {
-        instance = this;
-
-        DontDestroyOnLoad(gameObject);
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
 
-    public void ChangeUserNickname(string name)
+    public static UserDataManager Instance
     {
-        userData.userNickname = name;
-    }
-
-    public string GetUserNickname()
-    {
-        return userData.userNickname;
-    }
-
-    public int GetUserMoney()
-    {
-        return userData.userMoney;
-    }
-
-    public int GetUserCrystals()
-    {
-        return userData.userCrystals;
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<UserDataManager>();
+                if (_instance == null)
+                {
+                    GameObject go = new GameObject();
+                    _instance = go.AddComponent<UserDataManager>();
+                }
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+            return _instance;
+        }
     }
 }

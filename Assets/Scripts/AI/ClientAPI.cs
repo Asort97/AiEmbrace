@@ -118,7 +118,6 @@ public class ClientAPI : MonoBehaviour
     private static ClientAPI _instance;
     [SerializeField] public string host = "http://127.0.0.1:8000";
 
-    public string PlayerNickname;
     // токен с геттером
     public string token = null;
 
@@ -329,6 +328,7 @@ public class ClientAPI : MonoBehaviour
         else
         {
             var response = JsonConvert.DeserializeObject<SaveDataResponse>(strResponse);
+            Debug.Log("Save: strResponse = " + strResponse);
             return response;
         }
     }
@@ -347,7 +347,7 @@ public class ClientAPI : MonoBehaviour
         }
         else
         {
-            Debug.Log("strResponse = " + strResponse);
+            Debug.Log("Load: strResponse = " + strResponse);
             var response = JsonConvert.DeserializeObject<LoadDataResponse>(strResponse);
             if (response.success)
             {
@@ -365,7 +365,6 @@ public class ClientAPI : MonoBehaviour
         // todo: logout request
 
         token = null;
-        PlayerNickname = "";
 
         return true;
     }

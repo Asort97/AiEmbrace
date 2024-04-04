@@ -65,7 +65,8 @@ public class AIDataManager : MonoBehaviour
     private static AIDataManager _instance;
 
     [SerializeField]
-    public AICharacterDataWrapper aiCharactersData = new AICharacterDataWrapper();
+    public AICharacterDataWrapper aiCharactersData;
+
 
     public List<AIChatConversationalMemoryPrefab> examplesOfConversationalMemory;
     public ConversationalBehavior attractionBehavior;
@@ -106,6 +107,7 @@ public class AIDataManager : MonoBehaviour
     public void ConfirmPlayerName(string playerName)
     {
         // для каждого персонажа в списке
+        /*
         foreach (var data in aiCharactersData.aiCharacterDataList)
         {
             // для каждой реплики заменяем имя игрока и его упоминания на имя, которое ввел игрок
@@ -115,6 +117,7 @@ public class AIDataManager : MonoBehaviour
                 reply.message = reply.message.Replace("Player", playerName);
             }
         }
+        */
     }
 
 }

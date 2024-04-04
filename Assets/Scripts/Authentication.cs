@@ -26,19 +26,23 @@ public class Authentication : MonoBehaviour
 
     private async void Start()
     {
-        // ��������� ��������� ������ ������������ �� �����
+        // check if account data exists and load it
         GameDataManager.Instance.LoadAccountData();
         if (GameDataManager.Instance.accountDataForStorage != null)
         {
-            GameDataManager.Instance.ApplyAccountData(); // � ��� ����� ��������� ClientAPI.Instance.token
+            GameDataManager.Instance.ApplyAccountData(); // set token in ClientAPI.Instance.token
+            // todo: if login exist but token is invalid, show login menu with saved login
 
-            await GameDataManager.Instance.LoadGameData(); // ��������� ������� ������ c �������
+            await GameDataManager.Instance.LoadGameData(); // try to load data from server
             if (GameDataManager.Instance.gameDataForStorage != null)
             {
                 Debug.Log("data = " + GameDataManager.Instance.gameDataForStorage);
-                GameDataManager.Instance.ApplyGameData(); // ��������� ������� ������
+                GameDataManager.Instance.ApplyGameData(); // init game data with loaded data
             }
-            // todo: 
+            else
+            {
+                // todo: what to do if game data is not loaded?
+            }
             SceneManager.LoadScene("GameScene");
         }
     }
@@ -97,7 +101,9 @@ public class Authentication : MonoBehaviour
     {
         if(nicknameField.text.Length >= 3)
         {
-            UserDataManager.instance.ChangeUserNickname(nicknameField.text);
+            UserDataManager.Instance.data.userData.userNickname = nicknameField.text;
+
+            // seve account and game data (nickname) before loading game scene
             GameDataManager.Instance.SaveAccountData();
             await GameDataManager.Instance.SaveGameData();
 
@@ -131,7 +137,7 @@ public class Authentication : MonoBehaviour
 
         if(response.success)
         {
-            // �������� ��������� ������ � �������
+            // try to load game data
             await GameDataManager.Instance.LoadGameData();
             if (GameDataManager.Instance.gameDataForStorage != null)
             {

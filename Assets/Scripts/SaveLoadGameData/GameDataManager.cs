@@ -107,7 +107,6 @@ public class GameDataManager : MonoBehaviour
     private AccountDataForStorage CollectAccountData()
     {
         var accountDataForStorage = new AccountDataForStorage();
-        // todo: accountDataForStorage.login = GameManager._instance.accountData.Login;
         accountDataForStorage.token = ClientAPI.Instance.token;
 
         return accountDataForStorage;
@@ -117,15 +116,8 @@ public class GameDataManager : MonoBehaviour
     {
         var gameDataForStorage = new GameDataForStorage();
 
-        // gameDataForStorage.playerName = UserDataManager.instance.GetUserNickname();
-        // gameDataForStorage.playerMoney = UserDataManager.instance.GetUserMoney();
-        // gameDataForStorage.playerCrystals = UserDataManager.instance.GetUserCrystals();
-
-        gameDataForStorage.userData = UserDataManager.instance.userData;
-        gameDataForStorage.aiData = AIDataManager.instance.aiCharactersData;
-
-        // todo: gameDataForStorage.playerName = GameManager.instance.GetPlayerName();
-        // todo: gameDataForStorage.currentGameDate = TimeManager.instance.currentDay;
+        gameDataForStorage.userData = UserDataManager.Instance.data.userData;
+        gameDataForStorage.aiData = AIDataManager.Instance.aiCharactersData;
 
         return gameDataForStorage;
     }
@@ -134,9 +126,7 @@ public class GameDataManager : MonoBehaviour
     {
         if (gameDataForStorage != null)
         {
-            AIDataManager.instance.aiCharactersData = gameDataForStorage.aiData;
-            UserDataManager.instance.userData = gameDataForStorage.userData;
-            
+            UserDataManager.Instance.data.userData = gameDataForStorage.userData;
             // todo: TimeManager.instance.currentDay = gameDataForStorage.currentGameDate;
         }
     }
@@ -154,7 +144,6 @@ public class GameDataManager : MonoBehaviour
     {
         // ��������� gameDataForStorage �� ������ � ��������
         var data = await ClientAPI.Instance.LoadData(version);
-        Debug.Log(data.GetType());
         gameDataForStorage = data;
     }
 
@@ -186,6 +175,19 @@ public class GameDataManager : MonoBehaviour
         FileStream file = File.Create(GetSavePath());
         bf.Serialize(file, CollectAccountData());
         file.Close();
+    }
+
+    public void InitializeNewPlayerData(string name)
+    {
+        // Пример начальных данных
+        gameDataForStorage.userData = new UserData()
+        {
+            userNickname = name,
+            userExp = 0,
+            userCrystals = 0,
+            userMoney = 0
+        };
+        // todo: aiCharactersData
     }
 
     public void ClearAccountData()

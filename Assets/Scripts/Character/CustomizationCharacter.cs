@@ -163,7 +163,10 @@ public class CustomizationCharacter : MonoBehaviour
     private void ChangeCharacterPreset()
     {
         Debug.Log($"Finding new CHAR");
-        ChatManager.instance.currentAI = AIDataManager.Instance.aiCharactersData.GetAICharacterData(((CharacterSO)characterPreset.itemSo).characterName);
+        var data = AIDataManager.Instance.aiCharactersData.GetAICharacterData(((CharacterSO)characterPreset.itemSo).characterName);
+        var personal = UserDataManager.Instance.data.charactersData.GetAICharacterData(((CharacterSO)characterPreset.itemSo).characterName);
+
+        ChatManager.instance.currentAI = new AICharacter(data, personal);
     }
 
     private void ChangeBackgroundColor()
