@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using Unity.VisualScripting;
 using UnityEditor.PackageManager;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider xpSlider;
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private GameObject leavePanel;
+    [SerializeField] private GameObject autosavePanel;
     [SerializeField] private Button buyButton;
     [SerializeField] private Button useButton;
     [SerializeField] private TMP_Text buyButtonText;
@@ -104,7 +106,19 @@ public class UIManager : MonoBehaviour
         nofiticationPanel.SetActive(true);
         nofiticationText.text = info;
     }
+    
+    public void ShowAutosavePanel()
+    {
+        autosavePanel.SetActive(true);
+        autosavePanel.transform.DOLocalMoveX(375, 0.5f).OnComplete(()=>StartCoroutine(waitForPanel()));
 
+        IEnumerator waitForPanel()
+        {
+            yield return new WaitForSeconds(5f);
+            autosavePanel.transform.DOLocalMoveX(740, 0.5f).OnComplete(()=>autosavePanel.SetActive(false));
+        }
+    }
+    
     public void SetEnableInputChat(bool enabled)
     {
         inputFieldChat.gameObject.SetActive(enabled);

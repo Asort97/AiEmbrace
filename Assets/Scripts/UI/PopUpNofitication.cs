@@ -18,6 +18,8 @@ public class PopUpNofitication : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        ShowAutoSave();
     }
 
     public void ShowNofitication(string info)
@@ -25,6 +27,11 @@ public class PopUpNofitication : MonoBehaviour
         UIManager.instance.ShowNofiticationPanel(info);
     }
     
+    public void ShowAutoSave()
+    {
+        UIManager.instance.ShowAutosavePanel();
+    }
+
     public void ShowNofitication(NofStatus status)
     {
         switch (status)
