@@ -64,14 +64,14 @@ public class ItemClothes : MonoBehaviour
 
             OnBuyItem?.Invoke(itemPrice);
             
-            PopUpNofitication.instance.ShowNofitication(PopUpNofitication.NofStatus.SuccessPurchased);
+            PopUpNotifications.instance.ShowNotification(PopUpNotifications.NofStatus.SuccessPurchased);
             
             priceText.text = "purchased";
             isBuyed = true;
         }
         else if(!CoinsManager.instance.CheckEnoughCoins(itemPrice))
         {
-            PopUpNofitication.instance.ShowNofitication(PopUpNofitication.NofStatus.NotEnoughCash);
+            PopUpNotifications.instance.ShowNotification(PopUpNotifications.NofStatus.NotEnoughCash);
         }
     }
 
@@ -105,7 +105,7 @@ public class ItemClothes : MonoBehaviour
 
         if(clothesSO.showDescriptionMenu)
         {
-            PopUpNofitication.instance.ShowNofitication(((CharacterSO)clothesSO).characterDescription);
+            PopUpNotifications.instance.ShowNotification(((CharacterSO)clothesSO).characterDescription);
         }
 
         OnSelectedItem?.Invoke(this);

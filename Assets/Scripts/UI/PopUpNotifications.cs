@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PopUpNofitication : MonoBehaviour
+public class PopUpNotifications : MonoBehaviour
 {
-    public static PopUpNofitication instance;
+    public static PopUpNotifications instance;
 
     public enum NofStatus
     {
@@ -20,20 +20,25 @@ public class PopUpNofitication : MonoBehaviour
         instance = this;
     }
 
-    public void ShowNofitication(string info)
+    public void ShowNotification(string info)
     {
-        UIManager.instance.ShowNofiticationPanel(info);
+        UIManager.instance.ShowNotificationPanel(info);
     }
     
-    public void ShowNofitication(NofStatus status)
+    public void ShowAutoSave()
+    {
+        UIManager.instance.ShowAutosavePanel();
+    }
+
+    public void ShowNotification(NofStatus status)
     {
         switch (status)
         {
             case NofStatus.SuccessPurchased:
-                UIManager.instance.ShowNofiticationPanel(PurchasedInfo);
+                UIManager.instance.ShowNotificationPanel(PurchasedInfo);
                 break;
             case NofStatus.NotEnoughCash:
-                UIManager.instance.ShowNofiticationPanel(NotEnoughCashInfo);
+                UIManager.instance.ShowNotificationPanel(NotEnoughCashInfo);
                 break;
         }
     }

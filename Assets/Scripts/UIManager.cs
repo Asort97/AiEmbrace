@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using Unity.VisualScripting;
 using UnityEditor.PackageManager;
-using DG.Tweening.Core.Easing;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider xpSlider;
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private GameObject leavePanel;
+    [SerializeField] private GameObject autosavePanel;
     [SerializeField] private Button buyButton;
     [SerializeField] private Button useButton;
     [SerializeField] private TMP_Text buyButtonText;
@@ -100,18 +101,30 @@ public class UIManager : MonoBehaviour
         xpSlider.value = amount;
     }
 
-    public void ShowNofiticationPanel(string info)
+    public void ShowNotificationPanel(string info)
     {
         nofiticationPanel.SetActive(true);
         nofiticationText.text = info;
     }
+    
+    public void ShowAutosavePanel()
+    {
+        autosavePanel.SetActive(true);
+        autosavePanel.transform.DOLocalMoveX(375, 0.5f).OnComplete(()=>StartCoroutine(waitForPanel()));
 
+        IEnumerator waitForPanel()
+        {
+            yield return new WaitForSeconds(5f);
+            autosavePanel.transform.DOLocalMoveX(740, 0.5f).OnComplete(()=>autosavePanel.SetActive(false));
+        }
+    }
+    
     public void SetEnableInputChat(bool enabled)
     {
         inputFieldChat.gameObject.SetActive(enabled);
     }
 
-    public void CloseNofitication()
+    public void CloseNotification()
     {
         nofiticationPanel.SetActive(false);
     }
@@ -135,7 +148,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            PopUpNofitication.instance.ShowNofitication("Too short!");
+            PopUpNotifications.instance.ShowNotification("Too short!");
         }
     }
 
@@ -158,8 +171,8 @@ public class UIManager : MonoBehaviour
     public async void LeaveAccount()
     {
         var GameDataManager = new GameDataManager();
+        await GameDataManager.SaveGameData(); // save game data before logout
         GameDataManager.ClearAccountData();
-
         var result = await ClientAPI.Instance.Logout();
         if (result)
         {
@@ -170,7 +183,6 @@ public class UIManager : MonoBehaviour
         {
             Debug.LogError("Logout attempt failed");
         }
-
     }
 
     public void CloseUseButton()
