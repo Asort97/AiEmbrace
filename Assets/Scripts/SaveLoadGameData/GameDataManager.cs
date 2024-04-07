@@ -24,48 +24,22 @@ public class GameDataForStorage
 
 public class GameDataManager : MonoBehaviour
 {
-
-    // singleton
-    static private GameDataManager _instance;
+    /*
+     * Class for managing game data.
+     * 
+     * Requires access to UserDataManager and ClientAPI.
+     * 
+     */
 
     [SerializeField]
     public GameDataForStorage gameDataForStorage = null;
     public AccountDataForStorage accountDataForStorage = null;
 
+    // if the game version changes,user data will be reset
     const string version = "0.1";
 
+    // file name for account data
     const string FILE_NAME = "accountData.dat";
-
-    void Start()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (_instance != this)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    public static GameDataManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType<GameDataManager>();
-                if (_instance == null)
-                {
-                    GameObject go = new GameObject();
-                    _instance = go.AddComponent<GameDataManager>();
-                }
-                DontDestroyOnLoad(_instance.gameObject);
-            }
-            return _instance;
-        }
-    }
 
     private AccountDataForStorage CollectAccountData()
     {

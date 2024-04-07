@@ -28,10 +28,11 @@ public class Authentication : MonoBehaviour
     private async void Start()
     {
         // check if account data exists and load it
-        GameDataManager.Instance.LoadAccountData();
-        if (GameDataManager.Instance.accountDataForStorage != null)
+        var GameDataManager = new GameDataManager();
+        GameDataManager.LoadAccountData();
+        if (GameDataManager.accountDataForStorage != null)
         {
-            GameDataManager.Instance.ApplyAccountData(); // set token in ClientAPI.Instance.token
+            GameDataManager.ApplyAccountData(); // set token in ClientAPI.Instance.token
             Login(false);
         }
     }
@@ -134,7 +135,8 @@ public class Authentication : MonoBehaviour
 
         if(response.success)
         {
-            GameDataManager.Instance.SaveAccountData();
+            var GameDataManager = new GameDataManager();
+            GameDataManager.SaveAccountData();
             Login(true);
         }
         else
@@ -148,12 +150,12 @@ public class Authentication : MonoBehaviour
         /* 
          * Login. Required to have token in ClientAPI
          */
-
-        await GameDataManager.Instance.LoadGameData();
-        if (GameDataManager.Instance.gameDataForStorage != null)
+        var GameDataManager = new GameDataManager();
+        await GameDataManager.LoadGameData();
+        if (GameDataManager.gameDataForStorage != null)
         {
             // apply game data for UserDataManager
-            GameDataManager.Instance.ApplyGameData();
+            GameDataManager.ApplyGameData();
             Debug.Log("Login success");
             SceneManager.LoadScene("GameScene");
         }
@@ -179,14 +181,14 @@ public class Authentication : MonoBehaviour
             ShowError("Can't finish registration: failed to receive token.");
             return;
         }
-
+        var GameDataManager = new GameDataManager();
         // todo: add checks for all api calls
         UserDataManager.Instance.InitializeNewUserData();
         UserDataManager.Instance.data.userData.userNickname = username;
         // save account and game data (nickname and default) before loading game scene
-        GameDataManager.Instance.SaveAccountData();
-        await GameDataManager.Instance.SaveGameData();
-        // all data saved, load game scene
+        GameDataManager.SaveAccountData();
+        await GameDataManager.SaveGameData();
+        // started data saved, load game scene
         SceneManager.LoadScene("GameScene");
     }
 

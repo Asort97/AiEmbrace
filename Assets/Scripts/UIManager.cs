@@ -127,7 +127,8 @@ public class UIManager : MonoBehaviour
         if(changeNickField.text.Length >= 3)
         {
             UserDataManager.Instance.data.userData.userNickname = changeNickField.text; // устанавливаем ник в clientAPI
-            await GameDataManager.Instance.SaveGameData(); // сохраняем ник в облаке
+            var GameDataManager = new GameDataManager();
+            await GameDataManager.SaveGameData(); // сохраняем ник в облаке
             nicknameProfile.text = changeNickField.text; // обновляем ник в UI
 
             changeNickPanel.SetActive(false);
@@ -156,7 +157,8 @@ public class UIManager : MonoBehaviour
 
     public async void LeaveAccount()
     {
-        GameDataManager.Instance.ClearAccountData();
+        var GameDataManager = new GameDataManager();
+        GameDataManager.ClearAccountData();
 
         var result = await ClientAPI.Instance.Logout();
         if (result)
