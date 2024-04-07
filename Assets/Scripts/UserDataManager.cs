@@ -20,13 +20,35 @@ public class UserDataManager: MonoBehaviour
     /*
      * Global container for accessing for all user data.
      * 
+     * Warning: This script must be attached to a ROOT GameObject in the scene.
+     * 
      */
 
     public static UserDataManager _instance;
 
+    public AllUserDataTemplate userDataTemplatePrefab;
+
     public AllUserData data;
 
-    private void Start()
+    public static UserDataManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<UserDataManager>();
+                if (_instance == null)
+                {
+                    GameObject go = new GameObject("UserDataManager");
+                    _instance = go.AddComponent<UserDataManager>();
+                    DontDestroyOnLoad(_instance.gameObject);
+                }
+            }
+            return _instance;
+        }
+    }
+
+    private void Awake()
     {
         if (_instance == null)
         {
@@ -39,21 +61,18 @@ public class UserDataManager: MonoBehaviour
         }
     }
 
-    public static UserDataManager Instance
+    public void InitializeNewUserData()
     {
-        get
+        // Создаёт новый экземпляр данных пользователя из префаба
+        if (userDataTemplatePrefab != null)
         {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType<UserDataManager>();
-                if (_instance == null)
-                {
-                    GameObject go = new GameObject();
-                    _instance = go.AddComponent<UserDataManager>();
-                }
-                DontDestroyOnLoad(_instance.gameObject);
-            }
-            return _instance;
+            data = Instantiate(userDataTemplatePrefab).GetComponent<AllUserDataTemplate>().GetTemplateData();
         }
+    }
+
+    // Очищает данные пользователя
+    public void ClearUserData()
+    {
+        data = null; // Просто установите data в null или переинициализируйте, если нужно
     }
 }

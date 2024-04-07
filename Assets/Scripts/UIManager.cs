@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        nicknameProfile.text = GameDataManager.Instance.gameDataForStorage.userData.userNickname;
+        nicknameProfile.text = UserDataManager.Instance.data.userData.userNickname;
     }
 
     private void OnEnable()

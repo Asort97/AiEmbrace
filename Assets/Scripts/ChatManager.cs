@@ -30,9 +30,7 @@ public class ChatManager : MonoBehaviour
         ClientAPI.OnResponcePrompt += DrawNewMessage;
 
         // todo: remove this bicycle and manage manager initialization
-        await Task.Delay(2000);
-        await GameDataManager.Instance.LoadGameData();
-        GameDataManager.Instance.ApplyGameData();
+
         InitChatHistory("Misa");
     }
 
@@ -96,7 +94,7 @@ public class ChatManager : MonoBehaviour
             DrawNewMessage("You", UIManager.instance.inputFieldChat.text, true);
 
             // todo: высчитывать токены сообщения пользователя
-            currentAI.PersonalData.chatHistory.Append(new Reply(GameDataManager.Instance.gameDataForStorage.userData.userNickname, UIManager.instance.inputFieldChat.text, 0));
+            currentAI.PersonalData.chatHistory.Append(new Reply(GameDataManager.Instance.gameDataForStorage.data.userData.userNickname, UIManager.instance.inputFieldChat.text, 0));
             currentAI.PersonalData.chatHistory.Append(new Reply(currentAI.Data.characterName, "", 0));
 
             if (aiIsWaiting)

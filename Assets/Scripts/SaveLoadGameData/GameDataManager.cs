@@ -7,24 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-/*
-������ ��� ���������� � ��������:
-    ���������� ������       - ?             
-    ����� ����������:       - GameManager   
-    - ������� ���������
-    - ��, ��
-    - ������� ������        - ?
-    ���������               - ?
-    ������ ���� AI          - AIDataManager     x
-    �������� �������        - ?
-    ������ �������          - ?
-    ��� ������              - GameManager       x  
-    ���� ����������         - ���
-    ������� �������         - GameManager
-    - �����                                     x
-    �����                   - ClientAPI         x
-    ������� ����            - TimeManager       x
- */
+
 [Serializable]
 public class AccountDataForStorage
 {
@@ -35,39 +18,23 @@ public class AccountDataForStorage
 [Serializable]
 public class GameDataForStorage
 {
-    [SerializeField] public AICharacterDataWrapper aiData;
-    [SerializeField] public UserData userData;
-    // [SerializeField] public string playerName;
-    // [SerializeField] public int playerMoney;
-    // [SerializeField] public int playerCrystals;
-    [SerializeField] public int currentGameDate;
+    [SerializeField] public AllUserData data;
 }
 
 
 public class GameDataManager : MonoBehaviour
 {
-    // todo: ����������� �� ����� ������ ���� ���������/����������?
-    // ����� ��� ���������� � �������� ������ ����
 
     // singleton
     static private GameDataManager _instance;
 
-    // ������ �� �������, ������� �������� ������ ������
-    // ���� ��� ������� ��� ���������, ����������� �� �����
-
-    // ������
-    // todo: �������� ������� ������, ������� �� ����� ��� ������ ������� gameDataForStorage � accountDataForStorage, ����� ��� �� �������� ������
     [SerializeField]
     public GameDataForStorage gameDataForStorage = null;
     public AccountDataForStorage accountDataForStorage = null;
 
     const string version = "0.1";
 
-    // �������� ����� ��� ����������
     const string FILE_NAME = "accountData.dat";
-
-    public UnityEvent onGameDataLoaded;
-
 
     void Start()
     {
@@ -80,10 +47,6 @@ public class GameDataManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    void Update()
-    {
     }
 
     public static GameDataManager Instance
@@ -115,10 +78,7 @@ public class GameDataManager : MonoBehaviour
     private GameDataForStorage CollectGameData()
     {
         var gameDataForStorage = new GameDataForStorage();
-
-        gameDataForStorage.userData = UserDataManager.Instance.data.userData;
-        gameDataForStorage.aiData = AIDataManager.Instance.aiCharactersData;
-
+        gameDataForStorage.data = UserDataManager.Instance.data;
         return gameDataForStorage;
     }
 
@@ -126,7 +86,7 @@ public class GameDataManager : MonoBehaviour
     {
         if (gameDataForStorage != null)
         {
-            UserDataManager.Instance.data.userData = gameDataForStorage.userData;
+            UserDataManager.Instance.data = gameDataForStorage.data;
             // todo: TimeManager.instance.currentDay = gameDataForStorage.currentGameDate;
         }
     }
@@ -135,27 +95,24 @@ public class GameDataManager : MonoBehaviour
     {
         if (accountDataForStorage != null)
         {
-            // todo: GameManager._instance.accountData.Login = accountDataForStorage.login;
+            // todo: GameManager._instance.accountData.UILogin = accountDataForStorage.login;
             ClientAPI.Instance.token = accountDataForStorage.token;
         }
     }
 
     public async Task LoadGameData()
     {
-        // ��������� gameDataForStorage �� ������ � ��������
         var data = await ClientAPI.Instance.LoadData(version);
         gameDataForStorage = data;
     }
 
     public async Task SaveGameData()
     {
-        // ��������� gameDataForStorage � ������
         await ClientAPI.Instance.SaveData(CollectGameData(), version);
     }
 
     public void LoadAccountData()
     {
-        // �������� ��������� accountDataForStorage �� ���������� ���������
         if (File.Exists(GetSavePath()))
         {
             BinaryFormatter bf = new BinaryFormatter();
@@ -175,19 +132,6 @@ public class GameDataManager : MonoBehaviour
         FileStream file = File.Create(GetSavePath());
         bf.Serialize(file, CollectAccountData());
         file.Close();
-    }
-
-    public void InitializeNewPlayerData(string name)
-    {
-        // Пример начальных данных
-        gameDataForStorage.userData = new UserData()
-        {
-            userNickname = name,
-            userExp = 0,
-            userCrystals = 0,
-            userMoney = 0
-        };
-        // todo: aiCharactersData
     }
 
     public void ClearAccountData()

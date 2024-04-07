@@ -16,6 +16,11 @@ public class Error
     public string message;
 }
 
+public class Errors
+{
+    public Dictionary<string, List<string>> errors;
+}
+
 public class TokensCountResponse
 {
     public int prompt_tokens; // tokens in prompt
@@ -192,6 +197,7 @@ public class ClientAPI : MonoBehaviour
         {
 
             Debug.Log("Error While Sending: " + uwr.error);
+            Debug.Log("Sending data: " + jsonString);
             return null;
         }
         else
@@ -328,7 +334,7 @@ public class ClientAPI : MonoBehaviour
         else
         {
             var response = JsonConvert.DeserializeObject<SaveDataResponse>(strResponse);
-            Debug.Log("Save: strResponse = " + strResponse);
+            Debug.Log("Save success: strResponse = " + strResponse);
             return response;
         }
     }

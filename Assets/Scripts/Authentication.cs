@@ -6,6 +6,7 @@ using TMPro;
 using System.Linq;
 using System;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 
 public class Authentication : MonoBehaviour
 {
@@ -31,19 +32,7 @@ public class Authentication : MonoBehaviour
         if (GameDataManager.Instance.accountDataForStorage != null)
         {
             GameDataManager.Instance.ApplyAccountData(); // set token in ClientAPI.Instance.token
-            // todo: if login exist but token is invalid, show login menu with saved login
-
-            await GameDataManager.Instance.LoadGameData(); // try to load data from server
-            if (GameDataManager.Instance.gameDataForStorage != null)
-            {
-                Debug.Log("data = " + GameDataManager.Instance.gameDataForStorage);
-                GameDataManager.Instance.ApplyGameData(); // init game data with loaded data
-            }
-            else
-            {
-                // todo: what to do if game data is not loaded?
-            }
-            SceneManager.LoadScene("GameScene");
+            Login(false);
         }
     }
 
@@ -54,10 +43,16 @@ public class Authentication : MonoBehaviour
         loginMenu.SetActive(false);
     }
 
-    public void ShowError(string error)
+    private void ShowError(string error)
     {
         errorLoginPanel.SetActive(true);
         errorLoginText.text = error;
+    }
+
+    private void ShowErrors(Dictionary<string, List<string>> errors)
+    {
+        string error = string.Join("|", errors.SelectMany(kv => kv.Value));
+        ShowError(error);
     }
 
     public void CloseError()
@@ -89,25 +84,20 @@ public class Authentication : MonoBehaviour
 
     public void RegisterBtn()
     {
-        Register(register_emailField.text, register_passwordField.text);
+        UIRegister(register_emailField.text, register_passwordField.text);
     }
 
     public void LoginBtn()
     {
-        Login(login_emailField.text, login_passwordField.text);
+        UILogin(login_emailField.text, login_passwordField.text);
     }
 
     public async void SetNicknameBtn()
     {
+
         if(nicknameField.text.Length >= 3)
         {
-            UserDataManager.Instance.data.userData.userNickname = nicknameField.text;
-
-            // seve account and game data (nickname) before loading game scene
-            GameDataManager.Instance.SaveAccountData();
-            await GameDataManager.Instance.SaveGameData();
-
-            SceneManager.LoadScene("GameScene");
+            RegisterFinish(nicknameField.text);
         }
         else
         {
@@ -115,49 +105,89 @@ public class Authentication : MonoBehaviour
         }
     }
 
-    public async void Register(string login, string password)
+    public async void UIRegister(string login, string password)
     {
         RegisterResponse response = await ClientAPI.Instance.Register(login, password);
-
         if(response.success)
         {
-            Login(login, password);
+            LoginResponse loginResponse = await ClientAPI.Instance.Login(login, password);
+            if (loginResponse.success)
+            {
+                // todo: add this when will be added logic to login without gamedata: GameDataManager.Instance.SaveAccountData();
+                // set username
+                ToNicknameMenu();
+            }
+            else
+            {
+                ShowErrors(loginResponse.errors);
+            }
         }
         else
         {
-            string errors = string.Join("|", response.errors.SelectMany(kv => kv.Value));
-
-            ShowError(errors);
+            ShowErrors(response.errors);
         }
     }
-    
-    public async void Login(string login, string password)
+
+    public async void UILogin(string login, string password)
     {
         LoginResponse response = await ClientAPI.Instance.Login(login, password);
 
         if(response.success)
         {
-            // try to load game data
-            await GameDataManager.Instance.LoadGameData();
-            if (GameDataManager.Instance.gameDataForStorage != null)
-            {
-                GameDataManager.Instance.ApplyGameData();
-                // ��������� ����� � ����� � ��������� ������
-                GameDataManager.Instance.SaveAccountData();
-                SceneManager.LoadScene("GameScene");
-            }
-            else
-            {
-                // ���� ������ ���, �� ������� ������ � ��������� � ������ ����
-                ToNicknameMenu();
-            }
+            GameDataManager.Instance.SaveAccountData();
+            Login(true);
         }
         else
         {
-            string errors = string.Join("|", response.errors.SelectMany(kv => kv.Value));
-
-            ShowError(errors);
+            ShowErrors(response.errors);
         }
+    }
+
+    private async void Login(bool showErrors)
+    {
+        /* 
+         * Login. Required to have token in ClientAPI
+         */
+
+        await GameDataManager.Instance.LoadGameData();
+        if (GameDataManager.Instance.gameDataForStorage != null)
+        {
+            // apply game data for UserDataManager
+            GameDataManager.Instance.ApplyGameData();
+            Debug.Log("Login success");
+            SceneManager.LoadScene("GameScene");
+        }
+        else
+        {
+            if (showErrors)
+            {
+                ShowError("Error loading game data");
+            } else
+            {
+                Debug.LogWarning("Login failed: Error loading game data");
+            }
+        }
+    }
+
+    private async void RegisterFinish(string username)
+    {
+        /* 
+         * RegisterFinish. Required to have token in ClientAPI
+         */
+        if (ClientAPI.Instance.token == null)
+        {
+            ShowError("Can't finish registration: failed to receive token.");
+            return;
+        }
+
+        // todo: add checks for all api calls
+        UserDataManager.Instance.InitializeNewUserData();
+        UserDataManager.Instance.data.userData.userNickname = username;
+        // save account and game data (nickname and default) before loading game scene
+        GameDataManager.Instance.SaveAccountData();
+        await GameDataManager.Instance.SaveGameData();
+        // all data saved, load game scene
+        SceneManager.LoadScene("GameScene");
     }
 
 }

@@ -596,65 +596,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 70031619}
   m_CullTransparentMesh: 1
---- !u!1 &74011575
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 74011577}
-  - component: {fileID: 74011576}
-  m_Layer: 0
-  m_Name: GameDataManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &74011576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 74011575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbe1cb840af2e6b479f4ab0ddaf81ee1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameDataForStorage:
-    aiData:
-      aiCharacterDataList: []
-    userData:
-      userNickname: 
-      userMoney: 0
-      userCrystals: 0
-      userExp: 0
-    currentGameDate: 0
-  accountDataForStorage:
-    login: 
-    token: 
-  onGameDataLoaded:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!4 &74011577
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 74011575}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &92920662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,7 +1210,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &383394108
 GameObject:
@@ -4755,7 +4696,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -7.29, z: 0}
 --- !u!1 &1442396736
 GameObject:
@@ -4787,7 +4728,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   host: http://94.241.175.47
-  PlayerNickname: 
   token: 
 --- !u!4 &1442396738
 Transform:
@@ -4802,7 +4742,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1499413948
 GameObject:
@@ -5697,11 +5637,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a26bd206e404fa429111eb4e1d3bfd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userData:
-    userNickname: 
-    userMoney: 0
-    userCrystals: 0
-    userExp: 0
+  userDataTemplatePrefab: {fileID: 7762177241287165265, guid: ac19016a379f12e48b882afff1288ad6, type: 3}
+  data:
+    userData:
+      userNickname: 
+      userMoney: 0
+      userCrystals: 0
+      userExp: 0
+    charactersData:
+      aiCharacterDataList:
+      - name: Misa
+        aICharacterData:
+          chatHistory:
+            replies:
+            - name: Misa
+              message: Hello! Nice to meet you!
+              tokens: 0
+            chatFragments: 
+          oldestUnprocessedChatFragmentIndex: 0
+          attractionLevel: 0
+          eventsMemories:
+            recencyK: 0
+            importanceK: 0
+            contextK: 0
+            memories: []
+          conversationalMemories:
+            recencyK: 0
+            importanceK: 0
+            contextK: 0
+            memories: []
+          factsAboutPlayer: []
 --- !u!4 &1836961983
 Transform:
   m_ObjectHideFlags: 0
@@ -5709,13 +5674,44 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836961981}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1834414, y: -0.042561665, z: -0.00031493092}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.1834414, y: -0.04256165, z: -0.00031495094}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1844982774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1844982775}
+  m_Layer: 0
+  m_Name: MANAGERS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1844982775
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844982774}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.26192552, y: -1.4082617, z: -2.0917847}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1859368293
 GameObject:
@@ -6047,78 +6043,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1861416929}
   m_CullTransparentMesh: 1
---- !u!1 &1887072453
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1887072455}
-  - component: {fileID: 1887072454}
-  m_Layer: 0
-  m_Name: AIDataManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1887072454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1887072453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 127e4591c7ccc874f9415667134de3e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aiCharactersData:
-    aiCharacterDataList:
-    - name: 
-      aICharacterData:
-        characterName: 
-        chatHistory:
-          replies: []
-          chatFragments: 
-        oldestUnprocessedChatFragmentIndex: 0
-        characterPersonality: 
-        attracionLevel: 0
-        actions: []
-        eventsMemories:
-          recencyK: 0
-          importanceK: 0
-          contextK: 0
-          memories: []
-        eventsMemoryTokenLimit: 0
-        conversationalMemories:
-          recencyK: 0
-          importanceK: 0
-          contextK: 0
-          memories: []
-        conversationalMemoryTokenLimit: 0
-        factsAboutPlayer: []
-        clothingDescription: 
-  examplesOfConversationalMemory: []
-  attractionBehavior: {fileID: 0}
---- !u!4 &1887072455
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1887072453}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1834414, y: -0.042561665, z: -0.00031493092}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1896766706
 GameObject:
   m_ObjectHideFlags: 0
@@ -6335,7 +6259,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1924389857
 PrefabInstance:
@@ -6714,7 +6638,7 @@ RectTransform:
   - {fileID: 1608162661}
   - {fileID: 1724817111}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
