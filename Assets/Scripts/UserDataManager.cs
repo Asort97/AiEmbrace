@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 [Serializable]
 public class AllUserData
@@ -24,8 +26,10 @@ public class UserDataManager: MonoBehaviour
      * 
      */
 
+    [SerializeField] private string[] forbidNicknames = {"Character", "System", "Player"};
+    [SerializeField] private string allowsSymbolNickname = @"^[a-zA-Z\s\-]+$";
     public static UserDataManager _instance;
-
+    
     public AllUserDataTemplate userDataTemplatePrefab;
 
     public AllUserData data;
@@ -61,18 +65,40 @@ public class UserDataManager: MonoBehaviour
         }
     }
 
+    public bool IsNicknameValid(string nickname)
+    {
+        if(nickname.Length <= 16 && !forbidNicknames.Contains(nickname) && Regex.IsMatch(nickname, allowsSymbolNickname))
+        {
+            return true;
+        }
+        else if(forbidNicknames.Contains(nickname))
+        {
+            PopUpNotifications.instance.ShowNotification("Forbid nickname!");
+        }
+        else if(!Regex.IsMatch(nickname, allowsSymbolNickname))
+        {
+            PopUpNotifications.instance.ShowNotification("Forbid symbols!");
+        }
+        else if(nickname.Length > 16)
+        {
+            PopUpNotifications.instance.ShowNotification("Too long nickname!");
+        }
+
+        return false;
+    }
+
     public void InitializeNewUserData()
     {
-        // Создаёт новый экземпляр данных пользователя из префаба
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (userDataTemplatePrefab != null)
         {
             data = Instantiate(userDataTemplatePrefab).GetComponent<AllUserDataTemplate>().GetTemplateData();
         }
     }
 
-    // Очищает данные пользователя
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public void ClearUserData()
     {
-        data = null; // Просто установите data в null или переинициализируйте, если нужно
+        data = null; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ data пїЅ null пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     }
 }

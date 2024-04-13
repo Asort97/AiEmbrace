@@ -6941,7 +6941,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -14657,6 +14657,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bffc73abfc0b5042b7c21cbeaab280e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  notificationPanel: {fileID: 1805377262}
+  notificationText: {fileID: 568276814}
   PurchasedInfo: Successfully Purchased!
   NotEnoughCashInfo: You don't have enough coins!
 --- !u!1 &1150590344
@@ -16073,9 +16075,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1144331536}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: CloseNofitication
+      - m_Target: {fileID: 1149620391}
+        m_TargetAssemblyTypeName: PopUpNotifications, Assembly-CSharp
+        m_MethodName: CloseNotification
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -23648,8 +23650,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1275118286}
   - {fileID: 1629099518}
+  - {fileID: 1275118286}
   m_Father: {fileID: 2130419376}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

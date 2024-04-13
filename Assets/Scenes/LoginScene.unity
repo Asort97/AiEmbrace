@@ -546,9 +546,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 319126643}
-        m_TargetAssemblyTypeName: Auntification, Assembly-CSharp
-        m_MethodName: CloseError
+      - m_Target: {fileID: 308769477}
+        m_TargetAssemblyTypeName: PopUpNotifications, Assembly-CSharp
+        m_MethodName: CloseNotification
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1157,6 +1157,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 138888029}
   m_CullTransparentMesh: 1
+--- !u!1 &308769476
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 308769478}
+  - component: {fileID: 308769477}
+  m_Layer: 0
+  m_Name: PopUpNofitication
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &308769477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308769476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bffc73abfc0b5042b7c21cbeaab280e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notificationPanel: {fileID: 1724817110}
+  notificationText: {fileID: 532199067}
+  PurchasedInfo: 
+  NotEnoughCashInfo: 
+--- !u!4 &308769478
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308769476}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.0368159, y: 1.2173204, z: 2.0915694}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1844982775}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &319126642
 GameObject:
   m_ObjectHideFlags: 0
@@ -4736,13 +4784,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442396736}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.40408427, y: 0.0038455324, z: 44.27073}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.14215875, y: 1.4121072, z: 46.362514}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 1844982775}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1499413948
 GameObject:
@@ -5637,6 +5685,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a26bd206e404fa429111eb4e1d3bfd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forbidNicknames:
+  - Character
+  - System
+  - Player
+  allowsSymbolNickname: ^[a-zA-Z\s\-]+$
   userDataTemplatePrefab: {fileID: 7762177241287165265, guid: ac19016a379f12e48b882afff1288ad6, type: 3}
   data:
     userData:
@@ -5675,12 +5728,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836961981}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1834414, y: -0.04256165, z: -0.00031495094}
+  m_LocalPosition: {x: -0.9215159, y: 1.3657, z: 2.0914698}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 1844982775}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1844982774
 GameObject:
@@ -5709,7 +5762,10 @@ Transform:
   m_LocalPosition: {x: -0.26192552, y: -1.4082617, z: -2.0917847}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 308769478}
+  - {fileID: 1836961983}
+  - {fileID: 1442396738}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

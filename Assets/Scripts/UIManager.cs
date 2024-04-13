@@ -137,7 +137,7 @@ public class UIManager : MonoBehaviour
     public async void ApplyNewNickname()
     {
         // Debug.Log(changeNickField.text);
-        if(changeNickField.text.Length >= 3)
+        if(UserDataManager.Instance.IsNicknameValid(changeNickField.text))
         {
             UserDataManager.Instance.data.userData.userNickname = changeNickField.text; // устанавливаем ник в clientAPI
             var GameDataManager = new GameDataManager();
@@ -145,10 +145,6 @@ public class UIManager : MonoBehaviour
             nicknameProfile.text = changeNickField.text; // обновляем ник в UI
 
             changeNickPanel.SetActive(false);
-        }
-        else
-        {
-            PopUpNotifications.instance.ShowNotification("Too short!");
         }
     }
 

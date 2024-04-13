@@ -52,5 +52,8 @@
         "Temp/": true
     },
     "dotnet.preferCSharpExtension": true,
-    "dotnet.defaultSolution": "AiEmbrace.sln"
+    "dotnet.defaultSolution": "AiEmbrace.sln",
+    "cSpell.words": [
+        "Behaviour"
+    ]
 }
