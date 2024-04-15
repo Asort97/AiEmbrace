@@ -139,7 +139,12 @@ public class UIManager : MonoBehaviour
         // Debug.Log(changeNickField.text);
         if(changeNickField.text.Length >= 3)
         {
+            var oldNick = UserDataManager.Instance.data.userData.userNickname;
             UserDataManager.Instance.data.userData.userNickname = changeNickField.text; // устанавливаем ник в clientAPI
+
+            // Add notification to AI about nickname change
+            var message = "\"" + oldNick + "\" change nickname to \"" + changeNickField.text + "\"";
+            UserDataManager.Instance.data.charactersData.GetAICharacterData("Misa").chatHistory.Append(new Reply("System", message, 0));
             var GameDataManager = new GameDataManager();
             await GameDataManager.SaveGameData(); // сохраняем ник в облаке
             nicknameProfile.text = changeNickField.text; // обновляем ник в UI

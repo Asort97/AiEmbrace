@@ -58,7 +58,6 @@ public class ChatManager : MonoBehaviour
         ClearChatHistory();
 
         Debug.Log("InitChatHistory");
-        Debug.Log(AIDataManager.Instance);
         // pick AI from data
         var characterData = AIDataManager.Instance.aiCharactersData.GetAICharacterData(name);
         var characterPersonalData = UserDataManager.Instance.data.charactersData.GetAICharacterData(name);
@@ -69,18 +68,22 @@ public class ChatManager : MonoBehaviour
             // draw all replies from chatHistory
             foreach (var reply in currentAI.PersonalData.chatHistory.GetReplies())
             {
-                bool isPlayer = false;
-                string _name = reply.name;
-                if (reply.name == "Player")
+                switch (reply.name)
                 {
-                    _name = "You";
-                    isPlayer = true;
+                    case "Player":
+                        AddMessage("You", reply.message, true);
+                        break;
+                    case "Character":
+                        AddMessage(currentAI.Data.characterName, reply.message, false);
+                        break;
+                    case "System":
+                        // todo: add system message
+                        break;
+                    default:
+                        // skip
+                        Debug.LogWarning("Unknown reply name: " + reply.name);
+                        break;
                 }
-                else
-                {
-                    _name = currentAI.Data.characterName;
-                }
-                AddMessage(_name, reply.message, isPlayer);
             }
         }
     }
