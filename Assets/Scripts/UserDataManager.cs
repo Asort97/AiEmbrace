@@ -26,13 +26,16 @@ public class UserDataManager: MonoBehaviour
      * 
      */
 
-    [SerializeField] private string[] forbidNicknames = {"Character", "System", "Player"};
-    [SerializeField] private string allowsSymbolNickname = @"^[a-zA-Z\s\-]+$";
+    [SerializeField] private string[] forbidNicknames;
+    [SerializeField] private string[] errors;
+    [SerializeField] private string allowsSymbolNickname = @"^[a-zA-Z0-9]*$";
     public static UserDataManager _instance;
     
     public AllUserDataTemplate userDataTemplatePrefab;
-
     public AllUserData data;
+
+    public delegate bool ValidationCheck(string nickname);
+
 
     public static UserDataManager Instance
     {
@@ -67,24 +70,17 @@ public class UserDataManager: MonoBehaviour
 
     public bool IsNicknameValid(string nickname)
     {
-        if(nickname.Length <= 16 && !forbidNicknames.Contains(nickname) && Regex.IsMatch(nickname, allowsSymbolNickname))
+        ValidationCheck[] validationChecks = { CheckForbidNicknames, CheckNicknameSymbols, CheckNicknameLength }; //  Массив c методами проверки никнейма
+
+        foreach (var check in validationChecks) // Пробегаемся по всем методам 
         {
-            return true;
-        }
-        else if(forbidNicknames.Contains(nickname))
-        {
-            PopUpNotifications.instance.ShowNotification("Forbid nickname!");
-        }
-        else if(!Regex.IsMatch(nickname, allowsSymbolNickname))
-        {
-            PopUpNotifications.instance.ShowNotification("Forbid symbols!");
-        }
-        else if(nickname.Length > 16)
-        {
-            PopUpNotifications.instance.ShowNotification("Too long nickname!");
+            if(!check(nickname))
+            {
+                return false;
+            }
         }
 
-        return false;
+        return true;
     }
 
     public void InitializeNewUserData()
@@ -100,5 +96,45 @@ public class UserDataManager: MonoBehaviour
     public void ClearUserData()
     {
         data = null; // ������ ���������� data � null ��� �������������������, ���� �����
+    }
+
+    private bool CheckForbidNicknames(string nickname)
+    {
+        if (forbidNicknames.Contains(nickname))
+        {
+            PopUpNotifications.instance.ShowNotification(errors[0]);
+            return false;
+        }
+        return true;
+    }
+
+    private bool CheckNicknameSymbols(string nickname)
+    {
+        Regex regex = new Regex($"^[a-zA-Z0-9]+$");
+
+        if (!regex.IsMatch(nickname))
+        {
+            PopUpNotifications.instance.ShowNotification(errors[1]);
+            return false;
+        }
+
+        if(!char.IsLetter(nickname[0]))
+        {
+            PopUpNotifications.instance.ShowNotification(errors[2]);
+            return false;
+        }
+
+        return true;
+    }    
+
+    private bool CheckNicknameLength(string nickname)
+    {
+        if (string.IsNullOrEmpty(nickname) || nickname.Length > 16)
+        {
+            PopUpNotifications.instance.ShowNotification(errors[3]);
+            return false;
+        }
+
+        return true;
     }
 }

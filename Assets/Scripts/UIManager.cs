@@ -136,7 +136,7 @@ public class UIManager : MonoBehaviour
 
     public async void ApplyNewNickname()
     {
-        // Debug.Log(changeNickField.text);
+        Debug.Log(changeNickField.text);
         if(UserDataManager.Instance.IsNicknameValid(changeNickField.text))
         {
             UserDataManager.Instance.data.userData.userNickname = changeNickField.text; // устанавливаем ник в clientAPI
