@@ -54,6 +54,7 @@
     "dotnet.preferCSharpExtension": true,
     "dotnet.defaultSolution": "AiEmbrace.sln",
     "cSpell.words": [
+        "багуется",
         "Behaviour"
     ]
 }

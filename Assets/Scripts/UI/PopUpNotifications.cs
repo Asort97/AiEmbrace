@@ -20,6 +20,13 @@ public class PopUpNotifications : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        // notificationPanel.SetActive(true); //Даем обработать ContentSizeFilter, без этого багуется
+        // notificationPanel.SetActive(false);
+    }
+
+    private void Start() 
+    {
+        SetTextPanel("NULL");        
     }
 
     public void ShowNotification(string info)

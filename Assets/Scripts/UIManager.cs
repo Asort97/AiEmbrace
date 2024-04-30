@@ -25,8 +25,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image profileAvatar;
     [SerializeField] private GameObject changeNickPanel;
     [SerializeField] private TMP_InputField changeNickField;
-    [SerializeField] private GameObject nofiticationPanel;
-    [SerializeField] private TMP_Text nofiticationText;
+    // [SerializeField] private GameObject notificationPanel;
+    // [SerializeField] private TMP_Text notificationText;
 
     public TMP_InputField inputFieldChat;
 
@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        // notificationPanel.SetActive(false);
         nicknameProfile.text = UserDataManager.Instance.data.userData.userNickname;
     }
 
@@ -101,11 +102,11 @@ public class UIManager : MonoBehaviour
         xpSlider.value = amount;
     }
 
-    public void ShowNotificationPanel(string info)
-    {
-        nofiticationPanel.SetActive(true);
-        nofiticationText.text = info;
-    }
+    // public void ShowNotificationPanel(string info)
+    // {
+    //     notificationPanel.SetActive(true);
+    //     notificationText.text = info;
+    // }
     
     public void ShowAutosavePanel()
     {
@@ -124,10 +125,10 @@ public class UIManager : MonoBehaviour
         inputFieldChat.gameObject.SetActive(enabled);
     }
 
-    public void CloseNotification()
-    {
-        nofiticationPanel.SetActive(false);
-    }
+    // public void CloseNotification()
+    // {
+    //     notificationPanel.SetActive(false);
+    // }
     
     public void SetEnableChangeNickname(bool enabled)
     {
