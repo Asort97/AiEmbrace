@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349c2222946c96849b3662ed1fb03de9, type: 3}
   m_Name: EmotionSO2
   m_EditorClassIdentifier: 
+  showDescriptionMenu: 0
   imageColor: {r: 1, g: 1, b: 1, a: 1}
   nameItem: Emo2
   itemCategory: 4
-  displayImage: {fileID: 0}
+  displayImage: {fileID: 21300000, guid: 972db80652304e640a5a83c48ca448ca, type: 3}
   price: 30
   emotionStand: 2
