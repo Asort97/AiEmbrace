@@ -84,7 +84,7 @@ public class StoreContent : MonoBehaviour
 
                 foreach (var item in itemClothes)
                 {
-                    item.gameObject.SetActive(!item.isBuyed);
+                    item.gameObject.SetActive(!item.isPurchased);
                 }
                 
                 purchasedClothesFiltButton.image.color = Color.white;
@@ -97,7 +97,7 @@ public class StoreContent : MonoBehaviour
                 
                 foreach (var item in itemClothes)
                 {
-                    item.gameObject.SetActive(item.isBuyed);
+                    item.gameObject.SetActive(item.isPurchased);
                 }
 
                 purchasedClothesFiltButton.image.color = Color.red;
