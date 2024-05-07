@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using TMPro;
+using UnityEditor.Experimental.GraphView;
 
 public class StoreContent : MonoBehaviour
 {
@@ -18,7 +20,7 @@ public class StoreContent : MonoBehaviour
     public class Items
     {
         public ItemSO itemStore;
-        public bool isBuyed;
+        public bool isPurchased;
     }
     [SerializeField] private Items[] itemsStore;
     [SerializeField] private FilterState filterState;
@@ -26,10 +28,7 @@ public class StoreContent : MonoBehaviour
     [SerializeField] private ItemClothes itemCellPrefab;
 
     [Space(5)]
-    [SerializeField] public Button newClothesFiltButton;
-    [SerializeField] public Button defaultClothesFiltButton;
-    [SerializeField] public Button purchasedClothesFiltButton;
-
+    [SerializeField] private List<Button> filterButton = new List<Button>();
     private List<ItemClothes> itemClothes = new List<ItemClothes>();
 
     private void Start()
@@ -40,24 +39,16 @@ public class StoreContent : MonoBehaviour
 
     private void Init()
     {
-        newClothesFiltButton.onClick.AddListener(() => ChangeFilterCategory(FilterState.New));
-        defaultClothesFiltButton.onClick.AddListener(() => ChangeFilterCategory(FilterState.Default));
-        purchasedClothesFiltButton.onClick.AddListener(() => ChangeFilterCategory(FilterState.Purchased));
+        filterButton[0].onClick.AddListener(() => ChangeFilterCategory(FilterState.Default));        
+        filterButton[1].onClick.AddListener(() => ChangeFilterCategory(FilterState.New));
+        filterButton[2].onClick.AddListener(() => ChangeFilterCategory(FilterState.Purchased));
 
         foreach (var item in itemsStore)
         {
-            // foreach (var category in Categories)
-            // {
-                // if(category.name == item.itemStore.itemCategory.ToString())
-                // {
-                    ItemClothes cell = Instantiate<ItemClothes>(itemCellPrefab, Categories[0]);
-                    cell.Init(item.itemStore, item.isBuyed);
-                    itemClothes.Add(cell);
-                    Debug.Log($"ADD to {Categories[0]} an {item}");
-
-                    // break;
-                // }
-            // }            
+            ItemClothes cell = Instantiate<ItemClothes>(itemCellPrefab, Categories[0]);
+            cell.Init(item.itemStore, item.isPurchased);
+            itemClothes.Add(cell);
+            Debug.Log($"ADD to {Categories[0]} an {item}");
         }
     }
 
@@ -68,16 +59,12 @@ public class StoreContent : MonoBehaviour
         switch (filterState)
         {
             case FilterState.Default:
-
                 foreach (var item in itemClothes)
                 {
                     item.gameObject.SetActive(true);
                 }
 
-                purchasedClothesFiltButton.image.color = Color.white;
-                newClothesFiltButton.image.color = Color.white;
-                defaultClothesFiltButton.image.color = Color.red;
-
+                ChangeSelectedFilterButton(filterButton[0]);
                 break;
 
             case FilterState.New:
@@ -87,10 +74,7 @@ public class StoreContent : MonoBehaviour
                     item.gameObject.SetActive(!item.isPurchased);
                 }
                 
-                purchasedClothesFiltButton.image.color = Color.white;
-                newClothesFiltButton.image.color = Color.red;
-                defaultClothesFiltButton.image.color = Color.white;
-
+                ChangeSelectedFilterButton(filterButton[1]);
                 break;
 
             case FilterState.Purchased:
@@ -100,14 +84,22 @@ public class StoreContent : MonoBehaviour
                     item.gameObject.SetActive(item.isPurchased);
                 }
 
-                purchasedClothesFiltButton.image.color = Color.red;
-                newClothesFiltButton.image.color = Color.white;
-                defaultClothesFiltButton.image.color = Color.white;
-
+                ChangeSelectedFilterButton(filterButton[2]);
                 break;
         }
     }
 
-
+    private void ChangeSelectedFilterButton(Button button)
+    {
+        foreach (var btn in filterButton) //Сброс стилей всех кнопок
+        {
+            btn.image.color = Color.white;
+            btn.GetComponent<Outline>().enabled = false;
+            btn.transform.GetComponentInChildren<TMP_Text>().color = Color.black;
+        }
+        button.image.color = Color.black;
+        button.GetComponent<Outline>().enabled = true;
+        button.transform.GetComponentInChildren<TMP_Text>().color = Color.white;
+    }
 
 }
