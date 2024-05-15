@@ -294,7 +294,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.50001144}
+  m_AnchoredPosition: {x: 0, y: -0.50001526}
   m_SizeDelta: {x: -20, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &33484162
@@ -546,9 +546,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 319126643}
-        m_TargetAssemblyTypeName: Auntification, Assembly-CSharp
-        m_MethodName: CloseError
+      - m_Target: {fileID: 308769477}
+        m_TargetAssemblyTypeName: PopUpNotifications, Assembly-CSharp
+        m_MethodName: CloseNotification
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1157,6 +1157,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 138888029}
   m_CullTransparentMesh: 1
+--- !u!1 &308769476
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 308769478}
+  - component: {fileID: 308769477}
+  m_Layer: 0
+  m_Name: PopUpNofitication
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &308769477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308769476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bffc73abfc0b5042b7c21cbeaab280e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  notificationPanel: {fileID: 1724817110}
+  notificationText: {fileID: 532199067}
+  PurchasedInfo: 
+  NotEnoughCashInfo: 
+--- !u!4 &308769478
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308769476}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.77489036, y: -0.19094121, z: -0.00021529198}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &319126642
 GameObject:
   m_ObjectHideFlags: 0
@@ -1520,7 +1568,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.016, y: 0.5885625}
   m_AnchorMax: {x: 0.9713126, y: 0.6463749}
-  m_AnchoredPosition: {x: 5.5, y: 2.699997}
+  m_AnchoredPosition: {x: 5.5, y: 2.7000122}
   m_SizeDelta: {x: -4.4699707, y: -0.48999023}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &482298220
@@ -3342,7 +3390,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.5000038}
+  m_AnchoredPosition: {x: 0, y: -0.5}
   m_SizeDelta: {x: -20, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1075069309
@@ -3395,7 +3443,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.50001144}
+  m_AnchoredPosition: {x: 0, y: -0.50001526}
   m_SizeDelta: {x: -20, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1086314871
@@ -4068,7 +4116,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.4999962}
+  m_AnchoredPosition: {x: 0, y: -0.49999237}
   m_SizeDelta: {x: -20, y: -13}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1255409109
@@ -4123,7 +4171,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.016, y: 0.5885625}
   m_AnchorMax: {x: 0.9713126, y: 0.6463749}
-  m_AnchoredPosition: {x: 5.5, y: 2.699997}
+  m_AnchoredPosition: {x: 5.5, y: 2.7000122}
   m_SizeDelta: {x: -4.4699707, y: -0.48999023}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1278916587
@@ -4450,7 +4498,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.0263125, y: 0.51860416}
   m_AnchorMax: {x: 0.9713126, y: 0.5766458}
-  m_AnchoredPosition: {x: 0.9999695, y: 2}
+  m_AnchoredPosition: {x: 0.99993896, y: 2}
   m_SizeDelta: {x: 4.5300293, y: -1.4899979}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1357928898
@@ -4736,13 +4784,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442396736}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.40408427, y: 0.0038455324, z: 44.27073}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.40408427, y: 0.0038455725, z: 44.27073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1499413948
 GameObject:
@@ -5637,6 +5685,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a26bd206e404fa429111eb4e1d3bfd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forbidNicknames:
+  - Character
+  - System
+  - Player
+  errors:
+  - Forbid nickname!
+  - Forbid symbols in nickname!
+  - Forbid first symbol. Use only letters!
+  - Too long or too short nickname!
+  allowsSymbolNickname: ^[a-zA-Z0-9_@.-]*$
   userDataTemplatePrefab: {fileID: 7762177241287165265, guid: ac19016a379f12e48b882afff1288ad6, type: 3}
   data:
     userData:
@@ -5680,7 +5738,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1844982774
 GameObject:
@@ -5748,7 +5806,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3548333, y: 0.32047918}
   m_AnchorMax: {x: 1, y: 0.75543755}
-  m_AnchoredPosition: {x: 2.6000214, y: 1.0599976}
+  m_AnchoredPosition: {x: 2.6000366, y: 1.0599976}
   m_SizeDelta: {x: -6.4699707, y: -0.05999756}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1859368295

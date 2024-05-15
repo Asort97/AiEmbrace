@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 [Serializable]
 public class AllUserData
@@ -24,11 +26,16 @@ public class UserDataManager: MonoBehaviour
      * 
      */
 
+    [SerializeField] private string[] forbidNicknames;
+    [SerializeField] private string[] errors;
+    [SerializeField] private string allowsSymbolNickname = @"^[a-zA-Z0-9]*$";
     public static UserDataManager _instance;
-
+    
     public AllUserDataTemplate userDataTemplatePrefab;
-
     public AllUserData data;
+
+    public delegate bool ValidationCheck(string nickname);
+
 
     public static UserDataManager Instance
     {
@@ -61,18 +68,73 @@ public class UserDataManager: MonoBehaviour
         }
     }
 
+    public bool IsNicknameValid(string nickname)
+    {
+        ValidationCheck[] validationChecks = { CheckForbidNicknames, CheckNicknameSymbols, CheckNicknameLength }; //  РњР°СЃСЃРёРІ c РјРµС‚РѕРґР°РјРё РїСЂРѕРІРµСЂРєРё РЅРёРєРЅРµР№РјР°
+
+        foreach (var check in validationChecks) // РџСЂРѕР±РµРіР°РµРјСЃСЏ РїРѕ РІСЃРµРј РјРµС‚РѕРґР°Рј 
+        {
+            if(!check(nickname))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public void InitializeNewUserData()
     {
-        // Создаёт новый экземпляр данных пользователя из префаба
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (userDataTemplatePrefab != null)
         {
             data = Instantiate(userDataTemplatePrefab).GetComponent<AllUserDataTemplate>().GetTemplateData();
         }
     }
 
-    // Очищает данные пользователя
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public void ClearUserData()
     {
-        data = null; // Просто установите data в null или переинициализируйте, если нужно
+        data = null; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ data пїЅ null пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    }
+
+    private bool CheckForbidNicknames(string nickname)
+    {
+        if (forbidNicknames.Contains(nickname))
+        {
+            PopUpNotifications.instance.ShowNotification(errors[0]);
+            return false;
+        }
+        return true;
+    }
+
+    private bool CheckNicknameSymbols(string nickname)
+    {
+        Regex regex = new Regex($"^[a-zA-Z0-9]+$");
+
+        if (!regex.IsMatch(nickname))
+        {
+            PopUpNotifications.instance.ShowNotification(errors[1]);
+            return false;
+        }
+
+        if(!char.IsLetter(nickname[0]))
+        {
+            PopUpNotifications.instance.ShowNotification(errors[2]);
+            return false;
+        }
+
+        return true;
+    }    
+
+    private bool CheckNicknameLength(string nickname)
+    {
+        if (string.IsNullOrEmpty(nickname) || nickname.Length > 16)
+        {
+            PopUpNotifications.instance.ShowNotification(errors[3]);
+            return false;
+        }
+
+        return true;
     }
 }

@@ -95,15 +95,14 @@ public class Authentication : MonoBehaviour
 
     public async void SetNicknameBtn()
     {
-
-        if(nicknameField.text.Length >= 3)
+        if(UserDataManager.Instance.IsNicknameValid(nicknameField.text))
         {
             RegisterFinish(nicknameField.text);
         }
-        else
-        {
-            ShowError("Too short nickname!");
-        }
+        // else
+        // {
+        //     ShowError("Too short nickname!");
+        // }
     }
 
     public async void UIRegister(string login, string password)

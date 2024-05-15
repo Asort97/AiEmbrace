@@ -9,8 +9,12 @@ public class ItemClothes : MonoBehaviour
 {
     [SerializeField] private Image displayImage;
     [SerializeField] private TMP_Text priceText;
-    public bool isBuyed;
+    [SerializeField] private Image priceImage;
+    [SerializeField] private Sprite purchasedIcon;
     private int itemPrice;
+    private Outline outline;
+    public bool isPurchased;
+    
     public string itemName;
     public ItemSO clothesSO;
     public static Action<int> OnBuyItem;
@@ -20,7 +24,12 @@ public class ItemClothes : MonoBehaviour
     public static Action<ItemClothes> OnSelectedItem;
     public bool isSelected;
 
-    public void Init(ItemSO clothesSO, bool isBuyed)
+    private void Start() 
+    {
+        outline = GetComponent<Outline>();    
+    }
+
+    public void Init(ItemSO clothesSO, bool isPurchased)
     {
         this.clothesSO = clothesSO;
         
@@ -31,11 +40,12 @@ public class ItemClothes : MonoBehaviour
         itemPrice = clothesSO.price;
         itemName = clothesSO.nameItem;
         
-        this.isBuyed = isBuyed;
+        this.isPurchased = isPurchased;
 
-        if(isBuyed)
+        if(isPurchased)
         {
-            priceText.text = "purchased";
+            priceText.text = "";
+            priceImage.sprite = purchasedIcon;
         }
     }
 
@@ -53,12 +63,13 @@ public class ItemClothes : MonoBehaviour
         if(item != this)
         {
             isSelected = false;
+            outline.enabled = false;
         }
     }
 
     public void BuyItem()
     {
-        if(!isBuyed && CoinsManager.instance.CheckEnoughCoins(itemPrice))
+        if(!isPurchased && CoinsManager.instance.CheckEnoughCoins(itemPrice))
         {
             Debug.Log($"Buyed {itemName}");
 
@@ -66,8 +77,10 @@ public class ItemClothes : MonoBehaviour
             
             PopUpNotifications.instance.ShowNotification(PopUpNotifications.NofStatus.SuccessPurchased);
             
-            priceText.text = "purchased";
-            isBuyed = true;
+            priceText.text = "";
+            priceImage.sprite = purchasedIcon;
+
+            isPurchased = true;
         }
         else if(!CoinsManager.instance.CheckEnoughCoins(itemPrice))
         {
@@ -87,14 +100,16 @@ public class ItemClothes : MonoBehaviour
 
     public void UseItem()
     {
+        Debug.Log($"On");
         OnUseItem?.Invoke(clothesSO, isSelected, false);
+        outline.enabled = isSelected;
     }
 
     public void OnSelect()
     {   
         isSelected =  !isSelected;
-        
-        if(isBuyed)
+
+        if(isPurchased)
         {
             ShowUseButton();
         }

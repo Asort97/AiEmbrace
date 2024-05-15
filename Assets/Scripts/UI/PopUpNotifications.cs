@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PopUpNotifications : MonoBehaviour
 {
     public static PopUpNotifications instance;
-
+    [SerializeField] private GameObject notificationPanel;
+    [SerializeField] private TMP_Text notificationText;
     public enum NofStatus
     {
         SuccessPurchased,
@@ -18,11 +20,24 @@ public class PopUpNotifications : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        // notificationPanel.SetActive(true); //Даем обработать ContentSizeFilter, без этого багуется
+        // notificationPanel.SetActive(false);
+    }
+
+    private void Start() 
+    {
+        SetTextPanel("NULL");        
     }
 
     public void ShowNotification(string info)
     {
-        UIManager.instance.ShowNotificationPanel(info);
+        notificationPanel.SetActive(true);
+        SetTextPanel(info);
+    }
+    
+    public void CloseNotification()
+    {
+        notificationPanel.SetActive(false);
     }
     
     public void ShowAutoSave()
@@ -32,15 +47,22 @@ public class PopUpNotifications : MonoBehaviour
 
     public void ShowNotification(NofStatus status)
     {
+        notificationPanel.SetActive(true);
+
         switch (status)
         {
             case NofStatus.SuccessPurchased:
-                UIManager.instance.ShowNotificationPanel(PurchasedInfo);
+                SetTextPanel(PurchasedInfo);
                 break;
             case NofStatus.NotEnoughCash:
-                UIManager.instance.ShowNotificationPanel(NotEnoughCashInfo);
+                SetTextPanel(NotEnoughCashInfo);
                 break;
         }
+    }
+
+    private void SetTextPanel(string info)
+    {
+        notificationText.text = info;
     }
 
 }
