@@ -21,6 +21,7 @@ public class StoreContent : MonoBehaviour
     {
         public ItemSO itemStore;
         public bool isPurchased;
+        public bool isUsedDefault;
     }
     [SerializeField] private Items[] itemsStore;
     [SerializeField] private FilterState filterState;
@@ -46,7 +47,7 @@ public class StoreContent : MonoBehaviour
         foreach (var item in itemsStore)
         {
             ItemClothes cell = Instantiate<ItemClothes>(itemCellPrefab, Categories[0]);
-            cell.Init(item.itemStore, item.isPurchased);
+            cell.Init(item.itemStore, item.isPurchased, item.isUsedDefault);
             itemClothes.Add(cell);
             Debug.Log($"ADD to {Categories[0]} an {item}");
         }

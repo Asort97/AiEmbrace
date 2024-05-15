@@ -12,9 +12,10 @@ public class ItemClothes : MonoBehaviour
     [SerializeField] private Image priceImage;
     [SerializeField] private Sprite purchasedIcon;
     private int itemPrice;
+    private bool isUsed;
     private Outline outline;
     public bool isPurchased;
-    
+
     public string itemName;
     public ItemSO clothesSO;
     public static Action<int> OnBuyItem;
@@ -24,15 +25,14 @@ public class ItemClothes : MonoBehaviour
     public static Action<ItemClothes> OnSelectedItem;
     public bool isSelected;
 
-    private void Start() 
+    public void Init(ItemSO clothesSO, bool isPurchased, bool isUsed)
     {
-        outline = GetComponent<Outline>();    
-    }
+        outline = GetComponent<Outline>();
 
-    public void Init(ItemSO clothesSO, bool isPurchased)
-    {
         this.clothesSO = clothesSO;
-        
+        this.isPurchased = isPurchased;
+        this.isUsed =  isUsed;        
+
         displayImage.sprite = clothesSO.displayImage;
         displayImage.color = clothesSO.imageColor;
         priceText.text = clothesSO.price.ToString();
@@ -40,12 +40,14 @@ public class ItemClothes : MonoBehaviour
         itemPrice = clothesSO.price;
         itemName = clothesSO.nameItem;
         
-        this.isPurchased = isPurchased;
-
         if(isPurchased)
         {
             priceText.text = "";
             priceImage.sprite = purchasedIcon;
+        }
+        if(isUsed)
+        {
+            outline.enabled = true;
         }
     }
 
