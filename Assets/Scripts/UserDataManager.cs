@@ -67,8 +67,6 @@ public class UserDataManager: MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        InitAllItems();
     }
     
     public async void InitAllItems()
@@ -84,14 +82,15 @@ public class UserDataManager: MonoBehaviour
             }            
 
             var GameDataManager = new GameDataManager();
-            await GameDataManager.SaveGameData();  
+            await GameDataManager.SaveGameData(); // Если добавлены новые итемы то сохраняем
+            // GameDataManager.LoadAccountData();
         }
     }
     
-    private void Update()
-    {
-        InitAllItems();// Закидываем все возможные вещи в дату
-    }
+    // private void Update()
+    // {
+    //     InitAllItems();// Закидываем все возможные вещи в дату
+    // }
 
     public ItemSO GetItemById(string id)
     {

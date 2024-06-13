@@ -24,13 +24,13 @@ public class Authentication : MonoBehaviour
     private async void Start()
     {
         // check if account data exists and load it
-        var GameDataManager = new GameDataManager();
-        GameDataManager.LoadAccountData();
-        if (GameDataManager.accountDataForStorage != null)
-        {
-            GameDataManager.ApplyAccountData(); // set token in ClientAPI.Instance.token
-            Login(false);
-        }
+        // var GameDataManager = new GameDataManager();
+        // GameDataManager.LoadAccountData();
+        // if (GameDataManager.accountDataForStorage != null)
+        // {
+        //     GameDataManager.ApplyAccountData(); // set token in ClientAPI.Instance.token
+        //     Login(false);
+        // }
     }
 
     public void ToWelcomeMenu()
@@ -140,7 +140,7 @@ public class Authentication : MonoBehaviour
         }
     }
 
-    private async void Login(bool showErrors)
+    public async void Login(bool showErrors)
     {
         /* 
          * Login. Required to have token in ClientAPI
