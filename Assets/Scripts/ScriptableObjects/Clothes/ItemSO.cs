@@ -1,21 +1,15 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ClothesSO", menuName = "")]
+
+[CreateAssetMenu(fileName = "New Item", menuName = "")]
 public class ItemSO : ScriptableObject
 {
-    public enum ClothesCategory
-    {
-        TShirts,
-        Shirts,
-        Pants,
-        Background,
-        EmotionStand,
-        CharacterPreset
-    }
-    public bool showDescriptionMenu;
-    public Color imageColor;
-    public string nameItem;
-    public ClothesCategory itemCategory;
     public Sprite displayImage;
+    public Color imageColor;    
+    public ItemCategory itemCategory;
+    public string idItem;    
     public int price;
+    public bool showDescriptionMenu;
+    public bool purchasedByDefault;
+    public bool usedByDefault;
 }

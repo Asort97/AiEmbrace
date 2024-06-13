@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a601c8483aa16848ad78bb8644aae6c, type: 3}
   m_Name: BG1
   m_EditorClassIdentifier: 
-  showDescriptionMenu: 0
-  imageColor: {r: 1, g: 1, b: 1, a: 1}
-  nameItem: BG1
-  itemCategory: 3
   displayImage: {fileID: 21300000, guid: ab272a2d500780a4385942c77238580f, type: 3}
+  imageColor: {r: 1, g: 1, b: 1, a: 1}
+  itemCategory: 1
+  idItem: bgcolor_crab
   price: 30
+  showDescriptionMenu: 0
+  purchasedByDefault: 0
+  usedByDefault: 0
   backgroundColor: {r: 1, g: 0.5518868, b: 0.5518868, a: 0}

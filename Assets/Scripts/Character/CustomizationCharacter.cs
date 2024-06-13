@@ -16,7 +16,6 @@ public class CustomizationCharacter : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] public Clothes[] allClothes;
     [SerializeField] private Clothes tShirt;
-    [SerializeField] private Clothes pants;
     [SerializeField] private Clothes room;
     [SerializeField] private Clothes animationStand;
     [SerializeField] private Clothes characterPreset;
@@ -55,7 +54,7 @@ public class CustomizationCharacter : MonoBehaviour
 
     private void PreviewItem(ItemClothes itemClothes)
     {
-        SetNewItem(itemClothes.clothesSO, true, true);
+        SetNewItem(itemClothes.itemSO, true, true);
     }
     
     public void DisablePreviewItems()
@@ -74,7 +73,7 @@ public class CustomizationCharacter : MonoBehaviour
             {
                 switch (clothes.itemSo.itemCategory)
                 {
-                    case ItemSO.ClothesCategory.TShirts:
+                    case ItemCategory.Clothes:
 
                         if(!isPreview)
                         {
@@ -93,26 +92,26 @@ public class CustomizationCharacter : MonoBehaviour
 
                         break;
 
-                    case ItemSO.ClothesCategory.Pants:
+                    // case ItemCategory.Pants:
                         
-                        if(!isPreview)
-                        {
-                            previousClothes = pants.itemSo;
-                        }
+                    //     if(!isPreview)
+                    //     {
+                    //         previousClothes = pants.itemSo;
+                    //     }
 
-                        if(pants.itemObject != null)
-                        {
-                            pants.itemObject.SetActive(false);
-                        }
+                    //     if(pants.itemObject != null)
+                    //     {
+                    //         pants.itemObject.SetActive(false);
+                    //     }
 
-                        pants = clothes;
-                        pants.itemObject.SetActive(true);
+                    //     pants = clothes;
+                    //     pants.itemObject.SetActive(true);
 
-                        ChangeStandEmotion();
+                    //     ChangeStandEmotion();
 
-                        break;
+                    //     break;
 
-                    case ItemSO.ClothesCategory.Background:
+                    case ItemCategory.Background:
 
                         if(!isPreview)
                         {
@@ -125,7 +124,7 @@ public class CustomizationCharacter : MonoBehaviour
 
                         break;
 
-                    case ItemSO.ClothesCategory.EmotionStand:
+                    case ItemCategory.EmotionStand:
 
                         if(!isPreview)
                         {
@@ -138,7 +137,7 @@ public class CustomizationCharacter : MonoBehaviour
 
                         break;
 
-                    case ItemSO.ClothesCategory.CharacterPreset:
+                    case ItemCategory.CharacterPreset:
 
                         if(!isPreview)
                         {

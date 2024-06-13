@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showDescriptionMenu: 0
   imageColor: {r: 1, g: 1, b: 1, a: 1}
-  nameItem: AINagota
+  idItem: clothes_misa_nagota
   itemCategory: 0
   displayImage: {fileID: 0}
   price: 15

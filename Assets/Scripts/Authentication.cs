@@ -1,12 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Linq;
-using System;
-using Unity.VisualScripting;
-using UnityEditor.PackageManager;
 
 public class Authentication : MonoBehaviour
 {

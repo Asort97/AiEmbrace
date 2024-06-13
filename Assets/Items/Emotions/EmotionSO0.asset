@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349c2222946c96849b3662ed1fb03de9, type: 3}
   m_Name: EmotionSO0
   m_EditorClassIdentifier: 
-  imageColor: {r: 1, g: 1, b: 1, a: 1}
-  nameItem: Emo1
-  itemCategory: 4
   displayImage: {fileID: 0}
+  imageColor: {r: 1, g: 1, b: 1, a: 1}
+  itemCategory: 2
+  idItem: animation_pose_40
   price: 30
+  showDescriptionMenu: 0
+  purchasedByDefault: 0
+  usedByDefault: 0
   emotionStand: 40

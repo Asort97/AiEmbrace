@@ -4,7 +4,6 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 
 public class StoreContent : MonoBehaviour
 {
@@ -15,22 +14,14 @@ public class StoreContent : MonoBehaviour
         New,
         Default
     }
-    
-    [Serializable]
-    public class Items
-    {
-        public ItemSO itemStore;
-        public bool isPurchased;
-        public bool isUsedDefault;
-    }
-    [SerializeField] private Items[] itemsStore;
+    [SerializeField] private ItemCategory itemsCategory;
     [SerializeField] private FilterState filterState;
-    [SerializeField] private Transform[] Categories;
+    [SerializeField] private Transform parent;
     [SerializeField] private ItemClothes itemCellPrefab;
 
     [Space(5)]
     [SerializeField] private List<Button> filterButton = new List<Button>();
-    private List<ItemClothes> itemClothes = new List<ItemClothes>();
+    private List<ItemClothes> filterItems = new List<ItemClothes>();
 
     private void Start()
     {
@@ -44,12 +35,15 @@ public class StoreContent : MonoBehaviour
         filterButton[1].onClick.AddListener(() => ChangeFilterCategory(FilterState.New));
         filterButton[2].onClick.AddListener(() => ChangeFilterCategory(FilterState.Purchased));
 
-        foreach (var item in itemsStore)
+        foreach (var item in UserDataManager.Instance.data.storeData.Items)
         {
-            ItemClothes cell = Instantiate<ItemClothes>(itemCellPrefab, Categories[0]);
-            cell.Init(item.itemStore, item.isPurchased, item.isUsedDefault);
-            itemClothes.Add(cell);
-            Debug.Log($"ADD to {Categories[0]} an {item}");
+            if(item.Category == itemsCategory)
+            {
+                ItemClothes cell = Instantiate<ItemClothes>(itemCellPrefab, parent);
+                cell.Init(item.ItemId, item.IsPurchased, item.IsUsedDefault);
+                filterItems.Add(cell);
+                Debug.Log($"ADD to {parent} an {item}");
+            }
         }
     }
 
@@ -60,7 +54,7 @@ public class StoreContent : MonoBehaviour
         switch (filterState)
         {
             case FilterState.Default:
-                foreach (var item in itemClothes)
+                foreach (var item in filterItems)
                 {
                     item.gameObject.SetActive(true);
                 }
@@ -70,7 +64,7 @@ public class StoreContent : MonoBehaviour
 
             case FilterState.New:
 
-                foreach (var item in itemClothes)
+                foreach (var item in filterItems)
                 {
                     item.gameObject.SetActive(!item.isPurchased);
                 }
@@ -80,7 +74,7 @@ public class StoreContent : MonoBehaviour
 
             case FilterState.Purchased:
                 
-                foreach (var item in itemClothes)
+                foreach (var item in filterItems)
                 {
                     item.gameObject.SetActive(item.isPurchased);
                 }

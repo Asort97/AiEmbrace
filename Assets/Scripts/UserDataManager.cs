@@ -14,6 +14,7 @@ public class AllUserData
      */
 
     public UserData userData;
+    public StoreData storeData;
     public AICharactersPersonalData charactersData;
 }
 
@@ -25,7 +26,7 @@ public class UserDataManager: MonoBehaviour
      * Warning: This script must be attached to a ROOT GameObject in the scene.
      * 
      */
-
+    [SerializeField] private ItemSO[] AllItems;
     [SerializeField] private string[] forbidNicknames;
     [SerializeField] private string[] errors;
     [SerializeField] private string allowsSymbolNickname = @"^[a-zA-Z0-9]*$";
@@ -66,6 +67,43 @@ public class UserDataManager: MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        InitAllItems();
+    }
+    
+    public async void InitAllItems()
+    {
+        if(AllItems.Length != data.storeData.Items.Count)
+        {
+            foreach (var item in AllItems)
+            {
+                Debug.Log($"{item}");
+                Item _item = new Item(item.idItem, item.itemCategory, item.purchasedByDefault, item.usedByDefault);
+                Debug.Log($"{_item}");
+                data.storeData.Items.Add(_item);
+            }            
+
+            var GameDataManager = new GameDataManager();
+            await GameDataManager.SaveGameData();  
+        }
+    }
+    
+    private void Update()
+    {
+        InitAllItems();// Закидываем все возможные вещи в дату
+    }
+
+    public ItemSO GetItemById(string id)
+    {
+        foreach (var item in AllItems)
+        {
+            if(item.idItem == id)
+            {
+                return item;
+            }
+        }
+
+        return null;
     }
 
     public bool IsNicknameValid(string nickname)

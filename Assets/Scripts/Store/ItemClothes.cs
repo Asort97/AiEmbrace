@@ -15,9 +15,8 @@ public class ItemClothes : MonoBehaviour
     private bool isUsed;
     private Outline outline;
     public bool isPurchased;
-
     public string itemName;
-    public ItemSO clothesSO;
+    public ItemSO itemSO;
     public static Action<int> OnBuyItem;
     public static Action<bool, string, string, ItemClothes> OnShowBuyBtn;
     public static Action<string, ItemClothes> OnShowUseBtn;
@@ -25,29 +24,33 @@ public class ItemClothes : MonoBehaviour
     public static Action<ItemClothes> OnSelectedItem;
     public bool isSelected;
 
-    public void Init(ItemSO clothesSO, bool isPurchased, bool isUsed)
+    public void Init(string id, bool isPurchased, bool isUsed)
     {
         outline = GetComponent<Outline>();
 
-        this.clothesSO = clothesSO;
-        this.isPurchased = isPurchased;
-        this.isUsed =  isUsed;        
+        itemSO = UserDataManager.Instance.GetItemById(id);
 
-        displayImage.sprite = clothesSO.displayImage;
-        displayImage.color = clothesSO.imageColor;
-        priceText.text = clothesSO.price.ToString();
+        if(itemSO)
+        {
+            this.isPurchased = isPurchased;
+            this.isUsed =  isUsed;        
 
-        itemPrice = clothesSO.price;
-        itemName = clothesSO.nameItem;
-        
-        if(isPurchased)
-        {
-            priceText.text = "";
-            priceImage.sprite = purchasedIcon;
-        }
-        if(isUsed)
-        {
-            outline.enabled = true;
+            displayImage.sprite = itemSO.displayImage;
+            displayImage.color = itemSO.imageColor;
+            priceText.text = itemSO.price.ToString();
+
+            itemPrice = itemSO.price;
+            itemName = itemSO.idItem;
+            
+            if(isPurchased)
+            {
+                priceText.text = "";
+                priceImage.sprite = purchasedIcon;
+            }
+            if(isUsed)
+            {
+                outline.enabled = true;
+            }
         }
     }
 
@@ -103,7 +106,7 @@ public class ItemClothes : MonoBehaviour
     public void UseItem()
     {
         Debug.Log($"On");
-        OnUseItem?.Invoke(clothesSO, isSelected, false);
+        OnUseItem?.Invoke(itemSO, isSelected, false);
         outline.enabled = isSelected;
     }
 
@@ -120,9 +123,9 @@ public class ItemClothes : MonoBehaviour
             ShowBuyButton();
         }
 
-        if(clothesSO.showDescriptionMenu)
+        if(itemSO.showDescriptionMenu)
         {
-            PopUpNotifications.instance.ShowNotification(((CharacterSO)clothesSO).characterDescription);
+            PopUpNotifications.instance.ShowNotification(((CharacterSO)itemSO).characterDescription);
         }
 
         OnSelectedItem?.Invoke(this);

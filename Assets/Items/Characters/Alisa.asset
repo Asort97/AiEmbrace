@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a6f15cb96daae449ac626fba587d46, type: 3}
   m_Name: Alisa
   m_EditorClassIdentifier: 
-  showDescriptionMenu: 1
-  imageColor: {r: 1, g: 0.999987, b: 0.41037738, a: 1}
-  nameItem: Alisa
-  itemCategory: 5
   displayImage: {fileID: 0}
+  imageColor: {r: 1, g: 0.999987, b: 0.41037738, a: 1}
+  itemCategory: 3
+  idItem: character_alisa
   price: 25
+  showDescriptionMenu: 1
+  purchasedByDefault: 0
+  usedByDefault: 0
   characterName: Alisa
   characterDescription: 'Personality Traits
 
