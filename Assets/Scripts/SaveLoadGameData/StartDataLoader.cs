@@ -15,7 +15,10 @@ public class StartDataLoader : MonoBehaviour
             GameDataManager.ApplyAccountData(); // set token in ClientAPI.Instance.token
             authentication.Login(false);
 
-            UserDataManager.Instance.InitAllItems(); // Если число итемов не совпадает с серверным, то загружает на сервер новые данные
+            if(GameDataManager.gameDataForStorage.data.storeData.Items.Count == 0)
+            {
+                UserDataManager.Instance.InitAllItems(); // Если число итемов не совпадает с серверным, то загружает на сервер новые данные
+            }
         }
     }
 }

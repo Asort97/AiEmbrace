@@ -73,13 +73,31 @@ public class UserDataManager: MonoBehaviour
     {
         if(AllItems.Length != data.storeData.Items.Count)
         {
-            foreach (var item in AllItems)
+            for (int i = 0; i < AllItems.Length; i++)
             {
-                Debug.Log($"{item}");
-                Item _item = new Item(item.idItem, item.itemCategory, item.purchasedByDefault, item.usedByDefault);
-                Debug.Log($"{_item}");
-                data.storeData.Items.Add(_item);
-            }            
+                Item serverItem = data.storeData.Items[i];
+
+                if(!serverItem.IsPurchased)
+                {
+                    Item _item = new Item(AllItems[i].idItem, AllItems[i].itemCategory, AllItems[i].purchasedByDefault, AllItems[i].usedByDefault);
+                    data.storeData.Items.Add(_item);
+                }
+                else
+                {
+                    Item _item = new Item(AllItems[i].idItem, AllItems[i].itemCategory, serverItem.IsPurchased, serverItem.IsUsedDefault);
+                    data.storeData.Items.Add(_item);
+                }
+
+                Debug.Log($"{serverItem}");
+            }
+
+            // foreach (var item in AllItems)
+            // {
+            //     Debug.Log($"{item}");
+            //     Item _item = new Item(item.idItem, item.itemCategory, item.purchasedByDefault, item.usedByDefault);
+            //     Debug.Log($"{_item}");
+            //     data.storeData.Items.Add(_item);
+            // }            
 
             var GameDataManager = new GameDataManager();
             await GameDataManager.SaveGameData(); // Если добавлены новые итемы то сохраняем
@@ -92,7 +110,7 @@ public class UserDataManager: MonoBehaviour
     //     InitAllItems();// Закидываем все возможные вещи в дату
     // }
 
-    public ItemSO GetItemById(string id)
+    public ItemSO GetItemSOById(string id)
     {
         foreach (var item in AllItems)
         {
@@ -103,6 +121,32 @@ public class UserDataManager: MonoBehaviour
         }
 
         return null;
+    }
+
+    public Item GetItemById(string id)
+    {
+        foreach (var item in data.storeData.Items)
+        {
+            if(item.ItemId == id)
+            {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
+    public int GetIndexItemById(string id)
+    {
+        for (int i = 0; i < data.storeData.Items.Count; i++)
+        {
+            if(data.storeData.Items[i].ItemId == id)
+            {
+                return i;
+            }            
+        }
+
+        return -1;
     }
 
     public bool IsNicknameValid(string nickname)

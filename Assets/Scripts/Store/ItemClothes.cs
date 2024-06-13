@@ -15,7 +15,7 @@ public class ItemClothes : MonoBehaviour
     private bool isUsed;
     private Outline outline;
     public bool isPurchased;
-    public string itemName;
+    public string itemId;
     public ItemSO itemSO;
     public static Action<int> OnBuyItem;
     public static Action<bool, string, string, ItemClothes> OnShowBuyBtn;
@@ -28,7 +28,7 @@ public class ItemClothes : MonoBehaviour
     {
         outline = GetComponent<Outline>();
 
-        itemSO = UserDataManager.Instance.GetItemById(id);
+        itemSO = UserDataManager.Instance.GetItemSOById(id);
 
         if(itemSO)
         {
@@ -40,7 +40,7 @@ public class ItemClothes : MonoBehaviour
             priceText.text = itemSO.price.ToString();
 
             itemPrice = itemSO.price;
-            itemName = itemSO.idItem;
+            itemId = itemSO.idItem;
             
             if(isPurchased)
             {
@@ -72,11 +72,11 @@ public class ItemClothes : MonoBehaviour
         }
     }
 
-    public void BuyItem()
+    public async void BuyItem()
     {
         if(!isPurchased && CoinsManager.instance.CheckEnoughCoins(itemPrice))
         {
-            Debug.Log($"Buyed {itemName}");
+            Debug.Log($"Buyed {itemId}");
 
             OnBuyItem?.Invoke(itemPrice);
             
@@ -85,7 +85,11 @@ public class ItemClothes : MonoBehaviour
             priceText.text = "";
             priceImage.sprite = purchasedIcon;
 
+            UserDataManager.Instance.data.storeData.Items[UserDataManager.Instance.GetIndexItemById(itemId)].IsPurchased = true;
             isPurchased = true;
+
+            var GameDataManager = new GameDataManager();
+            await GameDataManager.SaveGameData(); 
         }
         else if(!CoinsManager.instance.CheckEnoughCoins(itemPrice))
         {
@@ -95,12 +99,12 @@ public class ItemClothes : MonoBehaviour
 
     private void ShowBuyButton()
     {
-        OnShowBuyBtn?.Invoke(isSelected, itemName, itemPrice.ToString(), this);
+        OnShowBuyBtn?.Invoke(isSelected, itemId, itemPrice.ToString(), this);
     }
 
     private void ShowUseButton()
     {
-        OnShowUseBtn?.Invoke(itemName, this);
+        OnShowUseBtn?.Invoke(itemId, this);
     }
 
     public void UseItem()
