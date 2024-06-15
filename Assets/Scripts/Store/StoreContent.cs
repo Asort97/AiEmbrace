@@ -40,7 +40,7 @@ public class StoreContent : MonoBehaviour
             if(item.Category == itemsCategory)
             {
                 ItemClothes cell = Instantiate<ItemClothes>(itemCellPrefab, parent);
-                cell.Init(item.ItemId, item.IsPurchased, item.IsUsedDefault);
+                cell.Init(item.ItemId, item.IsPurchased, item.IsUsed);
                 filterItems.Add(cell);
                 Debug.Log($"ADD to {parent} an {item}");
             }

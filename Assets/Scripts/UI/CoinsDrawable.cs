@@ -8,9 +8,9 @@ public class CoinsDrawable : MonoBehaviour
     [SerializeField] private TMP_Text[] coinsText;
     [SerializeField] private TMP_Text[] crystalText;
 
-    private void Start() 
+    private void Awake() 
     {
-        UpdateText(0, 0);    
+        UpdateText(0, 0);
     }
 
     public void OnEnable()
@@ -27,14 +27,16 @@ public class CoinsDrawable : MonoBehaviour
     {
         Debug.Log($"Updating stats");
 
-        foreach (var text in coinsText)
+        Debug.Log($"{coin} and {crystal}");
+        foreach (var _text in coinsText)
         {
-            text.text = coin.ToString();
+            Debug.Log($"Ny");
+            _text.text = coin.ToString();
         }
 
-        foreach (var text in crystalText)
+        foreach (var _text in crystalText)
         {
-            text.text = crystal.ToString();
+            _text.text = crystal.ToString();
         }
     }
 }

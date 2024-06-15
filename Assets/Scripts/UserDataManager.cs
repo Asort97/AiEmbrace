@@ -84,7 +84,7 @@ public class UserDataManager: MonoBehaviour
                 }
                 else
                 {
-                    Item _item = new Item(AllItems[i].idItem, AllItems[i].itemCategory, serverItem.IsPurchased, serverItem.IsUsedDefault);
+                    Item _item = new Item(AllItems[i].idItem, AllItems[i].itemCategory, serverItem.IsPurchased, serverItem.IsUsed);
                     data.storeData.Items.Add(_item);
                 }
 

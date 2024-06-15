@@ -16,6 +16,11 @@ public class CoinsManager : MonoBehaviour
         instance = this;
     }
 
+    private void Start() 
+    {
+        AddCoins(1000);
+    }
+
     public void OnEnable()
     {
         XpManager.OnNewLevel += AddCoins;
@@ -52,7 +57,15 @@ public class CoinsManager : MonoBehaviour
 
         currentCoins += amountCoinsEachLevel * XpManager.instance.CurrentLvl;
 
-        Debug.Log($"Црфеефефе");
+        OnAddCash?.Invoke(currentCoins, currentCrystals);
+    }
+
+    private void AddCoins(int amount)
+    {
+        Debug.Log($"Money amount {currentCoins}");
+
+        currentCoins += amount;
+
         OnAddCash?.Invoke(currentCoins, currentCrystals);
     }
     

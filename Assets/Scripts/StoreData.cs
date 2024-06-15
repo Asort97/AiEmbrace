@@ -17,14 +17,14 @@ public class Item
     public string ItemId;
     public ItemCategory Category;
     public bool IsPurchased;
-    public bool IsUsedDefault;
+    public bool IsUsed;
 
     public Item(string id, ItemCategory category, bool isPurchased, bool isUsedDefault)
     {
         ItemId = id;
         Category = category;
         IsPurchased = isPurchased;
-        IsUsedDefault = isUsedDefault;
+        IsUsed = isUsedDefault;
     }
 }
 

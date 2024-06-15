@@ -34,6 +34,14 @@ public class CustomizationCharacter : MonoBehaviour
 
     private void Start()
     {
+        foreach (var item in UserDataManager.Instance.data.storeData.Items)
+        {
+            if(item.IsUsed)
+            {
+                SetNewItem(UserDataManager.Instance.GetItemSOById(item.ItemId), true, false);
+            }
+        }
+        
         previousClothes = tShirt.itemSo;
         previousRoom = room.itemSo;
         previousAnim = animationStand.itemSo;
@@ -65,7 +73,7 @@ public class CustomizationCharacter : MonoBehaviour
         SetNewItem(previousCharacter, true, true);
     }
 
-    public void SetNewItem(ItemSO itemToWear, bool toClothe, bool isPreview)
+    public async void SetNewItem(ItemSO itemToWear, bool toClothe, bool isPreview)
     {           
         foreach (Clothes clothes in allClothes)
         {
@@ -82,34 +90,17 @@ public class CustomizationCharacter : MonoBehaviour
 
                         if(tShirt.itemObject != null)
                         {
+                            UserDataManager.Instance.data.storeData.Items[UserDataManager.Instance.GetIndexItemById(tShirt.itemSo.idItem)].IsUsed = false;
                             tShirt.itemObject.SetActive(false);
                         }
 
                         tShirt = clothes;
                         tShirt.itemObject.SetActive(true);
+                        UserDataManager.Instance.data.storeData.Items[UserDataManager.Instance.GetIndexItemById(clothes.itemSo.idItem)].IsUsed = true;
 
                         ChangeStandEmotion();
 
                         break;
-
-                    // case ItemCategory.Pants:
-                        
-                    //     if(!isPreview)
-                    //     {
-                    //         previousClothes = pants.itemSo;
-                    //     }
-
-                    //     if(pants.itemObject != null)
-                    //     {
-                    //         pants.itemObject.SetActive(false);
-                    //     }
-
-                    //     pants = clothes;
-                    //     pants.itemObject.SetActive(true);
-
-                    //     ChangeStandEmotion();
-
-                    //     break;
 
                     case ItemCategory.Background:
 
@@ -118,7 +109,11 @@ public class CustomizationCharacter : MonoBehaviour
                             previousRoom = room.itemSo;
                         }
 
+                        UserDataManager.Instance.data.storeData.Items[UserDataManager.Instance.GetIndexItemById(room.itemSo.idItem)].IsUsed = false;
+
                         room = clothes;
+
+                        UserDataManager.Instance.data.storeData.Items[UserDataManager.Instance.GetIndexItemById(clothes.itemSo.idItem)].IsUsed = true;
 
                         ChangeBackgroundColor();
 
@@ -131,7 +126,11 @@ public class CustomizationCharacter : MonoBehaviour
                             previousAnim = animationStand.itemSo;
                         }
 
+                        UserDataManager.Instance.data.storeData.Items[UserDataManager.Instance.GetIndexItemById(animationStand.itemSo.idItem)].IsUsed = false;
+
                         animationStand = clothes;
+
+                        UserDataManager.Instance.data.storeData.Items[UserDataManager.Instance.GetIndexItemById(clothes.itemSo.idItem)].IsUsed = true;
 
                         ChangeStandEmotion();
 
@@ -144,7 +143,11 @@ public class CustomizationCharacter : MonoBehaviour
                             previousCharacter = characterPreset.itemSo;
                         }
 
+                        UserDataManager.Instance.data.storeData.Items[UserDataManager.Instance.GetIndexItemById(characterPreset.itemSo.idItem)].IsUsed = false;
+                        
                         characterPreset = clothes;
+
+                        UserDataManager.Instance.data.storeData.Items[UserDataManager.Instance.GetIndexItemById(clothes.itemSo.idItem)].IsUsed = true;
 
                         ChangeCharacterPreset();
 
@@ -152,6 +155,9 @@ public class CustomizationCharacter : MonoBehaviour
                 }
             }
         }
+
+        var GameDataManager = new GameDataManager();
+        await GameDataManager.SaveGameData(); 
     }
 
     private void ChangeStandEmotion()

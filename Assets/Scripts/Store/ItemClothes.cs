@@ -110,6 +110,13 @@ public class ItemClothes : MonoBehaviour
     public void UseItem()
     {
         Debug.Log($"On");
+        
+        // foreach (var item in UserDataManager.Instance.data.storeData.Items)
+        // {
+        //     item.IsUsed = false;
+        // }
+        // UserDataManager.Instance.data.storeData.Items[UserDataManager.Instance.GetIndexItemById(itemId)].IsUsed = true;
+
         OnUseItem?.Invoke(itemSO, isSelected, false);
         outline.enabled = isSelected;
     }
