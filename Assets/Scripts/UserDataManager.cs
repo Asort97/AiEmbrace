@@ -26,7 +26,7 @@ public class UserDataManager: MonoBehaviour
      * Warning: This script must be attached to a ROOT GameObject in the scene.
      * 
      */
-    [SerializeField] private ItemSO[] AllItems;
+    // [SerializeField] private ItemSO[] AllItems;
     [SerializeField] private string[] forbidNicknames;
     [SerializeField] private string[] errors;
     [SerializeField] private string allowsSymbolNickname = @"^[a-zA-Z0-9]*$";
@@ -71,20 +71,20 @@ public class UserDataManager: MonoBehaviour
     
     public async void InitAllItems()
     {
-        if(AllItems.Length != data.storeData.Items.Count)
+        if(data.storeData.Items.Count == 0)
         {
-            for (int i = 0; i < AllItems.Length; i++)
+            for (int i = 0; i < userDataTemplatePrefab.AllItems.Length; i++)
             {
                 Item serverItem = data.storeData.Items[i];
 
                 if(!serverItem.IsPurchased)
                 {
-                    Item _item = new Item(AllItems[i].idItem, AllItems[i].itemCategory, AllItems[i].purchasedByDefault, AllItems[i].usedByDefault);
+                    Item _item = new Item(userDataTemplatePrefab.AllItems[i].idItem, userDataTemplatePrefab.AllItems[i].itemCategory, userDataTemplatePrefab.AllItems[i].purchasedByDefault, userDataTemplatePrefab.AllItems[i].usedByDefault);
                     data.storeData.Items.Add(_item);
                 }
                 else
                 {
-                    Item _item = new Item(AllItems[i].idItem, AllItems[i].itemCategory, serverItem.IsPurchased, serverItem.IsUsed);
+                    Item _item = new Item(userDataTemplatePrefab.AllItems[i].idItem, userDataTemplatePrefab.AllItems[i].itemCategory, serverItem.IsPurchased, serverItem.IsUsed);
                     data.storeData.Items.Add(_item);
                 }
 
@@ -110,9 +110,9 @@ public class UserDataManager: MonoBehaviour
     //     InitAllItems();// Закидываем все возможные вещи в дату
     // }
 
-    public ItemSO GetItemSOById(string id)
+    public ItemSO GetItemSOById(string id) //  Получение ItemSo через айди
     {
-        foreach (var item in AllItems)
+        foreach (var item in userDataTemplatePrefab.AllItems)
         {
             if(item.idItem == id)
             {
@@ -123,7 +123,7 @@ public class UserDataManager: MonoBehaviour
         return null;
     }
 
-    public Item GetItemById(string id)
+    public Item GetItemById(string id) //  Получение класса Item через айди
     {
         foreach (var item in data.storeData.Items)
         {
@@ -136,7 +136,7 @@ public class UserDataManager: MonoBehaviour
         return null;
     }
 
-    public int GetIndexItemById(string id)
+    public int GetIndexItemById(string id) //  Получение индекса из Items по айди
     {
         for (int i = 0; i < data.storeData.Items.Count; i++)
         {

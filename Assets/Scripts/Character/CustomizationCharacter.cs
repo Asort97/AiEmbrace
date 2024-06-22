@@ -34,7 +34,7 @@ public class CustomizationCharacter : MonoBehaviour
 
     private void Start()
     {
-        foreach (var item in UserDataManager.Instance.data.storeData.Items)
+        foreach (var item in UserDataManager.Instance.data.storeData.Items) // Пробегаемся по загруженным данным чтобы определить что одето на персонаже
         {
             if(item.IsUsed)
             {

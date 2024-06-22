@@ -50,6 +50,8 @@ MonoBehaviour:
       userMoney: 0
       userCrystals: 0
       userExp: 0
+    storeData:
+      Items: []
     charactersData:
       aiCharacterDataList:
       - name: Misa
@@ -73,3 +75,17 @@ MonoBehaviour:
             contextK: 0
             memories: []
           factsAboutPlayer: []
+  AllItems:
+  - {fileID: 11400000, guid: 9c3bad582d4bb374fb2df5cd47b77a39, type: 2}
+  - {fileID: 11400000, guid: 43daea5ed4314e048a6714efe79fba60, type: 2}
+  - {fileID: 11400000, guid: 9fe7c52bd95eabb4c8763e1580b2a998, type: 2}
+  - {fileID: 11400000, guid: f78600617508e9148b75340c9f17c0b8, type: 2}
+  - {fileID: 11400000, guid: e97a98ae0ed631d449fb55f0277a0331, type: 2}
+  - {fileID: 11400000, guid: 79f84f008ea7b0e459e71272e8ddd117, type: 2}
+  - {fileID: 11400000, guid: 877108989af06404d9fc70d5aba1dae2, type: 2}
+  - {fileID: 11400000, guid: 3d9be57afef8acd47bee397a1828861e, type: 2}
+  - {fileID: 11400000, guid: 0608043bcabb1e544ae41ef42a449d90, type: 2}
+  - {fileID: 11400000, guid: 120cb452e6c093e47b1ecfdac90dcdb7, type: 2}
+  - {fileID: 11400000, guid: 1b1d0195e2b5c204d8f5fa3babd42c18, type: 2}
+  - {fileID: 11400000, guid: ab3fee15e106c8248a43556b6573fda8, type: 2}
+  - {fileID: 11400000, guid: 82b69c06fdc73a743a97d66b83831c92, type: 2}

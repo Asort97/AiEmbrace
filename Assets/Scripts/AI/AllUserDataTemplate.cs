@@ -5,8 +5,8 @@ using UnityEngine;
 public class AllUserDataTemplate : MonoBehaviour
 {
     [SerializeField]
-    private AllUserData templateData; // Заполните это в редакторе
-
+    private AllUserData templateData; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public ItemSO[] AllItems;
     public AllUserData GetTemplateData()
     {
         return templateData;

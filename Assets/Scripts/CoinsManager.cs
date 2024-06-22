@@ -8,8 +8,8 @@ public class CoinsManager : MonoBehaviour
     public static CoinsManager instance;
     public static Action<int, int> OnAddCash;
     private int amountCoinsEachLevel = 10;
-    private int currentCoins;
-    private int currentCrystals;
+    // private int currentCoins;
+    // private int currentCrystals;
 
     private void Awake()
     {
@@ -35,7 +35,7 @@ public class CoinsManager : MonoBehaviour
     
     public bool CheckEnoughCoins(int price)
     {
-        if(currentCoins >= price)
+        if(UserDataManager.Instance.data.userData.userMoney >= price)
         {
             return true;
         }
@@ -45,28 +45,43 @@ public class CoinsManager : MonoBehaviour
         }
     }
 
-    private void UseCoins(int amount)
+    private async void UseCoins(int amount)
     {
-        currentCoins -= amount;
-        OnAddCash?.Invoke(currentCoins, currentCrystals);
+        UserDataManager.Instance.data.userData.userMoney -= amount;
+        OnAddCash?.Invoke(UserDataManager.Instance.data.userData.userMoney, UserDataManager.Instance.data.userData.userCrystals);
+        
+        // UserDataManager.Instance.data.userData.userMoney = currentCoins;
+
+        var GameDataManager = new GameDataManager();
+        await GameDataManager.SaveGameData();
     }
 
-    private void AddCoins()
+    private async void AddCoins()
     {
-        Debug.Log($"Money amount {currentCoins}");
+        Debug.Log($"Money amount {UserDataManager.Instance.data.userData.userMoney}");
 
-        currentCoins += amountCoinsEachLevel * XpManager.instance.CurrentLvl;
+        UserDataManager.Instance.data.userData.userMoney += amountCoinsEachLevel * XpManager.instance.CurrentLvl;
 
-        OnAddCash?.Invoke(currentCoins, currentCrystals);
+        // UserDataManager.Instance.data.userData.userMoney = currentCoins;
+
+        OnAddCash?.Invoke(UserDataManager.Instance.data.userData.userMoney, UserDataManager.Instance.data.userData.userCrystals);
+
+        var GameDataManager = new GameDataManager();
+        await GameDataManager.SaveGameData();
     }
 
-    private void AddCoins(int amount)
+    private async void AddCoins(int amount)
     {
-        Debug.Log($"Money amount {currentCoins}");
+        Debug.Log($"Money amount {UserDataManager.Instance.data.userData.userMoney}");
 
-        currentCoins += amount;
+        UserDataManager.Instance.data.userData.userMoney += amount;
 
-        OnAddCash?.Invoke(currentCoins, currentCrystals);
+        OnAddCash?.Invoke(UserDataManager.Instance.data.userData.userMoney, UserDataManager.Instance.data.userData.userCrystals);
+
+        // UserDataManager.Instance.data.userData.userMoney = currentCoins;
+
+        var GameDataManager = new GameDataManager();
+        await GameDataManager.SaveGameData();
     }
     
 }
